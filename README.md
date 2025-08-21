@@ -8,8 +8,7 @@ Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-rogu
 ---
 
 ## 📂 Assets utilizados
-- [Nombre del asset](enlace-del-asset)  
-- [Otro asset](enlace-del-asset)  
+- [Roguelike 2D Assets](https://unity-connect-prd.storage.googleapis.com/20240930/d4daa7c5-5d06-4b07-aa0d-a5e822cfcc5f/Roguelike2DTutorialAssets.unitypackage.zip)  
 
 ---
 
