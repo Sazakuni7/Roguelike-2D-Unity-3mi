@@ -1,4 +1,4 @@
-# 🎮 Roguelike 2D Unity 3mi
+# 🎮 Unity 2D Roguelike Project by 3mi (nombre pendiente)
 
 Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-roguelike-tutorial)** de *Unity Learn*.
 
