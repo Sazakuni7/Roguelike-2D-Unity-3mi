@@ -12,4 +12,4 @@ Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-rogu
 
 ---
 
-✍️ **Por Emiliano Arias**
+✍️ **Por Emiliano Arias (3mi)**
