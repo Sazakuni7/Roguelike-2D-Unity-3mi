@@ -5947,6 +5947,7 @@ GameObject:
   - component: {fileID: 829544085}
   - component: {fileID: 829544084}
   - component: {fileID: 829544086}
+  - component: {fileID: 829544087}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -6047,6 +6048,33 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!50 &829544087
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829544083}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &829990186
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,12 +6194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d6e00175e0a7144963e23b3f43dd09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  width: 50
-  height: 5
-  smoothness: 50
-  seed: 1
+  width: 60
+  height: 15
+  smoothness: 20
+  seed: 2
   groundTile: {fileID: 11400000, guid: 189b3ee8be1ee9c4c8bb71773f9b6281, type: 2}
-  groundTilemap: {fileID: 0}
+  groundTilemap: {fileID: 311267720}
 --- !u!4 &850958045
 Transform:
   m_ObjectHideFlags: 0
