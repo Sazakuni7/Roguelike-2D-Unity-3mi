@@ -98,6 +98,11 @@ public class GeneracionProcedural : MonoBehaviour
         }
     }
 
+    public int[,] GetMap()
+    {
+        return map;
+    }
+
     void clearMap()
     {
         groundTilemap.ClearAllTiles();
