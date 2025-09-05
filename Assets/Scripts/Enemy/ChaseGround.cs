@@ -17,20 +17,22 @@ public class ChaseGround : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!jugadorEnRango) // Solo se mueve si no está tocando al jugador
+        if (!jugadorEnRango)
         {
             direccion = (jugador.position - transform.position).normalized;
-            miRigidbody2D.AddForce(direccion * velocidad);
 
-            float velocidadMaxima = 10f;
-            if (miRigidbody2D.linearVelocity.magnitude > velocidadMaxima)
+            // Mantener velocidad horizontal hacia el jugador
+            miRigidbody2D.linearVelocity = new Vector2(direccion.x * velocidad, miRigidbody2D.linearVelocity.y);
+
+            // (opcional) limitar velocidad vertical si no querés que se dispare
+            if (miRigidbody2D.linearVelocity.magnitude > 10f)
             {
-                miRigidbody2D.linearVelocity = miRigidbody2D.linearVelocity.normalized * velocidadMaxima;
+                miRigidbody2D.linearVelocity = miRigidbody2D.linearVelocity.normalized * 10f;
             }
         }
         else
         {
-            miRigidbody2D.linearVelocity = Vector2.zero; // detener movimiento
+            miRigidbody2D.linearVelocity = Vector2.zero;
         }
     }
 
