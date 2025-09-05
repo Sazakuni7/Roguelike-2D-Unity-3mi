@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 0bf1e03a9d7292c499dbe2ff03d495d2
+guid: 6814b8e32834c4f499a72df78f6c4316
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1999461939098586137
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_0
+      213: -6162767157927809735
+    second: player running derecha_0
   - first:
-      213: 8119083401864758026
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_1
+      213: -7301182336715191872
+    second: player running derecha_1
   - first:
-      213: -7531235038661108968
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_2
+      213: -5298963440870991904
+    second: player running derecha_2
   - first:
-      213: -7298195273915343485
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_3
+      213: 5294889938619480267
+    second: player running derecha_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_0
+      name: player running derecha_0
       rect:
         serializedVersion: 2
         x: 21
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 91c82ed3a048fbb10800000000000000
-      internalID: 1999461939098586137
+      spriteID: 93de44eebe3797aa0800000000000000
+      internalID: -6162767157927809735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_1
+      name: player running derecha_1
       rect:
         serializedVersion: 2
         x: 80
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a034be55657cca070800000000000000
-      internalID: 8119083401864758026
+      spriteID: 0c90cbb195dfcaa90800000000000000
+      internalID: -7301182336715191872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_2
+      name: player running derecha_2
       rect:
         serializedVersion: 2
         x: 148
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81b11a072adab7790800000000000000
-      internalID: -7531235038661108968
+      spriteID: 0e75a1d53dc4676b0800000000000000
+      internalID: -5298963440870991904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_3
+      name: player running derecha_3
       rect:
         serializedVersion: 2
         x: 207
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 38d57dcd01a97ba90800000000000000
-      internalID: -7298195273915343485
+      spriteID: bc8343c785a3b7940800000000000000
+      internalID: 5294889938619480267
       vertices: []
       indices: 
       edges: []
@@ -223,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_0: 1999461939098586137
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_1: 8119083401864758026
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_2: -7531235038661108968
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_east-ezgif.com-gif-to-sprite-converter_3: -7298195273915343485
+      player running derecha_0: -6162767157927809735
+      player running derecha_1: -7301182336715191872
+      player running derecha_2: -5298963440870991904
+      player running derecha_3: 5294889938619480267
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

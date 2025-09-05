@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 00c1a4479efed4147bd7c6727de420dd
+guid: 14e5c0d2907f37643a4f2b6d7df1c630
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2198721219374106663
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_0
+      213: -1578177234513104635
+    second: player running izquierda_0
   - first:
-      213: -7531919382401449484
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_1
+      213: -3549909502923158718
+    second: player running izquierda_1
   - first:
-      213: -6592904903465161568
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_2
+      213: -3870610843927642506
+    second: player running izquierda_2
   - first:
-      213: -1923730508103740772
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_3
+      213: -7558997540708260510
+    second: player running izquierda_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -122,89 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_0
+      name: player running izquierda_0
       rect:
         serializedVersion: 2
-        x: 24
-        y: 10
-        width: 19
-        height: 48
+        x: 19
+        y: 8
+        width: 26
+        height: 45
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72848e8bc4d638e10800000000000000
-      internalID: 2198721219374106663
+      spriteID: 501fc30ba20391ae0800000000000000
+      internalID: -1578177234513104635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_1
+      name: player running izquierda_1
       rect:
         serializedVersion: 2
-        x: 88
-        y: 10
-        width: 15
-        height: 48
+        x: 84
+        y: 8
+        width: 28
+        height: 45
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4f1051f3a3f397790800000000000000
-      internalID: -7531919382401449484
+      spriteID: 24b4b758d103cbec0800000000000000
+      internalID: -3549909502923158718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_2
+      name: player running izquierda_2
       rect:
         serializedVersion: 2
-        x: 152
-        y: 10
-        width: 19
-        height: 48
+        x: 146
+        y: 8
+        width: 28
+        height: 44
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ac2707cbeb4184a0800000000000000
-      internalID: -6592904903465161568
+      spriteID: 67efaefd1f3d84ac0800000000000000
+      internalID: -3870610843927642506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_3
+      name: player running izquierda_3
       rect:
         serializedVersion: 2
-        x: 219
-        y: 10
-        width: 15
-        height: 48
+        x: 211
+        y: 8
+        width: 31
+        height: 45
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9215e49b498d45e0800000000000000
-      internalID: -1923730508103740772
+      spriteID: 265680839cb091790800000000000000
+      internalID: -7558997540708260510
       vertices: []
       indices: 
       edges: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d494eac02166f0e4982dcd21c196f8ad
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -221,14 +221,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_0: 2198721219374106663
-      54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_1: -7531919382401449484
-      54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_2: -6592904903465161568
-      54572b08-7dd0-4cac-b6ce-543745383ad1_rotations_4dir-ezgif.com-gif-to-sprite-converter_3: -1923730508103740772
+      player running izquierda_0: -1578177234513104635
+      player running izquierda_1: -3549909502923158718
+      player running izquierda_2: -3870610843927642506
+      player running izquierda_3: -7558997540708260510
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

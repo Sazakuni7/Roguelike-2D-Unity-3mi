@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 6d4be5b7fab0ad84789a538ea32e8705
+guid: 284910a8a3219794588d5ea535c9ee67
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6148528604191452098
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_0
+      213: 3399749394134360364
+    second: player idle 4 dir_0
   - first:
-      213: -6751048835939598264
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_1
+      213: -4495630193368627636
+    second: player idle 4 dir_1
   - first:
-      213: -1706099149098601012
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_2
+      213: -2526079638706039120
+    second: player idle 4 dir_2
   - first:
-      213: -7809438771062023321
-    second: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_3
+      213: 3565626688964930939
+    second: player idle 4 dir_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_0
+      name: player idle 4 dir_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 8
-        width: 26
-        height: 45
+        x: 23
+        y: 9
+        width: 21
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2cbe8207036f35550800000000000000
-      internalID: 6148528604191452098
+      spriteID: c216ab2bf065e2f20800000000000000
+      internalID: 3399749394134360364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_1
+      name: player idle 4 dir_1
       rect:
         serializedVersion: 2
-        x: 84
-        y: 8
-        width: 28
-        height: 45
+        x: 87
+        y: 9
+        width: 17
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 84081803ad47f42a0800000000000000
-      internalID: -6751048835939598264
+      spriteID: c460eb278205c91c0800000000000000
+      internalID: -4495630193368627636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_2
+      name: player idle 4 dir_2
       rect:
         serializedVersion: 2
-        x: 146
-        y: 8
-        width: 28
-        height: 44
+        x: 151
+        y: 9
+        width: 21
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +181,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc5b16afcd7b258e0800000000000000
-      internalID: -1706099149098601012
+      spriteID: 0b6549cc3ff81fcd0800000000000000
+      internalID: -2526079638706039120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_3
+      name: player idle 4 dir_3
       rect:
         serializedVersion: 2
-        x: 211
-        y: 8
-        width: 31
-        height: 45
+        x: 218
+        y: 9
+        width: 17
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 76b5fab50dc4f9390800000000000000
-      internalID: -7809438771062023321
+      spriteID: b7d28650596ab7130800000000000000
+      internalID: 3565626688964930939
       vertices: []
       indices: 
       edges: []
@@ -223,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_0: 6148528604191452098
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_1: -6751048835939598264
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_2: -1706099149098601012
-      54572b08-7dd0-4cac-b6ce-543745383ad1_running-4-frames_west1-ezgif.com-gif-to-sprite-converter_3: -7809438771062023321
+      player idle 4 dir_0: 3399749394134360364
+      player idle 4 dir_1: -4495630193368627636
+      player idle 4 dir_2: -2526079638706039120
+      player idle 4 dir_3: 3565626688964930939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

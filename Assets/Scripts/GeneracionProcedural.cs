@@ -40,7 +40,7 @@ public class GeneracionProcedural : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Generation();
         }
@@ -57,23 +57,6 @@ public class GeneracionProcedural : MonoBehaviour
         }
         return map;
     }
-
-    /* public int[,] TerrainGeneration(int[,] map)
-     {
-         int perlinHeight;
-         for (int x = 0; x < width; x++)
-         {
-             perlinHeight = Mathf.RoundToInt(Mathf.PerlinNoise(x / smoothness, seed) * height / 2);
-             perlinHeight += height / 2;
-             for (int y = 0; y < perlinHeight; y++)
-             {
-                 // map[x, y] = 1;
-                 int caveValue = Mathf.RoundToInt(Mathf.PerlinNoise((x * modifier) + seed, (y * modifier) + seed));
-                 map[x, y] = (caveValue == 1) ? 2 : 0;
-             }
-         }
-         return map;
-     }*/
 
     public int[,] TerrainGeneration(int[,] map)
     {
