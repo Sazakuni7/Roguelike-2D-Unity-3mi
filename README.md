@@ -7,17 +7,28 @@ Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-rogu
 
 ---
 
-## Generación Procedural de Terreno
+## 🧩 Funcionamiento
+1. **Parámetros configurables (Inspector)**
+   - `width` y `height`: dimensiones del mapa.
+   - `smoothness`: suavidad de las colinas generadas.
+   - `seed`: semilla aleatoria que cambia la forma del terreno.
+   - `modifier`: factor que controla la densidad de cuevas.
+   - `groundTile` y `caveTile`: tiles para suelo y cuevas.
+   - `groundTilemap` y `caveTilemap`: tilemaps donde se pintan los resultados.
 
-El proyecto incluye un script `GeneracionProcedural.cs` que crea mapas de terreno 2D usando **Perlin Noise**.
+2. **Proceso de generación**
+   - Se crea un array bidimensional que representa el mapa.
+   - Se calcula la altura del terreno columna por columna usando **Perlin Noise**.
+   - Dentro de cada columna, se aplica un segundo muestreo de Perlin Noise para decidir si una celda es **suelo** (`1`) o **cueva** (`2`).
+   - Se renderiza el resultado: el suelo en un Tilemap y las cuevas en otro.
 
-- Los parámetros de ancho, alto, suavidad y semilla se configuran desde el Inspector.
-- El terreno se representa como un array bidimensional (`int[,]`).
-- Cada columna del terreno se genera según una curva de ruido Perlin.
-- El resultado se dibuja en un `Tilemap` con un **Rule Tile**, que se encarga de mostrar bordes y transiciones automáticamente.
-- Con la tecla **Espacio** se regenera el mapa.
+3. **Regeneración en tiempo real**
+   - Con la tecla **Espacio** se vuelve a generar el terreno con una nueva semilla.
 
-Esto permite crear mundos distintos cada vez, manteniendo una apariencia coherente y suave gracias al uso de Perlin Noise.
+## 🎮 Resultado
+- Se obtiene un terreno irregular y natural con colinas y valles.
+- El sistema de cuevas aparece de manera aleatoria en el interior del suelo.
+- Al estar separado en dos Tilemaps, se puede aplicar un tratamiento visual distinto para suelo y cuevas.
 
 ---
 
