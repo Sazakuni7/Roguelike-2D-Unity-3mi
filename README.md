@@ -6,6 +6,9 @@ Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-rogu
 🔧 **Engine:** Unity 6.2 (6000.2.0f1.2588.6057)
 
 ---
+# Generación Procedural de Terreno con Cuevas
+
+Este proyecto incluye un sistema de generación procedural en 2D utilizando Perlin Noise, implementado en el script `GeneracionProcedural.cs`.
 
 ## 🧩 Funcionamiento
 1. **Parámetros configurables (Inspector)**
