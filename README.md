@@ -1,6 +1,6 @@
 # 🎮 Unity 2D Roguelike Project by 3mi (nombre pendiente)
 
-Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-roguelike-tutorial)** de *Unity Learn*.
+Basado en **[2D Beginner: Adventure Game]([(https://learn.unity.com/course/2d-beginner-adventure-game?version=2022.3)])** de *Unity Learn*.
 
 📌 Este proyecto se trabajará durante todo el cursado de **Programación de Videojuegos II**.  
 🔧 **Engine:** Unity 6.2 (6000.2.0f1.2588.6057)
@@ -26,7 +26,7 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
    - Se renderiza el resultado: el suelo en un Tilemap y las cuevas en otro.
 
 3. **Regeneración en tiempo real**
-   - Con la tecla **Espacio** se vuelve a generar el terreno con una nueva semilla.
+   - Con la tecla **R** se vuelve a generar el terreno con una nueva semilla.
 
 ## 🎮 Resultado
 - Se obtiene un terreno irregular y natural con colinas y valles.
@@ -35,8 +35,28 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 
 ---
 
+# ⚔️ Sistema de Enemigos
+
+Actualmente se añadieron scripts que permiten la **generación, persecución y daño al jugador**.
+
+## 🧩 Funcionamiento
+1. **Spawner**
+   - Script `Spawner.cs` genera enemigos tipo *Ground* en posiciones válidas del terreno (superficie del landscape).
+   - Se asegura que el terreno esté generado antes de instanciar enemigos.
+   - En próximas versiones, los enemigos también podrán aparecer dentro de cuevas.
+
+2. **IA de Enemigos**
+   - **Ground (`ChaseGround.cs`)**: enemigos con gravedad que persiguen al jugador caminando sobre el terreno.
+   - **Air (`ChaseAir.cs`)**: enemigos que vuelan hacia el jugador sin verse afectados por la gravedad.
+
+3. **Daño y Vidas**
+   - Script `Hurt.cs` permite que los enemigos inflijan daño al jugador al colisionar.
+   - Sistema de vidas implementado, aunque aún requiere ajustes para funcionar al 100%.
+
+---
+
 ## 📂 Assets utilizados
-- 
+- *(por completar)*
 
 ---
 
