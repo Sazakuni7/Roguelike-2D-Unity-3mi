@@ -7,8 +7,22 @@ Basado en **[Create a 2D Roguelike Game](https://learn.unity.com/project/2d-rogu
 
 ---
 
+## Generación Procedural de Terreno
+
+El proyecto incluye un script `GeneracionProcedural.cs` que crea mapas de terreno 2D usando **Perlin Noise**.
+
+- Los parámetros de ancho, alto, suavidad y semilla se configuran desde el Inspector.
+- El terreno se representa como un array bidimensional (`int[,]`).
+- Cada columna del terreno se genera según una curva de ruido Perlin.
+- El resultado se dibuja en un `Tilemap` con un **Rule Tile**, que se encarga de mostrar bordes y transiciones automáticamente.
+- Con la tecla **Espacio** se regenera el mapa.
+
+Esto permite crear mundos distintos cada vez, manteniendo una apariencia coherente y suave gracias al uso de Perlin Noise.
+
+---
+
 ## 📂 Assets utilizados
-- [Roguelike 2D Assets](https://unity-connect-prd.storage.googleapis.com/20240930/d4daa7c5-5d06-4b07-aa0d-a5e822cfcc5f/Roguelike2DTutorialAssets.unitypackage.zip)  
+- 
 
 ---
 
