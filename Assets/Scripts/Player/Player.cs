@@ -10,19 +10,38 @@ public class Jugador : MonoBehaviour
     public void ModificarVida(float puntos)
     {
         vida += puntos;
-        Debug.Log(EstasVivo());
-    }
 
+        // Asegurarnos de que la vida no sea negativa
+        if (vida < 0)
+        {
+            vida = 0;
+        }
+
+        Debug.Log(EstasVivo());
+
+        // Verificar si el jugador está vivo
+        if (!EstasVivo())
+        {
+            Morir();
+        }
+    }
 
     private bool EstasVivo()
     {
         return vida > 0;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public float GetVida()
     {
-        if (!collision.gameObject.CompareTag("Meta")) { return; }
+        return vida;
+    }
 
-        Debug.Log("GANASTE");
+    private void Morir()
+    {
+        Debug.Log("El jugador ha muerto.");
+        // Aquí puedo elegir entre detener el juego o hacer que el jugador desaparezca
+       // gameObject.SetActive(false); // Hace que el jugador desaparezca
+        // Alternativamente, puedo detener el juego con:
+         Time.timeScale = 0f;
     }
 }
