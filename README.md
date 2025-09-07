@@ -1,57 +1,67 @@
-# 🎮 Unity 2D Roguelike Project by 3mi (nombre pendiente)
-
-Basado en **[2D Beginner: Adventure Game]([(https://learn.unity.com/course/2d-beginner-adventure-game?version=2022.3)])** de *Unity Learn*.
+# 🎮 Unity 2D Roguelike Project by 3mi (nombre pendiente)  
+Basado en *2D Beginner: Adventure Game* de Unity Learn.  
 
 📌 Este proyecto se trabajará durante todo el cursado de **Programación de Videojuegos II**.  
-🔧 **Engine:** Unity 6.2 (6000.2.0f1.2588.6057)
+🔧 **Engine:** Unity 6.2 (6000.2.0f1.2588.6057)  
 
 ---
 
-# ⚔️ Sistema de Enemigos
+## ⚔️ Sistema de Enemigos  
+Actualmente se añadieron scripts que permiten la generación, persecución y daño al jugador.  
 
-Actualmente se añadieron scripts que permiten la **generación, persecución y daño al jugador**.
+### 🧩 Funcionamiento  
 
-## 🧩 Funcionamiento
-1. **Spawner (INACTIVO)**
-   - Script `Spawner.cs` genera enemigos tipo *Ground y Air* en posiciones válidas del terreno (superficie del landscape).
-   - Se asegura que el terreno esté generado antes de instanciar enemigos.
-   - En próximas versiones, los enemigos también podrán aparecer dentro de cuevas.
+#### Spawner (INACTIVO)  
+- `Spawner.cs` genera enemigos tipo **Ground** y **Air** en posiciones válidas del terreno (superficie del landscape).  
+- Se asegura que el terreno esté generado antes de instanciar enemigos.  
+- En próximas versiones, los enemigos también podrán aparecer dentro de cuevas.  
 
-2. **IA de Enemigos**
-   - **Ground (`ChaseGround.cs`)**: enemigos con gravedad que persiguen al jugador caminando sobre el terreno.
-   - **Air (`ChaseAir.cs`)**: enemigos que vuelan hacia el jugador sin verse afectados por la gravedad.
+#### IA de Enemigos  
+- **Ground (ChaseGround.cs):** enemigos con gravedad que persiguen al jugador caminando sobre el terreno.  
+- **Air (ChaseAir.cs):** enemigos que vuelan hacia el jugador sin verse afectados por la gravedad.  
 
-3. **Daño y Vidas**
-   - Script `Hurt.cs` permite que los enemigos inflijan daño al jugador al colisionar.
-   - `Enemy.cs`: script base que gestiona la vida del enemigo y su destrucción al llegar a 0.
+#### Daño y Vidas  
+- `Hurt.cs`: permite que los enemigos inflijan daño al jugador al colisionar.  
+- `Enemy.cs`: script base que gestiona la vida del enemigo y su destrucción al llegar a 0.  
 
 ---
 
-🧑‍🎮 Jugador, Proyectiles y UI
+## 🧑‍🎮 Jugador, Proyectiles y UI  
 
-Sistema que controla la vida del jugador, disparos y feedback visual.
+### Jugador  
+- `Jugador.cs` controla la vida del jugador.  
+- Detecta **muerte** y pausa el juego con `Time.timeScale = 0`.  
+- Puede **disparar proyectiles** con la tecla **Q**, con cooldown configurable en el Inspector.  
+- El disparo responde a la dirección en la que el jugador se mueve (izquierda/derecha).  
 
-Jugador
+### Proyectiles  
+- `Projectile.cs` se instancia desde el punto de disparo del jugador.  
+- Se desplaza horizontalmente según dirección asignada.  
+- Aplica daño a los enemigos mediante `Enemy.RecibirDaño`.  
+- Tras impactar:  
+  - El proyectil gana **gravedad**.  
+  - Se vuelve **inutilizado** (cambia de color y se convierte en objeto físico).  
+  - Se destruye luego de un tiempo.  
 
-Jugador.cs
-• Controla la vida del jugador.
-• Detecta muerte y pausa el juego (Time.timeScale = 0).
-• Puede disparar proyectiles con la tecla Q, con cooldown configurable en Inspector.
+### UI del Juego  
+- `GameUI.cs` muestra en pantalla:  
+  - Vida del jugador en porcentaje.  
+  - Cantidad de enemigos restantes (contador dinámico).  
+- Detecta condiciones de **derrota** (vida = 0) y muestra `"Has muerto"`.  
+- Detecta condiciones de **victoria** (enemigos restantes = 0) y muestra `"Has ganado"`.  
 
-Proyectiles
+---
 
-Projectile.cs
-• Se instancia desde el punto de disparo del jugador.
-• Avanza hacia adelante con velocidad configurable.
-• Aplica daño al impactar contra enemigos (Enemy.RecibirDaño).
-• Se destruye tras un tiempo de vida o al colisionar.
+## 🏆 Condiciones de Victoria y Derrota  
 
-UI del Juego
+### ✔️ Victoria  
+- Se alcanza cuando **no quedan enemigos vivos** en la escena.  
+- La UI muestra el mensaje: **"¡Has ganado!"**.  
 
-GameUI.cs
-• Muestra la vida del jugador en pantalla.
-• Muestra la cantidad de enemigos restantes al inicio.
-• Se actualiza en tiempo real según cambios en la partida.
+### ❌ Derrota  
+- Se alcanza cuando la **vida del jugador llega a 0**.  
+- La UI muestra el mensaje: **"¡Has muerto!"**.  
+- El juego se detiene con `Time.timeScale = 0`.  
 
 ---
 
@@ -84,9 +94,22 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 
 ---
 
-## 📂 Assets utilizados
-- *(por completar)*
+## 🚨 Bugs Conocidos  
+- El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders).  
+- El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
 
 ---
 
-✍️ **Por Emiliano Arias (3mi)**
+## 🚀 Mejoras Pendientes  
+- Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión).  
+- Agregar **animaciones al jugador** (idle, run, jump, shoot).  
+- Agregar **sprites y animaciones para los enemigos**.  
+
+---
+
+## 📂 Assets utilizados  
+(por completar)  
+
+---
+
+✍️ Por **Emiliano Arias (3mi)**
