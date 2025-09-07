@@ -6,6 +6,17 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 
 ---
 
+**🕹️CONTROLES:** 
+- WASD o Flechas de direccion para moverse.
+- SPACE para saltar.
+- Q para disparar.
+
+---
+
+📜 [Ver Changelog](./CHANGELOG.md)
+
+---
+
 ## ⚔️ Sistema de Enemigos  
 Actualmente se añadieron scripts que permiten la generación, persecución y daño al jugador.  
 
@@ -95,6 +106,7 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 ---
 
 ## 🚨 Bugs Conocidos  
+- Por algun motivo, al iniciar el juego empieza acelerado por un breve momento.
 - El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders).  
 - El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
 
@@ -108,8 +120,7 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 ---
 
 ## 📂 Assets utilizados  
-(por completar)  
+(por completar)  De momento mayormente generado por IA
 
----
 
 ✍️ Por **Emiliano Arias (3mi)**
