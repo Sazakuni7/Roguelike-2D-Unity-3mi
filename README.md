@@ -120,7 +120,7 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 ---
 
 ## 📂 Assets utilizados  
-(por completar)  
+(por completar)  De momento mayormente generado por IA
 
 
 ✍️ Por **Emiliano Arias (3mi)**
