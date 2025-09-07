@@ -12,8 +12,8 @@ Basado en **[2D Beginner: Adventure Game]([(https://learn.unity.com/course/2d-be
 Actualmente se añadieron scripts que permiten la **generación, persecución y daño al jugador**.
 
 ## 🧩 Funcionamiento
-1. **Spawner**
-   - Script `Spawner.cs` genera enemigos tipo *Ground* en posiciones válidas del terreno (superficie del landscape).
+1. **Spawner (INACTIVO)**
+   - Script `Spawner.cs` genera enemigos tipo *Ground y Air* en posiciones válidas del terreno (superficie del landscape).
    - Se asegura que el terreno esté generado antes de instanciar enemigos.
    - En próximas versiones, los enemigos también podrán aparecer dentro de cuevas.
 
@@ -23,7 +23,7 @@ Actualmente se añadieron scripts que permiten la **generación, persecución y 
 
 3. **Daño y Vidas**
    - Script `Hurt.cs` permite que los enemigos inflijan daño al jugador al colisionar.
-   - Sistema de vidas implementado, aunque aún requiere ajustes para funcionar al 100%.
+   - Sistema de vidas implementado
 
 ---
 
