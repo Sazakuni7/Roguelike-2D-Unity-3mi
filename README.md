@@ -106,6 +106,7 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 ---
 
 ## 🚨 Bugs Conocidos  
+- Por algun motivo, al iniciar el juego empieza acelerado por un breve momento.
 - El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders).  
 - El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
 
