@@ -11,6 +11,12 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 - SPACE para saltar.
 - Q para disparar.
 
+---
+
+📜 [Ver Changelog](./CHANGELOG.md)
+
+---
+
 ## ⚔️ Sistema de Enemigos  
 Actualmente se añadieron scripts que permiten la generación, persecución y daño al jugador.  
 
@@ -115,6 +121,5 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 ## 📂 Assets utilizados  
 (por completar)  
 
----
 
 ✍️ Por **Emiliano Arias (3mi)**
