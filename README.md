@@ -23,7 +23,35 @@ Actualmente se añadieron scripts que permiten la **generación, persecución y 
 
 3. **Daño y Vidas**
    - Script `Hurt.cs` permite que los enemigos inflijan daño al jugador al colisionar.
-   - Sistema de vidas implementado
+   - `Enemy.cs`: script base que gestiona la vida del enemigo y su destrucción al llegar a 0.
+
+---
+
+🧑‍🎮 Jugador, Proyectiles y UI
+
+Sistema que controla la vida del jugador, disparos y feedback visual.
+
+Jugador
+
+Jugador.cs
+• Controla la vida del jugador.
+• Detecta muerte y pausa el juego (Time.timeScale = 0).
+• Puede disparar proyectiles con la tecla Q, con cooldown configurable en Inspector.
+
+Proyectiles
+
+Projectile.cs
+• Se instancia desde el punto de disparo del jugador.
+• Avanza hacia adelante con velocidad configurable.
+• Aplica daño al impactar contra enemigos (Enemy.RecibirDaño).
+• Se destruye tras un tiempo de vida o al colisionar.
+
+UI del Juego
+
+GameUI.cs
+• Muestra la vida del jugador en pantalla.
+• Muestra la cantidad de enemigos restantes al inicio.
+• Se actualiza en tiempo real según cambios en la partida.
 
 ---
 
