@@ -11,74 +11,45 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool haImpactado = false;
-    private Vector2 direccion = Vector2.right; // Dirección inicial (derecha)
-    private HashSet<GameObject> enemigosImpactados = new HashSet<GameObject>(); // Para evitar múltiples impactos
+    private Vector2 direccion = Vector2.right;
+    private HashSet<GameObject> enemigosImpactados = new HashSet<GameObject>();
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
+    private void Awake() => rb = GetComponent<Rigidbody2D>();
 
-    private void Start()
-    {
-        // Destruir el proyectil después de un tiempo
-        Destroy(gameObject, tiempoDeVida);
-    }
+    private void Start() => Destroy(gameObject, tiempoDeVida);
 
     private void Update()
     {
-        if (!haImpactado)
+        if (Time.timeScale != 1f)
+            Time.timeScale = 1f;
+        if (!haImpactado && rb != null)
         {
-            // Movimiento del proyectil
             rb.linearVelocity = direccion * velocidad;
         }
     }
 
-    public void SetDireccion(Vector2 nuevaDireccion)
-    {
-        direccion = nuevaDireccion;
-    }
+    public void SetDireccion(Vector2 dir) => direccion = dir;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Colisión detectada con: " + collision.gameObject.name);
-
-        if (!haImpactado && collision.gameObject.CompareTag("Enemy"))
+        if (!haImpactado && collision.CompareTag("Enemy") && !enemigosImpactados.Contains(collision.gameObject))
         {
-            // Verificar si ya impactó a este enemigo
-            if (!enemigosImpactados.Contains(collision.gameObject))
-            {
-                enemigosImpactados.Add(collision.gameObject);
-
-                // Aplicar daño al enemigo
-                Enemy enemigo = collision.gameObject.GetComponent<Enemy>();
-                if (enemigo != null)
-                {
-                    enemigo.RecibirDaño(daño);
-                    Debug.Log("Daño aplicado al enemigo: " + daño);
-                }
-
-                // Cambiar el estado del proyectil a inactivo
-                ConvertirEnInactivo();
-            }
+            enemigosImpactados.Add(collision.gameObject);
+            Enemy enemigo = collision.GetComponent<Enemy>();
+            if (enemigo != null) enemigo.RecibirDaño(daño);
+            ConvertirEnInactivo();
         }
     }
 
     private void ConvertirEnInactivo()
     {
         haImpactado = true;
+        if (rb != null) rb.gravityScale = 1f;
 
-        // Activar la gravedad
-        rb.gravityScale = 1f;
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.isTrigger = false;
 
-        // Desactivar el trigger para que interactúe con colisiones físicas
-        Collider2D collider = GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            collider.isTrigger = false;
-        }
-
-        // Opcional: Cambiar la apariencia del proyectil para indicar que está inactivo
-        GetComponent<SpriteRenderer>().color = Color.gray;
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null) sr.color = Color.gray;
     }
 }

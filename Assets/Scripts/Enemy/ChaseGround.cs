@@ -2,53 +2,38 @@ using UnityEngine;
 
 public class ChaseGround : MonoBehaviour
 {
-    [Header("Configuración")]
     [SerializeField] float velocidad = 5f;
     [SerializeField] Transform jugador;
 
-    private Rigidbody2D miRigidbody2D;
-    private Vector2 direccion;
+    private Rigidbody2D rb;
     private bool jugadorEnRango = false;
 
-    private void Awake()
-    {
-        miRigidbody2D = GetComponent<Rigidbody2D>();
-    }
+    private void Awake() => rb = GetComponent<Rigidbody2D>();
 
     private void FixedUpdate()
     {
+
+        if (Time.timeScale != 1f)
+            Time.timeScale = 1f;
+
+        if (rb == null || jugador == null) return;
+
         if (!jugadorEnRango)
         {
-            direccion = (jugador.position - transform.position).normalized;
-
-            // Mantener velocidad horizontal hacia el jugador
-            miRigidbody2D.linearVelocity = new Vector2(direccion.x * velocidad, miRigidbody2D.linearVelocity.y);
-
-            // (opcional) limitar velocidad vertical si no querés que se dispare
-            if (miRigidbody2D.linearVelocity.magnitude > 10f)
-            {
-                miRigidbody2D.linearVelocity = miRigidbody2D.linearVelocity.normalized * 10f;
-            }
+            Vector2 dir = (jugador.position - transform.position).normalized;
+            rb.linearVelocity = new Vector2(dir.x * velocidad, rb.linearVelocity.y);
         }
         else
-        {
-            miRigidbody2D.linearVelocity = Vector2.zero;
-        }
+            rb.linearVelocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            jugadorEnRango = true;
-        }
+        if (collision.CompareTag("Player")) jugadorEnRango = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            jugadorEnRango = false;
-        }
+        if (collision.CompareTag("Player")) jugadorEnRango = false;
     }
 }

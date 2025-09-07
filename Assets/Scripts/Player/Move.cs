@@ -1,43 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    // Variables a configurar desde el editor
     [Header("Configuracion")]
-    [SerializeField] float velocidad;
+    [SerializeField] private float velocidad = 5f;
 
-    // Variables de uso interno en el script
-    private float moverHorizontal;
-    private Vector2 direccion;
-
-    // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
     private SpriteRenderer miSpriteRenderer;
+    private Vector2 direccion;
 
-    // Código ejecutado cuando el objeto se activa en el nivel
+    // Activar controles automáticamente
+    private bool activo = true;
+
     private void OnEnable()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
         miSpriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Reset inicial de velocidad
+        if (miRigidbody2D != null)
+        {
+            miRigidbody2D.linearVelocity = Vector2.zero;
+            miRigidbody2D.angularVelocity = 0f;
+        }
     }
 
-    // Código ejecutado en cada frame del juego (Intervalo variable)
     private void Update()
     {
-        moverHorizontal = Input.GetAxis("Horizontal");
-        direccion = new Vector2(moverHorizontal, 0f);
-        if (moverHorizontal > 0)
-            miSpriteRenderer.flipX = false;
-        else if (moverHorizontal < 0)
-            miSpriteRenderer.flipX = true;
+        if (!activo) return;
 
+        float moverHorizontal = Input.GetAxis("Horizontal");
+        direccion = new Vector2(moverHorizontal, 0f);
+
+        if (miSpriteRenderer != null)
+        {
+            if (moverHorizontal > 0) miSpriteRenderer.flipX = false;
+            else if (moverHorizontal < 0) miSpriteRenderer.flipX = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        // Conservar la velocidad vertical y modificar solo la horizontal
+        if (Time.timeScale != 1f)
+            Time.timeScale = 1f;
+        if (!activo || miRigidbody2D == null) return;
+
         Vector2 velocidadActual = miRigidbody2D.linearVelocity;
         miRigidbody2D.linearVelocity = new Vector2(direccion.x * velocidad, velocidadActual.y);
     }

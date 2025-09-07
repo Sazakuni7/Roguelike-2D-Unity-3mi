@@ -1,50 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Saltar : MonoBehaviour
 {
+    [Header("Configuración")]
+    [SerializeField] private float fuerzaSalto;
+    [SerializeField] private LayerMask capaSuelo; // Capa para identificar el suelo
+    [SerializeField] private Transform detectorSuelo; // Punto para verificar si está en el suelo
+    [SerializeField] private float radioDeteccion = 0.2f; // Radio del detector
 
-    // Variables a configurar desde el editor
-    [Header("Configuracion")]
-    [SerializeField] private float fuerzaSalto = 5f;
-
-    // Variables de uso interno en el script
     private bool puedoSaltar = true;
-    private bool saltando = false;
-
-    // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
 
-    // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
+
+        // Reset inicial de velocidad
+        if (miRigidbody2D != null)
+        {
+            miRigidbody2D.linearVelocity = Vector2.zero;
+            miRigidbody2D.angularVelocity = 0f;
+        }
     }
 
-    // Codigo ejecutado en cada frame del juego (Intervalo variable)
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && puedoSaltar)
         {
+            SaltarAccion();
+        }
+    }
+
+    private void SaltarAccion()
+    {
+        if (miRigidbody2D != null && EstoyEnElSuelo())
+        {
+            miRigidbody2D.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
             puedoSaltar = false;
         }
     }
 
     private void FixedUpdate()
     {
-        if (!puedoSaltar && !saltando)
+        // Verificar si el jugador está en el suelo
+        if (EstoyEnElSuelo())
         {
-            miRigidbody2D.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
-            saltando = true;
+            puedoSaltar = true;
         }
     }
 
-    // Codigo ejecutado cuando el jugador colisiona con otro objeto
-    private void OnCollisionEnter2D(Collision2D collision)
+    private bool EstoyEnElSuelo()
     {
-        puedoSaltar = true;
-        saltando = false;
+        // Usar un CircleCast para verificar si el jugador está tocando el suelo
+        return Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
     }
 
+    private void OnDrawGizmos()
+    {
+        // Dibujar el área de detección del suelo en la escena
+        if (detectorSuelo != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(detectorSuelo.position, radioDeteccion);
+        }
+    }
 }

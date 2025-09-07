@@ -2,26 +2,28 @@ using UnityEngine;
 
 public class ChaseAir : MonoBehaviour
 {
-    [Header("Configuración")]
     [SerializeField] float velocidad = 5f;
     [SerializeField] Transform jugador;
 
-    private Rigidbody2D miRigidbody2D;
-    private Vector2 direccion;
+    private Rigidbody2D rb;
     private bool jugadorEnRango = false;
 
-    private void Awake()
-    {
-        miRigidbody2D = GetComponent<Rigidbody2D>();
-    }
+    private void Awake() => rb = GetComponent<Rigidbody2D>();
 
     private void FixedUpdate()
     {
-        if (!jugadorEnRango) // Solo persigue si no está tocando al jugador
+        if (Time.timeScale != 1f)
+            Time.timeScale = 1f;
+
+        if (rb == null || jugador == null) return;
+
+        if (!jugadorEnRango)
         {
-            direccion = (jugador.position - transform.position).normalized;
-            miRigidbody2D.MovePosition(miRigidbody2D.position + direccion * (velocidad * Time.fixedDeltaTime));
+            Vector2 dir = (jugador.position - transform.position).normalized;
+            rb.MovePosition(rb.position + dir * velocidad * Time.fixedDeltaTime);
         }
+        else
+            rb.linearVelocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,15 +31,12 @@ public class ChaseAir : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             jugadorEnRango = true;
-            miRigidbody2D.linearVelocity = Vector2.zero; // detener en seco
+            if (rb != null) rb.linearVelocity = Vector2.zero;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            jugadorEnRango = false; // vuelve a perseguir
-        }
+        if (collision.CompareTag("Player")) jugadorEnRango = false;
     }
 }

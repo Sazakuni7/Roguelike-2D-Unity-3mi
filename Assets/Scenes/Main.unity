@@ -479,6 +479,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8825310262665342581, guid: cba0c96e71635fd4289edfc64d7d33fd, type: 3}
   m_PrefabInstance: {fileID: 982856268}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &153568136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 153568137}
+  - component: {fileID: 153568138}
+  - component: {fileID: 153568139}
+  m_Layer: 0
+  m_Name: Init
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &153568137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153568136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2068257015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &153568138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153568136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b737c32c99949d4d9ee51f0bc71614e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameInitializer
+  fixedTimeStep: 0.02
+  resetRigidbodyVelocities: 1
+--- !u!114 &153568139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153568136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ddfad8e3c6e0b4693156645a9324ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugTime
 --- !u!1 &162027924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6757411321227390414, guid: e52150914d40b0842b01a6effc8afb7f, type: 3}
@@ -538,7 +597,7 @@ GameObject:
   - component: {fileID: 311267719}
   - component: {fileID: 311267721}
   - component: {fileID: 311267722}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4442,6 +4501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platforms (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 801081830457667487, guid: bc79d585b83d649449448545f1a67864, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1027689682858721730, guid: bc79d585b83d649449448545f1a67864, type: 3}
       propertyPath: m_SurfaceArc
       value: 180
@@ -7114,6 +7177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 153568137}
   - {fileID: 850958045}
   - {fileID: 1470892742}
   - {fileID: 875016940}
@@ -7315,7 +7379,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca2549e2116a8f42866ec42f0a4d6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Saltar
-  fuerzaSalto: 9
+  fuerzaSalto: 4
+  capaSuelo:
+    serializedVersion: 2
+    m_Bits: 1024
+  detectorSuelo: {fileID: 1275507479}
+  radioDeteccion: 0.1
 --- !u!114 &2109544506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7332,6 +7401,8 @@ MonoBehaviour:
   proyectilPrefab: {fileID: 1877143425094854783, guid: 3bfcf49191028884bb5042941201bfc2, type: 3}
   puntoDeDisparo: {fileID: 1092140150}
   tiempoEntreDisparos: 0.5
+  velocidad: 5
+  fuerzaSalto: 5
 --- !u!1 &2146161842
 GameObject:
   m_ObjectHideFlags: 0
