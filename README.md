@@ -15,6 +15,14 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 
 📜 [Ver Changelog](./CHANGELOG.md)
 
+
+---
+
+## 🚨 Problemas conocidos 
+- ❗Por algun motivo, al iniciar el juego empieza acelerado por un breve momento, o lo hace luego de un tiempo (IMPORTANTE).
+- El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders).  
+- El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
+
 ---
 
 ## ⚔️ Sistema de Enemigos  
@@ -103,12 +111,6 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 - El sistema de cuevas aparece de manera aleatoria en el interior del suelo.
 - Al estar separado en dos Tilemaps, se puede aplicar un tratamiento visual distinto para suelo y cuevas.
 
----
-
-## 🚨 Bugs Conocidos  
-- Por algun motivo, al iniciar el juego empieza acelerado por un breve momento.
-- El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders).  
-- El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
 
 ---
 
