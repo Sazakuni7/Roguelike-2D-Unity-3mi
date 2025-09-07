@@ -15,6 +15,11 @@ public class GameUI : MonoBehaviour
 
     private int enemigosRestantes = 0;
 
+    private void Awake()
+    {
+        Debug.Log("Time.timeScale al inicio: " + Time.timeScale);
+        Time.timeScale = 1f;
+    }
     private void Start()
     {
         // Inicializar la interfaz
