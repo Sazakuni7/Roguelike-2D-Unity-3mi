@@ -1,0 +1,780 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 53
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07c9b2c97f84356bb2bfac29363e611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Muse.StyleTrainer::Unity.Muse.StyleTrainer.StyleTrainerProjectData
+  m_StyleTrainerData:
+    rid: 6997093140142490271
+  m_DefaultStyleData:
+    rid: 6997093140142490272
+  m_DefaultStyleVersion: 2023111600
+  m_DefaultStyles:
+  - rid: 6997093140142490398
+  m_AssetPath: 
+  m_PreviousProjectIDs: []
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6997093140142490271
+      type: {class: StyleTrainerData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+        m_State: 1
+        m_Disposing: 0
+        m_Styles:
+        - rid: 6997093140142490444
+        - rid: 6997093140142490445
+        m_Version: 202231001
+    - rid: 6997093140142490272
+      type: {class: StyleTrainerData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 11000000-0000-0000-0000-000000000011
+        m_State: 1
+        m_Disposing: 0
+        m_Styles:
+        - rid: 6997093140142490399
+        m_Version: 202231001
+    - rid: 6997093140142490398
+      type: {class: StyleData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 00000000-0000-0000-0000-000000000000
+        m_State: 1
+        m_Disposing: 0
+        m_IsFallback: 1
+        m_Thumbnail:
+          rid: -2
+        m_Visible: 0
+        selectedCheckPointGUID: 00000000-0000-0000-0000-000000000000
+        m_FavoriteCheckPointGUID: active
+        parentID: 00000000-0000-0000-0000-000000000000
+        m_ProjectID: 00000000-0000-0000-0000-000000000000
+        m_TrainingSteps: 2000
+        m_CheckPoints:
+        - m_Guid: 00000000-0000-0000-0000-000000000000
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 00000000-0000-0000-0000-000000000000
+          m_Name: Default
+          m_Description: Default style.
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 
+            m_State: 0
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 
+          m_ValidationImagesData: []
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 2000
+        m_SampleOutputPrompts: []
+        m_TrainingSetData: []
+        m_Name: Default
+        m_Description: Default style.
+    - rid: 6997093140142490399
+      type: {class: StyleData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 5cc104e0-423a-473e-8034-b9d346cb2357
+        m_State: 1
+        m_Disposing: 0
+        m_IsFallback: 0
+        m_Thumbnail:
+          rid: -2
+        m_Visible: 1
+        selectedCheckPointGUID: 00000000-0000-0000-0000-000000000000
+        m_FavoriteCheckPointGUID: active
+        parentID: 00000000-0000-0000-0000-000000000000
+        m_ProjectID: 11000000-0000-0000-0000-000000000011
+        m_TrainingSteps: 2000
+        m_CheckPoints:
+        - m_Guid: 03fa404b-39fc-4979-9272-deb5d8c4b24c
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 11000000-0000-0000-0000-000000000011
+          m_Name: 'Happy Harvest [Orion V4 2000]'
+          m_Description: 8 Nov 2023
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 3e758588-960f-44f5-865a-d5eaa1b1dec4
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 11000000-0000-0000-0000-000000000011
+          m_ValidationImagesData:
+          - m_Guid: 96b39a19-2d3e-4bc5-aa3c-38667ed6eba5
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 96b39a19-2d3e-4bc5-aa3c-38667ed6eba5
+              m_State: 5
+              m_Disposing: 0
+            m_Prompt: A chicken
+          - m_Guid: 05de072c-ebbc-43d7-886b-7ac4f9cbd079
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 05de072c-ebbc-43d7-886b-7ac4f9cbd079
+              m_State: 5
+              m_Disposing: 0
+            m_Prompt: A cow
+          - m_Guid: 2dbfc212-f87b-45f9-a05a-06368e190ca1
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 2dbfc212-f87b-45f9-a05a-06368e190ca1
+              m_State: 5
+              m_Disposing: 0
+            m_Prompt: A dog
+          - m_Guid: e0139464-a868-402a-95b8-b4c26685a97b
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: e0139464-a868-402a-95b8-b4c26685a97b
+              m_State: 5
+              m_Disposing: 0
+            m_Prompt: A farmer
+          - m_Guid: 4421bead-a3ff-4c09-9514-61e127eb470e
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 4421bead-a3ff-4c09-9514-61e127eb470e
+              m_State: 5
+              m_Disposing: 0
+            m_Prompt: A pine tree
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 1200
+        m_SampleOutputPrompts:
+        - A chicken
+        - A cow
+        - A dog
+        - A farmer
+        - A pine tree
+        m_TrainingSetData:
+        - m_Guid: 3e758588-960f-44f5-865a-d5eaa1b1dec4
+          m_State: 5
+          m_Disposing: 0
+          m_TrainingSet: []
+          m_ProjectID: 11000000-0000-0000-0000-000000000011
+        m_Name: Default
+        m_Description: Default Style
+    - rid: 6997093140142490444
+      type: {class: StyleData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: b7a1662d-5142-4099-8b8a-1d3da09c7890
+        m_State: 1
+        m_Disposing: 0
+        m_IsFallback: 0
+        m_Thumbnail:
+          rid: 6997093140142490446
+        m_Visible: 1
+        selectedCheckPointGUID: a8708a3f-f2f8-4b5a-841d-d7ce531c263f
+        m_FavoriteCheckPointGUID: active
+        parentID: 00000000-0000-0000-0000-000000000000
+        m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+        m_TrainingSteps: 2000
+        m_CheckPoints:
+        - m_Guid: b2618011-eeb8-4351-8bdb-b518e11fee30
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: 1f91f33b-1875-48d5-aaf7-1d695705037f
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 1f91f33b-1875-48d5-aaf7-1d695705037f
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 6e7261ba-3108-473e-828f-747b4d1095e9
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 6e7261ba-3108-473e-828f-747b4d1095e9
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 9c99aff6-fd11-48db-8947-2d256de0f98b
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 9c99aff6-fd11-48db-8947-2d256de0f98b
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 200
+        - m_Guid: 77e21547-477d-4b49-8b0f-0baf9e030593
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: 4ca65519-5932-4d2b-bc33-cf6ae5b24be8
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 4ca65519-5932-4d2b-bc33-cf6ae5b24be8
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 4523ea78-3375-4b9c-9490-45d37b49ce09
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 4523ea78-3375-4b9c-9490-45d37b49ce09
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: c7c6a14e-79bd-4bdc-bdc2-62009a636f5a
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: c7c6a14e-79bd-4bdc-bdc2-62009a636f5a
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 400
+        - m_Guid: 27fdbb2c-6ea4-437f-8ccd-b6f2f5e05660
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: dc35f4a6-b60b-4e2b-89bc-fbf1b123accb
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: dc35f4a6-b60b-4e2b-89bc-fbf1b123accb
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: bdc5539b-66b8-4ebe-b017-ed9770076d9c
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: bdc5539b-66b8-4ebe-b017-ed9770076d9c
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: efdb18c5-74cf-4e39-979b-8f64b8dd7b97
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: efdb18c5-74cf-4e39-979b-8f64b8dd7b97
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 600
+        - m_Guid: 58f6a165-64ca-4f75-8d52-af6743310772
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: 68d5ad0e-a4cc-4a25-99f9-5e0c29c882d8
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 68d5ad0e-a4cc-4a25-99f9-5e0c29c882d8
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 05c4730a-58bd-4773-b30f-b2c1585c075d
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 05c4730a-58bd-4773-b30f-b2c1585c075d
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 1a630ab2-6c06-43ff-9c58-0c656b325368
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 1a630ab2-6c06-43ff-9c58-0c656b325368
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 800
+        - m_Guid: 01de0151-f876-45c6-9a45-567e67c0e754
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: 95ebe6e5-b5c2-46f6-b6d7-f0af416ba6d3
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 95ebe6e5-b5c2-46f6-b6d7-f0af416ba6d3
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: b5c08875-70db-4aad-a075-91de6352a73f
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: b5c08875-70db-4aad-a075-91de6352a73f
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: c9dbe77b-d1ca-421b-8c8b-b02a32812adc
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: c9dbe77b-d1ca-421b-8c8b-b02a32812adc
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 1000
+        - m_Guid: 855cb5f6-89ad-450d-906a-3d62b742fc3f
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: b2d9b5ec-285e-4f78-9c88-448e3cf3c86b
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: b2d9b5ec-285e-4f78-9c88-448e3cf3c86b
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 0f53df59-8664-4e90-a243-17ad92a66290
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 0f53df59-8664-4e90-a243-17ad92a66290
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 51f478a6-662c-4fd7-8e30-38e5631cb914
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 51f478a6-662c-4fd7-8e30-38e5631cb914
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 1200
+        - m_Guid: c3714fe6-2b74-4807-83ec-04b62c20d5fb
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: b0292a6f-ef0e-453a-9892-8596ae24d8a0
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: b0292a6f-ef0e-453a-9892-8596ae24d8a0
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 81423070-5f53-4f52-9146-cb3e3ad597c3
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 81423070-5f53-4f52-9146-cb3e3ad597c3
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 7d7433c3-5b5b-432a-a167-4ec511d8e38f
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 7d7433c3-5b5b-432a-a167-4ec511d8e38f
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 1400
+        - m_Guid: 8ad20d46-0272-42ec-ae11-2e97e9e6ddc6
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: d4838892-3e68-4532-b202-00c2eb5c04a4
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: d4838892-3e68-4532-b202-00c2eb5c04a4
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 964b808d-6bf1-48f9-a23b-6dd89a4072fd
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 964b808d-6bf1-48f9-a23b-6dd89a4072fd
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 19460030-c148-4646-ab63-870ed6ea6c4b
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 19460030-c148-4646-ab63-870ed6ea6c4b
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 1600
+        - m_Guid: a35d1716-6132-4cbf-98e7-7a2193258e02
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: 11147a40-cb19-45e6-94d9-94146ccc3601
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 11147a40-cb19-45e6-94d9-94146ccc3601
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 7eed31ee-0745-4726-8945-2bf001066635
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 7eed31ee-0745-4726-8945-2bf001066635
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 17b24c6d-76ad-4989-a618-a2f3099a00da
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 17b24c6d-76ad-4989-a618-a2f3099a00da
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 
+          m_TrainingSteps: 1800
+        - m_Guid: a8708a3f-f2f8-4b5a-841d-d7ce531c263f
+          m_State: 1
+          m_Disposing: 0
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_Name: Explorer astronaut
+          m_Description: Placeholder para hacer un personaje basado en los que se
+            ven en Risk of Rain
+          parent_id: 00000000-0000-0000-0000-000000000000
+          m_TrainingSetData:
+            m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+            m_State: 5
+            m_Disposing: 0
+            m_TrainingSet: []
+            m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+          m_ValidationImagesData:
+          - m_Guid: 4336d357-5206-4fee-9d99-af7336adf175
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 4336d357-5206-4fee-9d99-af7336adf175
+              m_State: 1
+              m_Disposing: 0
+            m_Prompt: alien planet explorer
+          - m_Guid: 76b04fb4-2588-48b3-8c87-99253ef9d4db
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 76b04fb4-2588-48b3-8c87-99253ef9d4db
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: astronaut explorer
+          - m_Guid: 4c7aa0fc-e17c-4f98-a1af-e6a5c228babf
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              m_Guid: 4c7aa0fc-e17c-4f98-a1af-e6a5c228babf
+              m_State: 2
+              m_Disposing: 0
+            m_Prompt: running astronaut
+          m_FavoriteSampleOutputDataGuid: 4336d357-5206-4fee-9d99-af7336adf175
+          m_TrainingSteps: 2000
+        m_SampleOutputPrompts:
+        - alien planet explorer
+        - astronaut explorer
+        - running astronaut
+        m_TrainingSetData:
+        - m_Guid: 0f48e5f7-d8be-4806-809a-d69b67c913ed
+          m_State: 1
+          m_Disposing: 0
+          m_TrainingSet:
+          - m_Guid: 76a1d015-231e-4726-8535-c1bc27bef8d0
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093146274562494
+          - m_Guid: 9a5229b7-4dcf-4af6-b95e-909483612af3
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093146274562495
+          - m_Guid: 17a81f17-b25a-4ea1-8847-7155bbb0aeea
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093146274562496
+          - m_Guid: 7ea80c18-3f39-4f92-b6f6-e310d4bc0b1d
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093146274562497
+          - m_Guid: 126e391b-2880-4059-a4cc-ebcec5108f4d
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093146274562498
+          - m_Guid: 78ade3c9-0926-4004-88d1-27472b73c6e8
+            m_State: 5
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093146274562499
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+        m_Name: Explorer astronaut
+        m_Description: Placeholder para hacer un personaje basado en los que se ven
+          en Risk of Rain
+    - rid: 6997093140142490445
+      type: {class: StyleData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 
+        m_State: 3
+        m_Disposing: 0
+        m_IsFallback: 0
+        m_Thumbnail:
+          rid: 6997093140142490453
+        m_Visible: 1
+        selectedCheckPointGUID: 00000000-0000-0000-0000-000000000000
+        m_FavoriteCheckPointGUID: 00000000-0000-0000-0000-000000000000
+        parentID: 00000000-0000-0000-0000-000000000000
+        m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+        m_TrainingSteps: 2000
+        m_CheckPoints: []
+        m_SampleOutputPrompts:
+        - Quartz-like stone
+        - White quartz
+        - White stone-quartz
+        m_TrainingSetData:
+        - m_Guid: 00000000-0000-0000-0000-000000000000
+          m_State: 3
+          m_Disposing: 0
+          m_TrainingSet:
+          - m_Guid: 00000000-0000-0000-0000-000000000000
+            m_State: 3
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093140142490454
+          - m_Guid: 00000000-0000-0000-0000-000000000000
+            m_State: 3
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093140142490455
+          - m_Guid: 00000000-0000-0000-0000-000000000000
+            m_State: 3
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093140142490456
+          - m_Guid: 00000000-0000-0000-0000-000000000000
+            m_State: 3
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093140142490457
+          - m_Guid: 00000000-0000-0000-0000-000000000000
+            m_State: 3
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093140142490458
+          - m_Guid: 00000000-0000-0000-0000-000000000000
+            m_State: 3
+            m_Disposing: 0
+            m_ImageArtifact:
+              rid: 6997093140142490459
+          m_ProjectID: 934bf5c0-91ac-42d7-9423-fa7c3da1413c
+        m_Name: Stone Quartz
+        m_Description: Placeholder tile usado para el nivel
+    - rid: 6997093140142490446
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 00000000-0000-0000-0000-000000000000
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490453
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 00000000-0000-0000-0000-000000000000
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490454
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: StyleTrainerTempGUID-49f77c76-a8e9-4f3e-8ff9-798d4914b94d
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490455
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: StyleTrainerTempGUID-79c17b69-8d6f-4e9a-8c9b-c63c2795cc77
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490456
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: StyleTrainerTempGUID-f085f5d0-7320-4740-8c59-0a1e2be66b88
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490457
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: StyleTrainerTempGUID-ec15564e-1175-4f58-9f9b-a3b91c23893e
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490458
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: StyleTrainerTempGUID-c89a7230-f5e6-425e-a6f2-e516d81ebe30
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093140142490459
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: StyleTrainerTempGUID-e415e1dc-16cf-4abe-9a2d-db4c50d5d99e
+        m_State: 3
+        m_Disposing: 1
+    - rid: 6997093146274562494
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 76a1d015-231e-4726-8535-c1bc27bef8d0
+        m_State: 1
+        m_Disposing: 1
+    - rid: 6997093146274562495
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 9a5229b7-4dcf-4af6-b95e-909483612af3
+        m_State: 1
+        m_Disposing: 1
+    - rid: 6997093146274562496
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 17a81f17-b25a-4ea1-8847-7155bbb0aeea
+        m_State: 1
+        m_Disposing: 1
+    - rid: 6997093146274562497
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 7ea80c18-3f39-4f92-b6f6-e310d4bc0b1d
+        m_State: 1
+        m_Disposing: 1
+    - rid: 6997093146274562498
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 126e391b-2880-4059-a4cc-ebcec5108f4d
+        m_State: 1
+        m_Disposing: 1
+    - rid: 6997093146274562499
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 78ade3c9-0926-4004-88d1-27472b73c6e8
+        m_State: 1
+        m_Disposing: 1
