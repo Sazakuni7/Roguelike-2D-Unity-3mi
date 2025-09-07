@@ -21,6 +21,7 @@
   - El juego detecta cuando todos los enemigos han sido destruidos y muestra mensaje de victoria.
 
 ### Bugs conocidos
+- Por algun motivo, al iniciar el juego empieza acelerado por un breve momento.
 - El jugador a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders en Tilemap).
 - El jugador y los enemigos terrestres pueden saltar indefinidamente si atraviesan plataformas con `Platform Effector`.
 
@@ -28,3 +29,4 @@
 - Frame de invulnerabilidad tras recibir daño, para evitar múltiples tics de daño.
 - Animaciones del jugador para movimiento, disparo y muerte.
 - Sprites personalizados para enemigos.
+
