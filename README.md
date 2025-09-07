@@ -7,9 +7,9 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 ---
 
 **🕹️CONTROLES:** 
-WASD o Flechas de direccion para moverse.
-SPACE para saltar.
-Q para disparar.
+- WASD o Flechas de direccion para moverse.
+- SPACE para saltar.
+- Q para disparar.
 
 ## ⚔️ Sistema de Enemigos  
 Actualmente se añadieron scripts que permiten la generación, persecución y daño al jugador.  
