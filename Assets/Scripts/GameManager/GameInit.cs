@@ -28,7 +28,7 @@ public class GameInitializer : MonoBehaviour
                 FindObjectsSortMode.None);
             foreach (var rb in rigidbodies)
             {
-                rb.linearVelocity = Vector2.zero;
+                rb.velocity = Vector2.zero;
                 rb.angularVelocity = 0f;
             }
         }

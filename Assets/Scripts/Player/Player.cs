@@ -5,12 +5,12 @@ using UnityEngine;
 public class Jugador : MonoBehaviour
 {
     [Header("Configuracion")]
-    [SerializeField] private float vida = 5f;
+    [SerializeField] private float vida;
     [SerializeField] private GameObject proyectilPrefab;
     [SerializeField] private Transform puntoDeDisparo;
-    [SerializeField] private float tiempoEntreDisparos = 0.5f;
-    [SerializeField] private float velocidad = 5f;
-    [SerializeField] private float fuerzaSalto = 5f;
+    [SerializeField] private float tiempoEntreDisparos;
+    [SerializeField] private float velocidad;
+    [SerializeField] private float fuerzaSalto;
 
     private float tiempoUltimoDisparo;
     private Vector2 direccionDisparo = Vector2.right;
@@ -56,12 +56,10 @@ public class Jugador : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Time.timeScale != 1f)
-            Time.timeScale = 1f;
         // Movimiento horizontal
         if (rb != null)
         {
-            rb.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * velocidad, rb.linearVelocity.y);
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * velocidad, rb.velocity.y);
         }
     }
 

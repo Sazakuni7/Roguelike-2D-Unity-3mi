@@ -6,7 +6,7 @@ public class Saltar : MonoBehaviour
     [SerializeField] private float fuerzaSalto;
     [SerializeField] private LayerMask capaSuelo; // Capa para identificar el suelo
     [SerializeField] private Transform detectorSuelo; // Punto para verificar si está en el suelo
-    [SerializeField] private float radioDeteccion = 0.2f; // Radio del detector
+    [SerializeField] private float radioDeteccion; // Radio del detector
 
     private bool puedoSaltar = true;
     private Rigidbody2D miRigidbody2D;
@@ -18,7 +18,7 @@ public class Saltar : MonoBehaviour
         // Reset inicial de velocidad
         if (miRigidbody2D != null)
         {
-            miRigidbody2D.linearVelocity = Vector2.zero;
+            miRigidbody2D.velocity = Vector2.zero;
             miRigidbody2D.angularVelocity = 0f;
         }
     }

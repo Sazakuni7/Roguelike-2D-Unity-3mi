@@ -5,9 +5,9 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [Header("Configuración")]
-    [SerializeField] private float velocidad = 10f;
-    [SerializeField] private float daño = 2f;
-    [SerializeField] private float tiempoDeVida = 5f;
+    [SerializeField] private float velocidad;
+    [SerializeField] private float daño;
+    [SerializeField] private float tiempoDeVida;
 
     private Rigidbody2D rb;
     private bool haImpactado = false;
@@ -18,10 +18,8 @@ public class Projectile : MonoBehaviour
 
     private void Start() => Destroy(gameObject, tiempoDeVida);
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (Time.timeScale != 1f)
-            Time.timeScale = 1f;
         if (!haImpactado && rb != null)
         {
             rb.linearVelocity = direccion * velocidad;

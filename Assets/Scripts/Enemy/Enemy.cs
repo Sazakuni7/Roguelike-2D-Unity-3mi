@@ -12,8 +12,6 @@ public class Enemy : MonoBehaviour
 
     private void Morir()
     {
-        if (Time.timeScale != 1f)
-            Time.timeScale = 1f;
         Debug.Log(gameObject.name + " ha sido destruido.");
         Destroy(gameObject);
     }

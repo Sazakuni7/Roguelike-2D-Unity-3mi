@@ -13,18 +13,15 @@ public class ChaseGround : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (Time.timeScale != 1f)
-            Time.timeScale = 1f;
-
         if (rb == null || jugador == null) return;
 
         if (!jugadorEnRango)
         {
             Vector2 dir = (jugador.position - transform.position).normalized;
-            rb.linearVelocity = new Vector2(dir.x * velocidad, rb.linearVelocity.y);
+            rb.velocity = new Vector2(dir.x * velocidad, rb.velocity.y);
         }
         else
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

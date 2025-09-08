@@ -12,8 +12,6 @@ public class ChaseAir : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Time.timeScale != 1f)
-            Time.timeScale = 1f;
 
         if (rb == null || jugador == null) return;
 
@@ -23,7 +21,7 @@ public class ChaseAir : MonoBehaviour
             rb.MovePosition(rb.position + dir * velocidad * Time.fixedDeltaTime);
         }
         else
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,7 +29,7 @@ public class ChaseAir : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             jugadorEnRango = true;
-            if (rb != null) rb.linearVelocity = Vector2.zero;
+            if (rb != null) rb.velocity = Vector2.zero;
         }
     }
 
