@@ -6,9 +6,9 @@ public class Projectile : MonoBehaviour
 {
     [Header("Configuración")]
     [SerializeField] private float velocidad;
-    [SerializeField] private float daño;
     [SerializeField] private float tiempoDeVida;
 
+    private float daño; // Ahora el daño se configura dinámicamente
     private Rigidbody2D rb;
     private bool haImpactado = false;
     private Vector2 direccion = Vector2.right;
@@ -28,13 +28,15 @@ public class Projectile : MonoBehaviour
 
     public void SetDireccion(Vector2 dir) => direccion = dir;
 
+    public void SetDaño(float nuevoDaño) => daño = nuevoDaño; // Método para configurar el daño
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!haImpactado && collision.CompareTag("Enemy") && !enemigosImpactados.Contains(collision.gameObject))
         {
             enemigosImpactados.Add(collision.gameObject);
             Enemy enemigo = collision.GetComponent<Enemy>();
-            if (enemigo != null) enemigo.RecibirDaño(daño);
+            if (enemigo != null) enemigo.RecibirDaño(daño); // Aplica el daño configurado
             ConvertirEnInactivo();
         }
     }

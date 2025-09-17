@@ -8,6 +8,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private TMP_Text enemigosRestantesTmp;
     [SerializeField] private TMP_Text mensajeMuerteTmp;
     [SerializeField] private TMP_Text mensajeVictoriaTmp;
+    [SerializeField] private TMP_Text experienciaTmp; // Nueva referencia para la experiencia
 
     private int enemigosRestantes;
 
@@ -17,12 +18,16 @@ public class GameUI : MonoBehaviour
         GameEvents.OnVictory += MostrarVictoria;
         Enemy.OnEnemyDestroyed += ActualizarEnemigosRestantes;
 
-        // Suscribirse al evento de vida del jugador
+        // Suscribirse al evento de vida y experiencia del jugador
         Jugador jugador = FindObjectOfType<Jugador>();
         if (jugador != null)
         {
             jugador.OnVidaCambiada += ActualizarVida;
-            ActualizarVida(jugador.GetVida()); // Inicializar la UI con la vida actual
+            jugador.OnExperienciaCambiada += ActualizarExperiencia;
+
+            // Inicializar la UI con los valores actuales
+            ActualizarVida(jugador.GetVida());
+            ActualizarExperiencia(jugador.datosProgresion.experienciaActual, jugador.datosProgresion.experienciaNecesaria);
         }
 
         // Inicializar el conteo de enemigos
@@ -36,11 +41,12 @@ public class GameUI : MonoBehaviour
         GameEvents.OnVictory -= MostrarVictoria;
         Enemy.OnEnemyDestroyed -= ActualizarEnemigosRestantes;
 
-        // Cancelar la suscripción al evento de vida del jugador
+        // Cancelar la suscripción al evento de vida y experiencia del jugador
         Jugador jugador = FindObjectOfType<Jugador>();
         if (jugador != null)
         {
             jugador.OnVidaCambiada -= ActualizarVida;
+            jugador.OnExperienciaCambiada -= ActualizarExperiencia;
         }
     }
 
@@ -70,7 +76,18 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private void ActualizarEnemigosRestantes()
+    private void ActualizarExperiencia(float experienciaActual, float experienciaParaNivel2)
+    {
+        if (experienciaTmp != null)
+        {
+            float experienciaFaltante = experienciaParaNivel2 - experienciaActual;
+            experienciaTmp.text = $"Experiencia: {experienciaActual:F0}/{experienciaParaNivel2:F0} (Faltan {experienciaFaltante:F0})";
+
+            Debug.Log($"Actualizando experiencia en la UI: {experienciaActual}/{experienciaParaNivel2} (Faltan {experienciaFaltante})");
+        }
+    }
+
+    private void ActualizarEnemigosRestantes(float _)
     {
         enemigosRestantes--;
         ActualizarEnemigosRestantesUI();

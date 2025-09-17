@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Jugador : MonoBehaviour
 {
-    public event Action<float> OnVidaCambiada;
+    public event Action<float, float> OnExperienciaCambiada; // Evento para notificar cambios en la experiencia
+    public event Action<float> OnVidaCambiada; // Evento para notificar cambios en la vida
 
     [Header("Configuración")]
     [SerializeField] private float vida;
@@ -11,6 +12,9 @@ public class Jugador : MonoBehaviour
     [SerializeField] private Transform puntoDeDisparo;
     [SerializeField] private float tiempoEntreDisparos;
     [SerializeField] private float velocidad;
+
+    [Header("Progresión del Jugador")]
+    [SerializeField] private PlayerProgressionData datosProgresion; // Referencia al ScriptableObject
 
     private float tiempoUltimoDisparo;
     private Vector2 direccionDisparo = Vector2.right;
@@ -30,9 +34,21 @@ public class Jugador : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        // Suscribirse al evento de destrucción de enemigos
+        Enemy.OnEnemyDestroyed += AgregarExperiencia;
+    }
+
+    private void OnDisable()
+    {
+        // Cancelar la suscripción al evento de destrucción de enemigos
+        Enemy.OnEnemyDestroyed -= AgregarExperiencia;
+    }
+
     private void Update()
     {
-        // Dirección horizontal
+        // Direccionamiento horizontal
         float moverHorizontal = Input.GetAxis("Horizontal");
         if (moverHorizontal > 0)
         {
@@ -69,7 +85,10 @@ public class Jugador : MonoBehaviour
             GameObject proyectil = Instantiate(proyectilPrefab, puntoDeDisparo.position, Quaternion.identity);
             Projectile p = proyectil.GetComponent<Projectile>();
             if (p != null)
+            {
                 p.SetDireccion(direccionDisparo);
+                p.SetDaño(datosProgresion.dañoBase); // Configura el daño del proyectil desde la progresión
+            }
         }
     }
 
@@ -87,4 +106,12 @@ public class Jugador : MonoBehaviour
     }
 
     public float GetVida() => vida;
+
+    private void AgregarExperiencia(float experiencia)
+    {
+        datosProgresion.AgregarExperiencia(experiencia);
+
+        // Notificar a la UI sobre el cambio de experiencia
+        OnExperienciaCambiada?.Invoke(datosProgresion.experienciaActual, datosProgresion.experienciaNecesaria);
+    }
 }

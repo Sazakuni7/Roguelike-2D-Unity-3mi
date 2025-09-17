@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Jugador jugador;
 
     private bool juegoPausado = false;
+
+    // Lista para gestionar enemigos activos
+    private List<Enemy> enemigosActivos = new List<Enemy>();
 
     private void Awake()
     {
@@ -24,12 +28,21 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Persistir entre escenas
     }
 
+    private void Start()
+    {
+        // Inicializar la lista de enemigos activos
+        enemigosActivos.AddRange(FindObjectsOfType<Enemy>());
+    }
+
     private void OnEnable()
     {
         GameEvents.OnGameOver += HandleGameOver;
         GameEvents.OnVictory += HandleVictory;
         GameEvents.OnGamePaused += PauseGame;
         GameEvents.OnGameResumed += ResumeGame;
+
+        // Suscribirse al evento de destrucción de enemigos
+        Enemy.OnEnemyDestroyed += EliminarEnemigo;
     }
 
     private void OnDisable()
@@ -38,6 +51,9 @@ public class GameManager : MonoBehaviour
         GameEvents.OnVictory -= HandleVictory;
         GameEvents.OnGamePaused -= PauseGame;
         GameEvents.OnGameResumed -= ResumeGame;
+
+        // Cancelar la suscripción al evento de destrucción de enemigos
+        Enemy.OnEnemyDestroyed -= EliminarEnemigo;
     }
 
     private void Update()
@@ -92,5 +108,17 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f; // Asegurarse de que el tiempo esté corriendo
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reiniciar la escena actual
+    }
+
+    private void EliminarEnemigo(float _)
+    {
+        // Eliminar enemigos destruidos de la lista
+        enemigosActivos.RemoveAll(e => e == null);
+
+        // Verificar si todos los enemigos han sido eliminados
+        if (enemigosActivos.Count == 0)
+        {
+            GameEvents.TriggerVictory();
+        }
     }
 }

@@ -181,7 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d78f75c6002fe4f8c65da8a4bbb530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  vida: 6
+  vida: 20
+  experienciaOtorgada: 30
 --- !u!114 &6483795245750309065
 MonoBehaviour:
   m_ObjectHideFlags: 0
