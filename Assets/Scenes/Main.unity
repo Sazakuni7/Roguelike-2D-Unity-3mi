@@ -489,7 +489,6 @@ GameObject:
   m_Component:
   - component: {fileID: 153568137}
   - component: {fileID: 153568138}
-  - component: {fileID: 153568139}
   m_Layer: 0
   m_Name: Init
   m_TagString: Untagged
@@ -526,18 +525,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameInitializer
   fixedTimeStep: 0.02
   resetRigidbodyVelocities: 1
---- !u!114 &153568139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153568136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ddfad8e3c6e0b4693156645a9324ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DebugTime
 --- !u!1 &162027924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6757411321227390414, guid: e52150914d40b0842b01a6effc8afb7f, type: 3}
@@ -847,7 +834,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -927,7 +914,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1107,7 +1094,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 23
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1227,7 +1214,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1627,7 +1614,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 23
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2877,7 +2864,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 23
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2947,7 +2934,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 23
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3614,7 +3601,7 @@ Tilemap:
     m_Data: {fileID: 6631060675350861737, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
+  - m_RefCount: 5
     m_Data: {fileID: -8505701025561436017, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 3570860375612987289, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
@@ -3624,7 +3611,7 @@ Tilemap:
     m_Data: {fileID: 5834224790639395007, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
   - m_RefCount: 26
     m_Data: {fileID: 3567241717527407778, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
-  - m_RefCount: 68
+  - m_RefCount: 61
     m_Data: {fileID: -8454565199274225292, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -5777412115410717616, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
@@ -3634,7 +3621,7 @@ Tilemap:
     m_Data: {fileID: -2135176149722685956, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -3547841084713315887, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
-  - m_RefCount: 58
+  - m_RefCount: 62
     m_Data: {fileID: -4583496318832728445, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 525398446524641485, guid: 8b2e9082794bc4a4894dd7bf771dd920, type: 3}
@@ -5900,7 +5887,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Has ganado!
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6162,7 +6149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c2068875f623140999c1261925395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
-  jugador: {fileID: 2109544506}
   vidaTmp: {fileID: 1263912065}
   enemigosRestantesTmp: {fileID: 1717982655}
   mensajeMuerteTmp: {fileID: 1816607099}
@@ -6397,6 +6383,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4936215139935173042, guid: bcf9745d74448af4ebc3eddc42241240, type: 3}
   m_PrefabInstance: {fileID: 870751579}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1613171538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613171539}
+  - component: {fileID: 1613171540}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613171539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613171538}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2068257015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1613171540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613171538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0404658f8c153f64f98225c32a17c373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  jugador: {fileID: 2109544506}
 --- !u!1 &1667142938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6757411321227390414, guid: e52150914d40b0842b01a6effc8afb7f, type: 3}
@@ -6872,7 +6903,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Has perdido!
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7323,6 +7354,7 @@ Transform:
   - {fileID: 1470892742}
   - {fileID: 875016940}
   - {fileID: 631329635}
+  - {fileID: 1613171539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2109544499
@@ -7415,7 +7447,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -7506,7 +7538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca2549e2116a8f42866ec42f0a4d6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Saltar
-  fuerzaSalto: 4
+  fuerzaSalto: 8
   capaSuelo:
     serializedVersion: 2
     m_Bits: 1024
@@ -7529,7 +7561,6 @@ MonoBehaviour:
   puntoDeDisparo: {fileID: 1092140150}
   tiempoEntreDisparos: 0.5
   velocidad: 5
-  fuerzaSalto: 5
 --- !u!1 &2146161842
 GameObject:
   m_ObjectHideFlags: 0

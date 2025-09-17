@@ -1,32 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Jugador : MonoBehaviour
 {
-    [Header("Configuracion")]
+    public event Action<float> OnVidaCambiada;
+
+    [Header("Configuración")]
     [SerializeField] private float vida;
     [SerializeField] private GameObject proyectilPrefab;
     [SerializeField] private Transform puntoDeDisparo;
     [SerializeField] private float tiempoEntreDisparos;
     [SerializeField] private float velocidad;
-    [SerializeField] private float fuerzaSalto;
 
     private float tiempoUltimoDisparo;
     private Vector2 direccionDisparo = Vector2.right;
     private Vector3 escalaInicial;
     private Rigidbody2D rb;
-    private bool puedoSaltar = true;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         escalaInicial = transform.localScale;
+
+        // Resetear velocidad inicial
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 
     private void Update()
     {
-        // Direccion horizontal
+        // Dirección horizontal
         float moverHorizontal = Input.GetAxis("Horizontal");
         if (moverHorizontal > 0)
         {
@@ -37,13 +43,6 @@ public class Jugador : MonoBehaviour
         {
             direccionDisparo = Vector2.left;
             transform.localScale = new Vector3(-escalaInicial.x, escalaInicial.y, escalaInicial.z);
-        }
-
-        // Salto
-        if (Input.GetKeyDown(KeyCode.Space) && puedoSaltar)
-        {
-            rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
-            puedoSaltar = false;
         }
 
         // Disparo
@@ -78,21 +77,14 @@ public class Jugador : MonoBehaviour
     {
         vida += puntos;
         if (vida < 0) vida = 0;
-        if (vida <= 0) Morir();
+
+        OnVidaCambiada?.Invoke(vida);
+
+        if (vida <= 0)
+        {
+            GameEvents.TriggerGameOver();
+        }
     }
 
     public float GetVida() => vida;
-
-    private void Morir()
-    {
-        Debug.Log("Jugador ha muerto");
-        Time.timeScale = 0f;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Restaurar salto si toca el suelo
-        if (collision.contacts.Length > 0)
-            puedoSaltar = true;
-    }
 }

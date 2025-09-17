@@ -17,28 +17,36 @@ public class GameInitializer : MonoBehaviour
         Time.fixedDeltaTime = fixedTimeStep;
 
         // Frame rate seguro
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 50;
         QualitySettings.vSyncCount = 1;
 
         Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
 
         if (resetRigidbodyVelocities)
         {
-            Rigidbody2D[] rigidbodies = Object.FindObjectsByType<Rigidbody2D>(
-                FindObjectsSortMode.None);
-            foreach (var rb in rigidbodies)
-            {
-                rb.velocity = Vector2.zero;
-                rb.angularVelocity = 0f;
-            }
+            ResetVelocidadesRigidbody();
         }
 
         Debug.Log("[GameInitializer] Inicialización completada: TimeScale=" + Time.timeScale +
                   ", FixedDeltaTime=" + Time.fixedDeltaTime +
                   ", Physics2D.simulationMode=" + Physics2D.simulationMode);
 
-        // 5️⃣ Activar scripts de movimiento después de un frame
+        // Activar scripts de movimiento después de un frame
         StartCoroutine(ActivarScriptsMovimiento());
+    }
+
+    private void ResetVelocidadesRigidbody()
+    {
+        Rigidbody2D[] rigidbodies = Object.FindObjectsByType<Rigidbody2D>(FindObjectsSortMode.None);
+
+        foreach (var rb in rigidbodies)
+        {
+            // Excluir el Rigidbody2D del jugador para evitar interferencias
+            if (rb.gameObject.CompareTag("Player")) continue;
+
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 
     private IEnumerator ActivarScriptsMovimiento()
@@ -46,8 +54,7 @@ public class GameInitializer : MonoBehaviour
         yield return null; // espera 1 frame para estabilizar deltaTime
 
         // Activar todos los scripts que controlan movimiento
-        MonoBehaviour[] scriptsMovimiento = Object.FindObjectsByType<MonoBehaviour>(
-            FindObjectsSortMode.None);
+        MonoBehaviour[] scriptsMovimiento = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
 
         foreach (var script in scriptsMovimiento)
         {

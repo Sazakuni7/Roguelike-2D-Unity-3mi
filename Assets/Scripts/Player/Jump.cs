@@ -11,7 +11,7 @@ public class Saltar : MonoBehaviour
     private bool puedoSaltar = true;
     private Rigidbody2D miRigidbody2D;
 
-    private void OnEnable()
+    private void Awake()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -35,6 +35,7 @@ public class Saltar : MonoBehaviour
     {
         if (miRigidbody2D != null && EstoyEnElSuelo())
         {
+            miRigidbody2D.velocity = new Vector2(miRigidbody2D.velocity.x, 0f); // Resetear velocidad vertical antes de saltar
             miRigidbody2D.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
             puedoSaltar = false;
         }
