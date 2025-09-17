@@ -15,6 +15,15 @@ public class Enemy : MonoBehaviour
         if (vida <= 0) Morir();
     }
 
+    public void EmpujarDesdeJugador(Vector2 posicionJugador, float fuerzaEmpuje)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            Vector2 direccionEmpuje = (transform.position - (Vector3)posicionJugador).normalized;
+            rb.AddForce(direccionEmpuje * fuerzaEmpuje, ForceMode2D.Impulse);
+        }
+    }
     private void Morir()
     {
         if (haMuerto) return; // Evitar múltiples ejecuciones

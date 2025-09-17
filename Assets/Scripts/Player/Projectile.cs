@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
     {
         if (!haImpactado && rb != null)
         {
-            rb.linearVelocity = direccion * velocidad;
+            rb.velocity = direccion * velocidad; // Usa la dirección configurada
         }
     }
 

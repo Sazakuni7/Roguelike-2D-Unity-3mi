@@ -5,6 +5,7 @@ public class Jugador : MonoBehaviour
 {
     public event Action<float, float> OnExperienciaCambiada; // Evento para notificar cambios en la experiencia
     public event Action<float> OnVidaCambiada; // Evento para notificar cambios en la vida
+    public event Action<float> OnDañoCambiado; // Evento para notificar cambios en el daño
 
     [Header("Configuración")]
     [SerializeField] private float vida;
@@ -15,6 +16,7 @@ public class Jugador : MonoBehaviour
 
     [Header("Progresión del Jugador")]
     [SerializeField] private PlayerProgressionData datosProgresion; // Referencia al ScriptableObject
+    public PlayerProgressionData DatosProgresion => datosProgresion;
 
     private float tiempoUltimoDisparo;
     private Vector2 direccionDisparo = Vector2.right;
@@ -86,8 +88,12 @@ public class Jugador : MonoBehaviour
             Projectile p = proyectil.GetComponent<Projectile>();
             if (p != null)
             {
-                p.SetDireccion(direccionDisparo);
-                p.SetDaño(datosProgresion.dañoBase); // Configura el daño del proyectil desde la progresión
+                float dañoProyectil = datosProgresion.dañoBase;
+                p.SetDaño(dañoProyectil); // Configura el daño del proyectil desde la progresión
+                p.SetDireccion(direccionDisparo); // Configura la dirección del proyectil
+
+                // Debug para verificar el daño y dirección del proyectil
+                Debug.Log($"Proyectil disparado con daño: {dañoProyectil}, Dirección: {direccionDisparo}");
             }
         }
     }
@@ -113,5 +119,18 @@ public class Jugador : MonoBehaviour
 
         // Notificar a la UI sobre el cambio de experiencia
         OnExperienciaCambiada?.Invoke(datosProgresion.experienciaActual, datosProgresion.experienciaNecesaria);
+
+        // Notificar a la UI sobre el cambio de daño
+        OnDañoCambiado?.Invoke(datosProgresion.dañoBase);
+    }
+
+    public PlayerProgressionData GetDatosProgresion()
+    {
+        return datosProgresion;
+    }
+
+    public void SetDatosProgresion(PlayerProgressionData nuevosDatos)
+    {
+        datosProgresion = nuevosDatos;
     }
 }

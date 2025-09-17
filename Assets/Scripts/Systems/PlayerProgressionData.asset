@@ -15,5 +15,5 @@ MonoBehaviour:
   nivel: 1
   experienciaActual: 0
   experienciaNecesaria: 100
-  vidaMaxima: 20
+  vidaMaxima: 100
   "da\xF1oBase": 2

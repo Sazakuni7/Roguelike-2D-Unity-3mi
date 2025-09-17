@@ -28,9 +28,37 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Persistir entre escenas
     }
 
+    private void ResetearProgresionJugador()
+    {
+        if (jugador != null)
+        {
+            // Clonar el ScriptableObject para evitar que los cambios persistan entre sesiones
+            PlayerProgressionData progresionOriginal = jugador.DatosProgresion;
+            if (progresionOriginal != null)
+            {
+                PlayerProgressionData progresionClonada = Instantiate(progresionOriginal);
+                jugador.SetDatosProgresion(progresionClonada); // Asignar la copia al jugador
+
+                // Solo reiniciar los valores si están en 0
+                if (progresionClonada.experienciaActual == 0 && progresionClonada.nivel == 1)
+                {
+                    progresionClonada.experienciaNecesaria = 100; // Valor inicial
+                    progresionClonada.vidaMaxima = 100; // Valor inicial
+                    progresionClonada.dañoBase = 2; // Valor inicial
+
+                    Debug.Log("Progresión del jugador reiniciada.");
+                }
+                else
+                {
+                    Debug.Log("Progresión del jugador cargada desde valores existentes.");
+                }
+            }
+        }
+    }
+
     private void Start()
     {
-        // Inicializar la lista de enemigos activos
+        ResetearProgresionJugador(); // Llama a este método al inicio del juego
         enemigosActivos.AddRange(FindObjectsOfType<Enemy>());
     }
 

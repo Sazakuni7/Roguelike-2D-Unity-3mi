@@ -9,6 +9,8 @@ public class GameUI : MonoBehaviour
     [SerializeField] private TMP_Text mensajeMuerteTmp;
     [SerializeField] private TMP_Text mensajeVictoriaTmp;
     [SerializeField] private TMP_Text experienciaTmp; // Nueva referencia para la experiencia
+    [SerializeField] private TMP_Text nivelTmp; // Nueva referencia para el nivel
+    [SerializeField] private TMP_Text dañoTmp; // Nueva referencia para el daño
 
     private int enemigosRestantes;
 
@@ -18,16 +20,19 @@ public class GameUI : MonoBehaviour
         GameEvents.OnVictory += MostrarVictoria;
         Enemy.OnEnemyDestroyed += ActualizarEnemigosRestantes;
 
-        // Suscribirse al evento de vida y experiencia del jugador
+        // Suscribirse al evento de vida, experiencia, nivel y daño del jugador
         Jugador jugador = FindObjectOfType<Jugador>();
         if (jugador != null)
         {
             jugador.OnVidaCambiada += ActualizarVida;
             jugador.OnExperienciaCambiada += ActualizarExperiencia;
+            jugador.OnDañoCambiado += ActualizarDaño;
 
             // Inicializar la UI con los valores actuales
             ActualizarVida(jugador.GetVida());
-            ActualizarExperiencia(jugador.datosProgresion.experienciaActual, jugador.datosProgresion.experienciaNecesaria);
+            ActualizarExperiencia(jugador.DatosProgresion.experienciaActual, jugador.DatosProgresion.experienciaNecesaria);
+            ActualizarNivel(jugador.DatosProgresion.nivel);
+            ActualizarDaño(jugador.DatosProgresion.dañoBase);
         }
 
         // Inicializar el conteo de enemigos
@@ -41,12 +46,13 @@ public class GameUI : MonoBehaviour
         GameEvents.OnVictory -= MostrarVictoria;
         Enemy.OnEnemyDestroyed -= ActualizarEnemigosRestantes;
 
-        // Cancelar la suscripción al evento de vida y experiencia del jugador
+        // Cancelar la suscripción al evento de vida, experiencia, nivel y daño del jugador
         Jugador jugador = FindObjectOfType<Jugador>();
         if (jugador != null)
         {
             jugador.OnVidaCambiada -= ActualizarVida;
             jugador.OnExperienciaCambiada -= ActualizarExperiencia;
+            jugador.OnDañoCambiado -= ActualizarDaño;
         }
     }
 
@@ -84,6 +90,22 @@ public class GameUI : MonoBehaviour
             experienciaTmp.text = $"Experiencia: {experienciaActual:F0}/{experienciaParaNivel2:F0} (Faltan {experienciaFaltante:F0})";
 
             Debug.Log($"Actualizando experiencia en la UI: {experienciaActual}/{experienciaParaNivel2} (Faltan {experienciaFaltante})");
+        }
+    }
+
+    private void ActualizarNivel(int nivel)
+    {
+        if (nivelTmp != null)
+        {
+            nivelTmp.text = $"Nivel: {nivel}";
+        }
+    }
+
+    private void ActualizarDaño(float daño)
+    {
+        if (dañoTmp != null)
+        {
+            dañoTmp.text = $"Daño: {daño:F0}";
         }
     }
 
