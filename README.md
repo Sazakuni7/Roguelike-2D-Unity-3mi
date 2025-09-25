@@ -2,7 +2,7 @@
 Basado en *2D Beginner: Adventure Game* de Unity Learn.  
 
 📌 Este proyecto se trabajará durante todo el cursado de **Programación de Videojuegos II**.  
-🔧 **Engine:** Unity 6.2 (6000.2.0f1.2588.6057)  
+🔧 **Engine:** Unity 6.2 (6000.2.5f1)
 
 ---
 
