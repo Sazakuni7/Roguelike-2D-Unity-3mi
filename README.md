@@ -20,7 +20,7 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 
 ## 🚨 Problemas conocidos 
 - ❗Por algun motivo, al iniciar el juego empieza acelerado por un breve momento, o lo hace luego de un tiempo (IMPORTANTE).
-- El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders).  
+- El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders, parcialmente arreglado).  
 - El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
 
 ---
@@ -45,29 +45,33 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 
 ---
 
-## 🧑‍🎮 Jugador, Proyectiles y UI  
+### 🧑‍🎮 Jugador, Proyectiles y UI
 
-### Jugador  
-- `Jugador.cs` controla la vida del jugador.  
-- Detecta **muerte** y pausa el juego con `Time.timeScale = 0`.  
-- Puede **disparar proyectiles** con la tecla **Q**, con cooldown configurable en el Inspector.  
+**Jugador**  
+- `Jugador.cs` controla la vida, progresión y disparos del jugador.  
+- Gestiona experiencia, niveles y daño dinámico mediante `PlayerProgressionData`.  
+- Detecta muerte y pausa el juego con `Time.timeScale = 0`.  
+- Puede disparar proyectiles con la tecla Q, con cooldown configurable en el Inspector.  
 - El disparo responde a la dirección en la que el jugador se mueve (izquierda/derecha).  
 
-### Proyectiles  
+**Proyectiles**  
 - `Projectile.cs` se instancia desde el punto de disparo del jugador.  
 - Se desplaza horizontalmente según dirección asignada.  
 - Aplica daño a los enemigos mediante `Enemy.RecibirDaño`.  
 - Tras impactar:  
-  - El proyectil gana **gravedad**.  
-  - Se vuelve **inutilizado** (cambia de color y se convierte en objeto físico).  
+  - El proyectil gana gravedad.  
+  - Se vuelve inutilizado (cambia de color y se convierte en objeto físico).  
   - Se destruye luego de un tiempo.  
 
-### UI del Juego  
+**UI del Juego**  
 - `GameUI.cs` muestra en pantalla:  
   - Vida del jugador en porcentaje.  
+  - Nivel del jugador.  
+  - Daño actual del jugador.  
+  - Barra de experiencia (actual/experiencia necesaria).  
   - Cantidad de enemigos restantes (contador dinámico).  
-- Detecta condiciones de **derrota** (vida = 0) y muestra `"Has muerto"`.  
-- Detecta condiciones de **victoria** (enemigos restantes = 0) y muestra `"Has ganado"`.  
+  - Detecta condiciones de derrota (vida = 0) y muestra **"Has muerto"**.  
+  - Detecta condiciones de victoria (enemigos restantes = 0) y muestra **"Has ganado"**.  
 
 ---
 
@@ -81,6 +85,19 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 - Se alcanza cuando la **vida del jugador llega a 0**.  
 - La UI muestra el mensaje: **"¡Has muerto!"**.  
 - El juego se detiene con `Time.timeScale = 0`.  
+
+---
+
+## 🆕 ✅ Avances para el Desafío 2
+En esta etapa del proyecto se **incorporó y completó el sistema de progresión** solicitado:  
+
+- Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida y daño del jugador.  
+- Implementación de un **Singleton (`GameManager`)** para el control global de la partida.  
+- Uso de **ScriptableObjects** para configurar y extender la progresión de forma flexible desde el editor.  
+- Conexión con la **UI dinámica**: experiencia, daño y nivel se actualizan en pantalla en tiempo real.  
+- Balance de experiencia con **arrastre de excedentes** al subir de nivel.
+- Todos los componentes son configurables desde el editor
+- El mapa está manejado con Tilemap e incluso con Rule Tile
 
 ---
 
@@ -111,8 +128,6 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 - El sistema de cuevas aparece de manera aleatoria en el interior del suelo.
 - Al estar separado en dos Tilemaps, se puede aplicar un tratamiento visual distinto para suelo y cuevas.
 
-
----
 
 ## 🚀 Mejoras Pendientes  
 - Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión).  
