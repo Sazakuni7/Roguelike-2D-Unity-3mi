@@ -21,7 +21,8 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 ## 🚨 Problemas conocidos 
 - ❗Por algun motivo, al iniciar el juego empieza acelerado por un breve momento, o lo hace luego de un tiempo (IMPORTANTE).
 - El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders, parcialmente arreglado).  
-- El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.  
+- El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.
+- El **jugador** puede posicionarse dentro de las plataformas luego de saltar.
 
 ---
 
