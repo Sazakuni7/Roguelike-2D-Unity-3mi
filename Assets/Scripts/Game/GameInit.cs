@@ -44,7 +44,7 @@ public class GameInitializer : MonoBehaviour
             // Excluir el Rigidbody2D del jugador para evitar interferencias
             if (rb.gameObject.CompareTag("Player")) continue;
 
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
     }

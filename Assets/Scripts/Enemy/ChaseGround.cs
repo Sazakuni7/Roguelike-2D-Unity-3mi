@@ -10,6 +10,8 @@ public class ChaseGround : MonoBehaviour
 
     private void Awake() => rb = GetComponent<Rigidbody2D>();
 
+    // Persigue al objetivo indicado (jugador).
+    // Calcula la direcci�n y ajusta la velocidad en consecuencia.
     private void FixedUpdate()
     {
 
@@ -18,10 +20,10 @@ public class ChaseGround : MonoBehaviour
         if (!jugadorEnRango)
         {
             Vector2 dir = (jugador.position - transform.position).normalized;
-            rb.velocity = new Vector2(dir.x * velocidad, rb.velocity.y);
+            rb.linearVelocity = new Vector2(dir.x * velocidad, rb.linearVelocity.y);
         }
         else
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

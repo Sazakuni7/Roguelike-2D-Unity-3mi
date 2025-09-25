@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     // Lista para gestionar enemigos activos
     private List<Enemy> enemigosActivos = new List<Enemy>();
 
+    // Singleton: garantiza que exista solo un GameManager en escena.
     private void Awake()
     {
         // Implementación del Singleton
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Inicializa el juego reiniciando los datos de progresión del jugador.
     private void Start()
     {
         ResetearProgresionJugador(); // Llama a este método al inicio del juego

@@ -10,6 +10,8 @@ public class PlayerProgressionData : ScriptableObject
     public float vidaMaxima;
     public float dañoBase;
 
+    // Agrega experiencia al jugador y maneja la lógica de subida de nivel.
+    // Si la experiencia sobrepasa la necesaria, arrastra el excedente.
     public void AgregarExperiencia(float experiencia)
     {
         experienciaActual += experiencia;

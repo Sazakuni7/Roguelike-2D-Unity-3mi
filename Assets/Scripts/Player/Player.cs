@@ -5,16 +5,17 @@ public class Jugador : MonoBehaviour
 {
     public event Action<float, float> OnExperienciaCambiada; // Evento para notificar cambios en la experiencia
     public event Action<float> OnVidaCambiada; // Evento para notificar cambios en la vida
-    public event Action<float> OnDañoCambiado; // Evento para notificar cambios en el daño
+    public event Action<float> OnDaÃ±oCambiado; // Evento para notificar cambios en el daï¿½o
+    public event Action<int> OnNivelCambiado; // Evento para notificar cambios en el nivel del jugador
 
-    [Header("Configuración")]
+    [Header("Configuraciï¿½n")]
     [SerializeField] private float vida;
     [SerializeField] private GameObject proyectilPrefab;
     [SerializeField] private Transform puntoDeDisparo;
     [SerializeField] private float tiempoEntreDisparos;
     [SerializeField] private float velocidad;
 
-    [Header("Progresión del Jugador")]
+    [Header("Progresiï¿½n del Jugador")]
     [SerializeField] private PlayerProgressionData datosProgresion; // Referencia al ScriptableObject
     public PlayerProgressionData DatosProgresion => datosProgresion;
 
@@ -31,20 +32,20 @@ public class Jugador : MonoBehaviour
         // Resetear velocidad inicial
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
     }
 
     private void OnEnable()
     {
-        // Suscribirse al evento de destrucción de enemigos
+        // Suscribirse al evento de destrucciï¿½n de enemigos
         Enemy.OnEnemyDestroyed += AgregarExperiencia;
     }
 
     private void OnDisable()
     {
-        // Cancelar la suscripción al evento de destrucción de enemigos
+        // Cancelar la suscripciï¿½n al evento de destrucciï¿½n de enemigos
         Enemy.OnEnemyDestroyed -= AgregarExperiencia;
     }
 
@@ -76,7 +77,7 @@ public class Jugador : MonoBehaviour
         // Movimiento horizontal
         if (rb != null)
         {
-            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * velocidad, rb.velocity.y);
+            rb.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * velocidad, rb.linearVelocity.y);
         }
     }
 
@@ -88,16 +89,18 @@ public class Jugador : MonoBehaviour
             Projectile p = proyectil.GetComponent<Projectile>();
             if (p != null)
             {
-                float dañoProyectil = datosProgresion.dañoBase;
-                p.SetDaño(dañoProyectil); // Configura el daño del proyectil desde la progresión
-                p.SetDireccion(direccionDisparo); // Configura la dirección del proyectil
+                float daÃ±oProyectil = datosProgresion.daÃ±oBase;
+                p.SetDaÃ±o(daÃ±oProyectil); // Configura el daï¿½o del proyectil desde la progresiï¿½n
+                p.SetDireccion(direccionDisparo); // Configura la direcciï¿½n del proyectil
 
-                // Debug para verificar el daño y dirección del proyectil
-                Debug.Log($"Proyectil disparado con daño: {dañoProyectil}, Dirección: {direccionDisparo}");
+                // Debug para verificar el daï¿½o y direcciï¿½n del proyectil
+                Debug.Log($"Proyectil disparado con daï¿½o: {daÃ±oProyectil}, Direcciï¿½n: {direccionDisparo}");
             }
         }
     }
 
+    // Lï¿½gica de daï¿½o recibido por el jugador. 
+    // Si la vida llega a cero, notifica la muerte.
     public void ModificarVida(float puntos)
     {
         vida += puntos;
@@ -113,15 +116,18 @@ public class Jugador : MonoBehaviour
 
     public float GetVida() => vida;
 
+    // Mï¿½todo principal para manejar la progresiï¿½n: agrega experiencia, 
+    // recalcula nivel/daï¿½o y notifica a la UI si hubo cambios
     private void AgregarExperiencia(float experiencia)
     {
+        int nivelAnterior = datosProgresion.nivel;
         datosProgresion.AgregarExperiencia(experiencia);
 
-        // Notificar a la UI sobre el cambio de experiencia
         OnExperienciaCambiada?.Invoke(datosProgresion.experienciaActual, datosProgresion.experienciaNecesaria);
+        OnDaÃ±oCambiado?.Invoke(datosProgresion.daÃ±oBase);
 
-        // Notificar a la UI sobre el cambio de daño
-        OnDañoCambiado?.Invoke(datosProgresion.dañoBase);
+        if (datosProgresion.nivel > nivelAnterior)
+            OnNivelCambiado?.Invoke(datosProgresion.nivel);
     }
 
     public PlayerProgressionData GetDatosProgresion()

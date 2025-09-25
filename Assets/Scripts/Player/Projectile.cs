@@ -22,14 +22,18 @@ public class Projectile : MonoBehaviour
     {
         if (!haImpactado && rb != null)
         {
-            rb.velocity = direccion * velocidad; // Usa la dirección configurada
+            rb.linearVelocity = direccion * velocidad; // Usa la dirección configurada
         }
     }
 
+    // Asigna la dirección inicial del proyectil
     public void SetDireccion(Vector2 dir) => direccion = dir;
 
     public void SetDaño(float nuevoDaño) => daño = nuevoDaño; // Método para configurar el daño
 
+
+    // Manejo de colisiones: si impacta con un enemigo, 
+    // aplica daño (si aún no lo había hecho antes) y se destruye.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!haImpactado && collision.CompareTag("Enemy") && !enemigosImpactados.Contains(collision.gameObject))
@@ -41,6 +45,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    // Se autodestruye tras cierto tiempo de vida.
     private void ConvertirEnInactivo()
     {
         haImpactado = true;

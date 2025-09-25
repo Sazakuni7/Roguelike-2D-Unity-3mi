@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
             jugador.OnVidaCambiada += ActualizarVida;
             jugador.OnExperienciaCambiada += ActualizarExperiencia;
             jugador.OnDañoCambiado += ActualizarDaño;
+            jugador.OnNivelCambiado += ActualizarNivel;
 
             // Inicializar la UI con los valores actuales
             ActualizarVida(jugador.GetVida());

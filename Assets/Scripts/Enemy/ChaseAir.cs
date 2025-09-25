@@ -10,6 +10,8 @@ public class ChaseAir : MonoBehaviour
 
     private void Awake() => rb = GetComponent<Rigidbody2D>();
 
+    // Persigue al objetivo indicado (jugador).
+    // Calcula la direcci�n y ajusta la velocidad en consecuencia.
     private void FixedUpdate()
     {
 
@@ -21,7 +23,7 @@ public class ChaseAir : MonoBehaviour
             rb.MovePosition(rb.position + dir * velocidad * Time.fixedDeltaTime);
         }
         else
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,7 +31,7 @@ public class ChaseAir : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             jugadorEnRango = true;
-            if (rb != null) rb.velocity = Vector2.zero;
+            if (rb != null) rb.linearVelocity = Vector2.zero;
         }
     }
 

@@ -18,7 +18,7 @@ public class Saltar : MonoBehaviour
         // Reset inicial de velocidad
         if (miRigidbody2D != null)
         {
-            miRigidbody2D.velocity = Vector2.zero;
+            miRigidbody2D.linearVelocity = Vector2.zero;
             miRigidbody2D.angularVelocity = 0f;
         }
     }
@@ -35,7 +35,7 @@ public class Saltar : MonoBehaviour
     {
         if (miRigidbody2D != null && EstoyEnElSuelo())
         {
-            miRigidbody2D.velocity = new Vector2(miRigidbody2D.velocity.x, 0f); // Resetear velocidad vertical antes de saltar
+            miRigidbody2D.linearVelocity = new Vector2(miRigidbody2D.linearVelocity.x, 0f); // Resetear velocidad vertical antes de saltar
             miRigidbody2D.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
             puedoSaltar = false;
         }

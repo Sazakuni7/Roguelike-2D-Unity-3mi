@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     private bool haMuerto = false;
 
+    // Aplica daño al enemigo. Si la vida llega a 0, se destruye y entrega experiencia al jugador.
     public void RecibirDaño(float daño)
     {
         vida -= daño;
