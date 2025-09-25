@@ -91,6 +91,13 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 
 ---
 
+## 🚀 Mejoras Pendientes  
+- Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión).  
+- Agregar **animaciones al jugador** (idle, run, jump, shoot).  
+- Agregar **sprites y animaciones para los enemigos**.  
+
+---
+
 ## 🆕 ✅ Avances para el Desafío 2
 En esta etapa del proyecto se **incorporó y completó el sistema de progresión** solicitado:  
 
@@ -130,12 +137,6 @@ Este proyecto incluye un sistema de generación procedural en 2D utilizando Perl
 - Se obtiene un terreno irregular y natural con colinas y valles.
 - El sistema de cuevas aparece de manera aleatoria en el interior del suelo.
 - Al estar separado en dos Tilemaps, se puede aplicar un tratamiento visual distinto para suelo y cuevas.
-
-
-## 🚀 Mejoras Pendientes  
-- Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión).  
-- Agregar **animaciones al jugador** (idle, run, jump, shoot).  
-- Agregar **sprites y animaciones para los enemigos**.  
 
 ---
 
