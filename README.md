@@ -10,6 +10,8 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 - WASD o Flechas de direccion para moverse.
 - SPACE para saltar.
 - Q para disparar.
+- R reiniciar nivel
+- ESC para Pausa
 
 ---
 
