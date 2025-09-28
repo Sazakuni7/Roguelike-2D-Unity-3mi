@@ -98,7 +98,7 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 
 ---
 
-## 🆕 ✅ Avances para el Desafío 2
+## 🆕 ✅ Avances para el Desafío 3
 En esta etapa del proyecto se **incorporó y completó el sistema de progresión** solicitado:  
 
 - Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida y daño del jugador.  
