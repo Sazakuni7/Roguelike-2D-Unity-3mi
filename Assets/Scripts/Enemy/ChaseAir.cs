@@ -3,18 +3,17 @@ using UnityEngine;
 public class ChaseAir : MonoBehaviour
 {
     [SerializeField] float velocidad = 5f;
-    [SerializeField] Transform jugador;
+    [SerializeField] private Transform jugador;
 
     private Rigidbody2D rb;
     private bool jugadorEnRango = false;
 
+    public void SetJugador(Transform jugadorTransform) => jugador = jugadorTransform;
+
     private void Awake() => rb = GetComponent<Rigidbody2D>();
 
-    // Persigue al objetivo indicado (jugador).
-    // Calcula la direcci�n y ajusta la velocidad en consecuencia.
     private void FixedUpdate()
     {
-
         if (rb == null || jugador == null) return;
 
         if (!jugadorEnRango)

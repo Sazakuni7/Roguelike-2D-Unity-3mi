@@ -208,4 +208,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseAir
   velocidad: 4
-  jugador: {fileID: 0}
+  jugador: {fileID: 8269450976790814135, guid: 10320911186ebae49b9da9ecf8b52daa, type: 3}

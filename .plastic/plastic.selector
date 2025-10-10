@@ -1,4 +1,3 @@
 repository "Roguelike 2D 3mi/Roguelike 2D 3mi@4673227341403@cloud"
   path "/"
-    br "/main"
-    co "/main"
+    smartbranch "/main" changeset "45"   

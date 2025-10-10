@@ -78,6 +78,19 @@ public class GeneracionProcedural : MonoBehaviour
                 }
             }
         }
+
+        // Generar paredes gruesas en los bordes
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (x < 3 || x >= width - 3 || y < 3) // 3 tiles de grosor
+                {
+                    map[x, y] = 1; // Suelo (pared)
+                }
+            }
+        }
+
         return map;
     }
 
