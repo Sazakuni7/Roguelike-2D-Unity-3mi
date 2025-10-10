@@ -111,7 +111,7 @@ En esta etapa del proyecto se **incorporó y completó el sistema de progresión
 
 ---
 
-# Generación Procedural de Terreno con Cuevas (DESACTIVADO TEMPORALMENTE HASTA QUE SE SOLICITE EN EL DESAFIO CORRESPONDIENTE)
+## Generación Procedural de Terreno con Cuevas
 
 Este proyecto incluye un sistema de generación procedural en 2D utilizando Perlin Noise, implementado en el script `GeneracionProcedural.cs`.
 
