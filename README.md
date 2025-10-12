@@ -83,9 +83,9 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 
 ## 🏆 Condiciones de Victoria y Derrota  
 
-### ✔️ Victoria  
-- Se alcanza cuando **no quedan enemigos vivos** en la escena.  
-- La UI muestra el mensaje: **"¡Has ganado!"**.  
+### ✔️ Victoria (POR IMPLEMENTAR)
+~~- Se alcanza cuando se derrota al boss final, invocado al destruir todos los Spawners del nivel.~~
+~~- La UI muestra el mensaje: **"¡Has ganado!"**.~~
 
 ### ❌ Derrota  
 - Se alcanza cuando la **vida del jugador llega a 0**.  
