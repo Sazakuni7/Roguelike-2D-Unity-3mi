@@ -95,7 +95,7 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 ---
 
 ## 🚀 Mejoras Pendientes  
-- Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión).  
+- Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión) y poder atravezar los enemigos para no quedar atascado entre ellos.  
 - Agregar **animaciones al jugador** (idle, run, jump, shoot).  
 - Agregar **sprites y animaciones para los enemigos**.  
 - Mejorar **chasing de enemigos de suelo** con un sistema de pathing.
