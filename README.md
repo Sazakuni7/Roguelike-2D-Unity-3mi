@@ -107,17 +107,17 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 En esta etapa del proyecto se incorporaron múltiples sistemas y mecánicas:
 
 ### Progresión y Player
-- Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida, daño y fuel del jugador.  
-- Fuel máximo y regeneración aumentan con cada nivel alcanzado.  
-- Jetpack habilitado tras saltar, mantiene el jugador flotando horizontalmente con consumo de fuel.
+- Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida, daño del jugador.  
+- Implementación de Singleton y Scriptable Objects
+- Tilemap para creación de mapa.
+
+## 🆕 ✅ Avances para el Desafío 4 y mejoras de gameplay
 
 ### Generación Procedural de Terreno con Cuevas
 - Sistema de **generación procedural** en 2D utilizando Perlin Noise (`GeneracionProcedural.cs`).  
 - **Parámetros configurables:** width, height, smoothness, seed, groundTile, caveTile, groundTilemap, caveTilemap.  
 - Renderizado separado de **suelo** y **cuevas** en distintos Tilemaps.  
 - **R** vuelve a generar el terreno con nueva semilla.
-
-## 🆕 ✅ Avances para el Desafío 4 y mejoras de gameplay
 
 ### Spawners y enemigos
 - Se generaron **6 spawner tiles** que definen puntos de aparición de enemigos.  
