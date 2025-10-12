@@ -75,3 +75,52 @@
 - Ajustar balance del sistema de progresión (curva de experiencia y daño).
 - Spawner de enemigos reactivado con lógica mejorada para cuevas y terreno.
 - Animaciones y sprites para reflejar progresión del jugador y enemigos.
+
+---
+
+## [0.3 Beta] - 2025-10-12
+
+### ✨ Nuevas características
+
+- **Jugador**
+  - Se implementó **Jetpack**:
+    - Se activa tras un salto y manteniendo Space presionado.
+    - Movimiento horizontal y vertical controlable mientras se usa.
+    - Consumo de fuel limitado, con regeneración cuando está en el suelo.
+    - Fuel máximo y regeneración aumentan al subir de nivel.
+  - Mejor integración con la UI: barra de fuel visible en tiempo real.
+  - Experiencia, nivel y daño continúan actualizándose en tiempo real.
+
+- **Generación Procedural**
+  - Terreno generado dinámicamente usando Perlin Noise.
+  - Cuevas y suelo separados en distintos Tilemaps.
+  - Tecla **R** regenera el terreno con nueva semilla.
+  - Bloques destructibles que permiten al jugador acceder a nuevas zonas.
+
+- **Spawners y enemigos**
+  - Se generan 6 spawner tiles para aparición de enemigos.
+  - Máximo 12 enemigos activos en pantalla (6 Ground, 6 Air), configurable.
+  - Los enemigos reaparecen indefinidamente hasta implementar endgame / boss.
+  - IA mejorada para seguimiento y persecución del jugador (mejorar pathing pendiente).
+
+- **Object Pool**
+  - Se implementa **Object Pool** para:
+    - Proyectiles del jugador.
+    - Enemigos generados y reutilizados al morir.
+  - Configuración de objetos generados y tiempo de ejecución completamente editable desde Inspector.
+
+- **HUD / UI**
+  - Barra de fuel para el Jetpack.
+  - Indicadores de vida, daño, nivel y experiencia actualizados dinámicamente.
+
+### 🐞 Bugs conocidos
+
+- El jugador puede saltar levemente con fuel bajo antes de activar el jetpack, causando pequeños saltos no deseados.
+- Mejorar el chasing de enemigos terrestres mediante pathing más inteligente.
+
+### 🔮 Mejoras planificadas
+
+- Añadir animaciones de Jetpack al jugador.
+- Mejorar IA de enemigos de suelo para evitar bloqueos o movimientos erráticos.
+- Implementar endgame / boss tras destruir spawner tiles.
+- Ajustar balance de fuel, regeneración y fuerza del jetpack.
