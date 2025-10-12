@@ -1,67 +1,34 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Singleton
     public static GameManager Instance { get; private set; }
 
-    [Header("Configuración")]
-    [SerializeField] private Jugador jugador;
-
+    private Jugador jugador;
     private bool juegoPausado = false;
 
-    // Lista para gestionar enemigos activos
     private List<Enemy> enemigosActivos = new List<Enemy>();
 
-    // Singleton: garantiza que exista solo un GameManager en escena.
+    public int EnemigosActivos => enemigosActivos.Count;
+
     private void Awake()
     {
-        // Implementación del Singleton
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Destruir instancias duplicadas
+            Destroy(gameObject);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); // Persistir entre escenas
+        DontDestroyOnLoad(gameObject);
     }
 
-    private void ResetearProgresionJugador()
-    {
-        if (jugador != null)
-        {
-            // Clonar el ScriptableObject para evitar que los cambios persistan entre sesiones
-            PlayerProgressionData progresionOriginal = jugador.DatosProgresion;
-            if (progresionOriginal != null)
-            {
-                PlayerProgressionData progresionClonada = Instantiate(progresionOriginal);
-                jugador.SetDatosProgresion(progresionClonada); // Asignar la copia al jugador
-
-                // Solo reiniciar los valores si están en 0
-                if (progresionClonada.experienciaActual == 0 && progresionClonada.nivel == 1)
-                {
-                    progresionClonada.experienciaNecesaria = 100; // Valor inicial
-                    progresionClonada.vidaMaxima = 100; // Valor inicial
-                    progresionClonada.dañoBase = 2; // Valor inicial
-
-                    Debug.Log("Progresión del jugador reiniciada.");
-                }
-                else
-                {
-                    Debug.Log("Progresión del jugador cargada desde valores existentes.");
-                }
-            }
-        }
-    }
-
-    // Inicializa el juego reiniciando los datos de progresión del jugador.
     private void Start()
     {
-        ResetearProgresionJugador(); // Llama a este método al inicio del juego
-        enemigosActivos.AddRange(FindObjectsOfType<Enemy>());
+        ResetearProgresionJugador();
+        ActualizarListaEnemigos();
     }
 
     private void OnEnable()
@@ -71,8 +38,8 @@ public class GameManager : MonoBehaviour
         GameEvents.OnGamePaused += PauseGame;
         GameEvents.OnGameResumed += ResumeGame;
 
-        // Suscribirse al evento de destrucción de enemigos
         Enemy.OnEnemyDestroyed += EliminarEnemigo;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -82,26 +49,48 @@ public class GameManager : MonoBehaviour
         GameEvents.OnGamePaused -= PauseGame;
         GameEvents.OnGameResumed -= ResumeGame;
 
-        // Cancelar la suscripción al evento de destrucción de enemigos
         Enemy.OnEnemyDestroyed -= EliminarEnemigo;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ActualizarListaEnemigos();
+    }
+
+    private void ActualizarListaEnemigos()
+    {
+        enemigosActivos.Clear();
+        enemigosActivos.AddRange(Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None));
+    }
+
+    private void ResetearProgresionJugador()
+    {
+        if (jugador != null)
+        {
+            PlayerProgressionData progresionOriginal = jugador.DatosProgresion;
+            if (progresionOriginal != null)
+            {
+                PlayerProgressionData progresionClonada = Instantiate(progresionOriginal);
+                jugador.SetDatosProgresion(progresionClonada);
+
+                progresionClonada.experienciaNecesaria = 100;
+                progresionClonada.vidaMaxima = 100;
+                progresionClonada.daÃ±oBase = 2;
+
+                Debug.Log("ProgresiÃ³n del jugador reiniciada.");
+            }
+        }
     }
 
     private void Update()
     {
-        // Pausar o reanudar el juego con la tecla ESC
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (juegoPausado)
-            {
-                GameEvents.TriggerGameResumed();
-            }
-            else
-            {
-                GameEvents.TriggerGamePaused();
-            }
+            if (juegoPausado) GameEvents.TriggerGameResumed();
+            else GameEvents.TriggerGamePaused();
         }
 
-        // Reiniciar el juego con la tecla R
         if (Input.GetKeyDown(KeyCode.R))
         {
             RestartLevel();
@@ -111,13 +100,12 @@ public class GameManager : MonoBehaviour
     private void HandleGameOver()
     {
         Debug.Log("Game Over");
-        Time.timeScale = 0f; // Detener el tiempo al perder
+        Time.timeScale = 0f;
     }
 
     private void HandleVictory()
     {
         Debug.Log("Victory!");
-        // No detenemos el tiempo al ganar
     }
 
     private void PauseGame()
@@ -136,19 +124,49 @@ public class GameManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        Time.timeScale = 1f; // Asegurarse de que el tiempo esté corriendo
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reiniciar la escena actual
+        Time.timeScale = 1f;
+
+        if (jugador != null)
+        {
+            Destroy(jugador.gameObject);
+            jugador = null;
+        }
+
+        Spawner.Instance.playerSpawned = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    // Se actualiza para registrar correctamente la eliminaciÃ³n
     private void EliminarEnemigo(float _)
     {
-        // Eliminar enemigos destruidos de la lista
         enemigosActivos.RemoveAll(e => e == null);
+    }
 
-        // Verificar si todos los enemigos han sido eliminados
+    // MÃ©todos para registrar enemigos desde el Spawner
+    public void RegistrarEnemigo(Enemy enemigo)
+    {
+        if (!enemigosActivos.Contains(enemigo))
+            enemigosActivos.Add(enemigo);
+    }
+
+    public void DesregistrarEnemigo(Enemy enemigo)
+    {
+        if (enemigosActivos.Contains(enemigo))
+            enemigosActivos.Remove(enemigo);
+
+        GameUI.Instance.ActualizarEnemigosRestantesUI();
+
         if (enemigosActivos.Count == 0)
-        {
             GameEvents.TriggerVictory();
-        }
+    }
+
+    public Jugador GetJugador() => jugador;
+
+    public void SetJugador(Jugador j)
+    {
+        jugador = j;
+        ResetearProgresionJugador();
+        // Notificar a la UI que hay un jugador
+        GameUI.Instance?.ConectarJugador(jugador);
     }
 }

@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
             objetos[nombreObjeto] = cantidad;
         }
 
-        Debug.Log($"Objeto agregado: {nombreObjeto} (Cantidad: {objetos[nombreObjeto]})");
+     //   Debug.Log($"Objeto agregado: {nombreObjeto} (Cantidad: {objetos[nombreObjeto]})");
     }
 
     public void EliminarObjeto(string nombreObjeto, int cantidad = 1)
@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
                 objetos.Remove(nombreObjeto);
             }
 
-            Debug.Log($"Objeto eliminado: {nombreObjeto}");
+          //  Debug.Log($"Objeto eliminado: {nombreObjeto}");
         }
     }
 
@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour
         Debug.Log("Inventario:");
         foreach (var objeto in objetos)
         {
-            Debug.Log($"{objeto.Key}: {objeto.Value}");
+          //  Debug.Log($"{objeto.Key}: {objeto.Value}");
         }
     }
 }

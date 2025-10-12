@@ -8,7 +8,7 @@ public class MissionManager : MonoBehaviour
     public void AgregarMision(string mision)
     {
         misiones.Enqueue(mision);
-        Debug.Log($"Misión agregada: {mision}");
+     //   Debug.Log($"Misión agregada: {mision}");
     }
 
     public void CompletarMision()
@@ -16,17 +16,17 @@ public class MissionManager : MonoBehaviour
         if (misiones.Count > 0)
         {
             string misionCompletada = misiones.Dequeue();
-            Debug.Log($"Misión completada: {misionCompletada}");
+         //   Debug.Log($"Misión completada: {misionCompletada}");
         }
         else
         {
-            Debug.Log("No hay misiones pendientes.");
+          //  Debug.Log("No hay misiones pendientes.");
         }
     }
 
     public void MostrarMisiones()
     {
-        Debug.Log("Misiones pendientes:");
+      //  Debug.Log("Misiones pendientes:");
         foreach (var mision in misiones)
         {
             Debug.Log(mision);

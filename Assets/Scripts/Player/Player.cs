@@ -3,56 +3,76 @@ using UnityEngine;
 
 public class Jugador : MonoBehaviour
 {
-    public event Action<float, float> OnExperienciaCambiada; // Evento para notificar cambios en la experiencia
-    public event Action<float> OnVidaCambiada; // Evento para notificar cambios en la vida
-    public event Action<float> OnDañoCambiado; // Evento para notificar cambios en el da�o
-    public event Action<int> OnNivelCambiado; // Evento para notificar cambios en el nivel del jugador
+    public event Action<float, float> OnExperienciaCambiada;
+    public event Action<float> OnVidaCambiada;
+    public event Action<float> OnDañoCambiado;
+    public event Action<int> OnNivelCambiado;
 
-    [Header("Configuraci�n")]
-    [SerializeField] private float vida;
-    [SerializeField] private GameObject proyectilPrefab;
+    [Header("Configuración")]
+    [SerializeField] private float vida = 100f;
     [SerializeField] private Transform puntoDeDisparo;
-    [SerializeField] private float tiempoEntreDisparos;
-    [SerializeField] private float velocidad;
+    [SerializeField] private float tiempoEntreDisparos = 0.3f;
+    [SerializeField] private float velocidad = 5f;
 
-    [Header("Progresi�n del Jugador")]
-    [SerializeField] private PlayerProgressionData datosProgresion; // Referencia al ScriptableObject
+    [Header("Jetpack")]
+    [SerializeField] private float fuelMaximo = 3f;
+    [SerializeField] private float regeneracionFuelPorSegundo = 1f;
+    [SerializeField] private float consumoFuelPorSegundo = 1f;
+    [SerializeField] private float fuerzaJetpack = 5f;
+    [SerializeField] private float ventanaActivacionJetpack = 0.2f;
+
+    [Header("Progresión del Jugador")]
+    [SerializeField] private PlayerProgressionData datosProgresion;
+
+    private float tiempoUltimoSalto;
+    private float fuelActual;
+    private bool usandoJetpack = false;
+
     public PlayerProgressionData DatosProgresion => datosProgresion;
 
+    public event Action<float, float> OnFuelCambiado;
     private float tiempoUltimoDisparo;
     private Vector2 direccionDisparo = Vector2.right;
     private Vector3 escalaInicial;
     private Rigidbody2D rb;
+    private ObjectPooler projectilePooler;
+    public float FuelActual => fuelActual;
+    public float FuelMaximo => fuelMaximo;
+
+    // Referencia a Saltar para detectar si está en suelo
+    private Saltar saltar;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        saltar = GetComponent<Saltar>();
         escalaInicial = transform.localScale;
 
-        // Resetear velocidad inicial
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
+
+        projectilePooler = ObjectPooler.Instance;
+        fuelActual = fuelMaximo;
     }
 
     private void OnEnable()
     {
-        // Suscribirse al evento de destrucci�n de enemigos
         Enemy.OnEnemyDestroyed += AgregarExperiencia;
     }
 
     private void OnDisable()
     {
-        // Cancelar la suscripci�n al evento de destrucci�n de enemigos
         Enemy.OnEnemyDestroyed -= AgregarExperiencia;
     }
 
     private void Update()
     {
-        // Direccionamiento horizontal
+        // --- Movimiento horizontal ---
         float moverHorizontal = Input.GetAxis("Horizontal");
+
         if (moverHorizontal > 0)
         {
             direccionDisparo = Vector2.right;
@@ -64,43 +84,95 @@ public class Jugador : MonoBehaviour
             transform.localScale = new Vector3(-escalaInicial.x, escalaInicial.y, escalaInicial.z);
         }
 
-        // Disparo
+        direccionDisparo = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+
+        // --- Disparo ---
         if (Input.GetKey(KeyCode.Q) && Time.time >= tiempoUltimoDisparo + tiempoEntreDisparos)
         {
             Disparar();
             tiempoUltimoDisparo = Time.time;
         }
+
+        // --- Jetpack ---
+        ManejarJetpack();
     }
 
     private void FixedUpdate()
     {
-        // Movimiento horizontal
         if (rb != null)
         {
             rb.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * velocidad, rb.linearVelocity.y);
         }
     }
 
+    // ==================================
+    //       SISTEMA DE JETPACK
+    // ==================================
+    private void ManejarJetpack()
+    {
+        bool estoyEnSuelo = saltar != null && saltar.EstaEnSuelo();
+        bool espacioPresionado = Input.GetKey(KeyCode.Space);
+
+        // Registrar momento del salto
+        if (Input.GetKeyDown(KeyCode.Space) && estoyEnSuelo)
+        {
+            tiempoUltimoSalto = Time.time;
+            usandoJetpack = false; // aún no activo jetpack
+        }
+
+        // Regenerar fuel en suelo
+        if (estoyEnSuelo && fuelActual < fuelMaximo)
+        {
+            fuelActual += regeneracionFuelPorSegundo * Time.deltaTime;
+            fuelActual = Mathf.Min(fuelActual, fuelMaximo);
+        }
+
+        // Jetpack activo SOLO después de que ya haya pasado un frame del salto inicial
+        if (!estoyEnSuelo &&
+            (Time.time - tiempoUltimoSalto > 1.0f) && // pequeña ventana de delay
+            espacioPresionado &&
+            fuelActual > 0f)
+        {
+            usandoJetpack = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaJetpack);
+            fuelActual -= consumoFuelPorSegundo * Time.deltaTime;
+            fuelActual = Mathf.Max(fuelActual, 0f);
+        }
+        else
+        {
+            usandoJetpack = false;
+        }
+
+        // Notificar a UI
+        OnFuelCambiado?.Invoke(fuelActual, fuelMaximo);
+    }
+
+    public float GetFuelActual() => fuelActual;
+    public float GetFuelMaximo() => fuelMaximo;
+
+    // ==================================
+    //       DISPARO Y EXPERIENCIA
+    // ==================================
     private void Disparar()
     {
-        if (proyectilPrefab != null && puntoDeDisparo != null)
+        if (puntoDeDisparo == null || projectilePooler == null)
         {
-            GameObject proyectil = Instantiate(proyectilPrefab, puntoDeDisparo.position, Quaternion.identity);
-            Projectile p = proyectil.GetComponent<Projectile>();
-            if (p != null)
+           // Debug.LogWarning("No se encontró el punto de disparo o el ObjectPooler.");
+            return;
+        }
+
+        GameObject proyectilGO = projectilePooler.GetPooledObject("Projectile");
+        if (proyectilGO != null)
+        {
+            Projectile proyectil = proyectilGO.GetComponent<Projectile>();
+            if (proyectil != null)
             {
                 float dañoProyectil = datosProgresion.dañoBase;
-                p.SetDaño(dañoProyectil); // Configura el da�o del proyectil desde la progresi�n
-                p.SetDireccion(direccionDisparo); // Configura la direcci�n del proyectil
-
-                // Debug para verificar el da�o y direcci�n del proyectil
-                Debug.Log($"Proyectil disparado con da�o: {dañoProyectil}, Direcci�n: {direccionDisparo}");
+                proyectil.Disparar(puntoDeDisparo.position, direccionDisparo, dañoProyectil);
             }
         }
     }
 
-    // L�gica de da�o recibido por el jugador. 
-    // Si la vida llega a cero, notifica la muerte.
     public void ModificarVida(float puntos)
     {
         vida += puntos;
@@ -114,29 +186,36 @@ public class Jugador : MonoBehaviour
         }
     }
 
-    public float GetVida() => vida;
+    public float GetVida()
+    {
+        return vida;
+    }
 
-    // M�todo principal para manejar la progresi�n: agrega experiencia, 
-    // recalcula nivel/da�o y notifica a la UI si hubo cambios
     private void AgregarExperiencia(float experiencia)
     {
         int nivelAnterior = datosProgresion.nivel;
+
         datosProgresion.AgregarExperiencia(experiencia);
 
+        // Actualizar UI
         OnExperienciaCambiada?.Invoke(datosProgresion.experienciaActual, datosProgresion.experienciaNecesaria);
         OnDañoCambiado?.Invoke(datosProgresion.dañoBase);
 
+        // Si subió de nivel
         if (datosProgresion.nivel > nivelAnterior)
+        {
             OnNivelCambiado?.Invoke(datosProgresion.nivel);
+
+            // Mejora del jetpack al subir de nivel
+            fuelMaximo += 0.5f;
+            regeneracionFuelPorSegundo += 0.1f;
+            fuelActual = fuelMaximo; // rellena el tanque al subir de nivel
+
+            Debug.Log($"Nivel {datosProgresion.nivel} alcanzado: Fuel máx {fuelMaximo}, Regen {regeneracionFuelPorSegundo}");
+        }
     }
 
-    public PlayerProgressionData GetDatosProgresion()
-    {
-        return datosProgresion;
-    }
 
-    public void SetDatosProgresion(PlayerProgressionData nuevosDatos)
-    {
-        datosProgresion = nuevosDatos;
-    }
+    public PlayerProgressionData GetDatosProgresion() => datosProgresion;
+    public void SetDatosProgresion(PlayerProgressionData nuevosDatos) => datosProgresion = nuevosDatos;
 }

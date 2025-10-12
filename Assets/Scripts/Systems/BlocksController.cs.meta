@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 376442e5e94c29047a830e90587938d8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - groundTileMap: {instanceID: 0}
+  - caveTileMap: {instanceID: 0}
+  - groundRuleTile: {fileID: 11400000, guid: 189b3ee8be1ee9c4c8bb71773f9b6281, type: 2}
+  - caveTile: {fileID: 11400000, guid: f1fe46178c89b424fa5f17b856387d3d, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

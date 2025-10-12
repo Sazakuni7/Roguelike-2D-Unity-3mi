@@ -1,60 +1,76 @@
+ï»¿using TMPro;
 using UnityEngine;
-using TMPro;
 
 public class GameUI : MonoBehaviour
 {
+    public static GameUI Instance { get; private set; }
+
     [Header("Referencias")]
     [SerializeField] private TMP_Text vidaTmp;
     [SerializeField] private TMP_Text enemigosRestantesTmp;
     [SerializeField] private TMP_Text mensajeMuerteTmp;
     [SerializeField] private TMP_Text mensajeVictoriaTmp;
-    [SerializeField] private TMP_Text experienciaTmp; // Nueva referencia para la experiencia
-    [SerializeField] private TMP_Text nivelTmp; // Nueva referencia para el nivel
-    [SerializeField] private TMP_Text dañoTmp; // Nueva referencia para el daño
+    [SerializeField] private TMP_Text experienciaTmp;
+    [SerializeField] private TMP_Text nivelTmp;
+    [SerializeField] private TMP_Text daÃ±oTmp;
 
-    private int enemigosRestantes;
+    [Header("Jetpack Fuel")]
+    [SerializeField] private UnityEngine.UI.Image fuelBarFill;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void OnEnable()
     {
         GameEvents.OnGameOver += MostrarGameOver;
         GameEvents.OnVictory += MostrarVictoria;
-        Enemy.OnEnemyDestroyed += ActualizarEnemigosRestantes;
+        GameEvents.OnPlayerSpawned += ConectarJugador;
 
-        // Suscribirse al evento de vida, experiencia, nivel y daño del jugador
-        Jugador jugador = FindObjectOfType<Jugador>();
-        if (jugador != null)
-        {
-            jugador.OnVidaCambiada += ActualizarVida;
-            jugador.OnExperienciaCambiada += ActualizarExperiencia;
-            jugador.OnDañoCambiado += ActualizarDaño;
-            jugador.OnNivelCambiado += ActualizarNivel;
-
-            // Inicializar la UI con los valores actuales
-            ActualizarVida(jugador.GetVida());
-            ActualizarExperiencia(jugador.DatosProgresion.experienciaActual, jugador.DatosProgresion.experienciaNecesaria);
-            ActualizarNivel(jugador.DatosProgresion.nivel);
-            ActualizarDaño(jugador.DatosProgresion.dañoBase);
-        }
-
-        // Inicializar el conteo de enemigos
-        enemigosRestantes = GameObject.FindGameObjectsWithTag("Enemy").Length;
         ActualizarEnemigosRestantesUI();
+
+        Jugador jugadorExistente = Object.FindFirstObjectByType<Jugador>();
+        if (jugadorExistente != null) ConectarJugador(jugadorExistente);
     }
 
     private void OnDisable()
     {
         GameEvents.OnGameOver -= MostrarGameOver;
         GameEvents.OnVictory -= MostrarVictoria;
-        Enemy.OnEnemyDestroyed -= ActualizarEnemigosRestantes;
+    }
 
-        // Cancelar la suscripción al evento de vida, experiencia, nivel y daño del jugador
-        Jugador jugador = FindObjectOfType<Jugador>();
-        if (jugador != null)
-        {
-            jugador.OnVidaCambiada -= ActualizarVida;
-            jugador.OnExperienciaCambiada -= ActualizarExperiencia;
-            jugador.OnDañoCambiado -= ActualizarDaño;
-        }
+   public void ConectarJugador(Jugador jugador)
+    {
+        if (jugador == null) return;
+        jugador.OnVidaCambiada -= ActualizarVida;
+        jugador.OnVidaCambiada += ActualizarVida;
+        jugador.OnExperienciaCambiada -= ActualizarExperiencia;
+        jugador.OnExperienciaCambiada += ActualizarExperiencia;
+        jugador.OnDaÃ±oCambiado -= ActualizarDaÃ±o;
+        jugador.OnDaÃ±oCambiado += ActualizarDaÃ±o;
+        jugador.OnNivelCambiado -= ActualizarNivel;
+        jugador.OnNivelCambiado += ActualizarNivel;
+        jugador.OnFuelCambiado -= ActualizarFuel;
+        jugador.OnFuelCambiado += ActualizarFuel;
+
+        ActualizarFuel(jugador.FuelActual, jugador.FuelMaximo);
+        ActualizarUIJugador(jugador);
+    }
+
+    private void ActualizarUIJugador(Jugador jugador)
+    {
+        ActualizarVida(jugador.GetVida());
+        ActualizarExperiencia(jugador.DatosProgresion.experienciaActual, jugador.DatosProgresion.experienciaNecesaria);
+        ActualizarNivel(jugador.DatosProgresion.nivel);
+        ActualizarDaÃ±o(jugador.DatosProgresion.daÃ±oBase);
     }
 
     private void MostrarGameOver()
@@ -62,7 +78,7 @@ public class GameUI : MonoBehaviour
         if (mensajeMuerteTmp != null)
         {
             mensajeMuerteTmp.gameObject.SetActive(true);
-            mensajeMuerteTmp.text = "¡Has muerto!";
+            mensajeMuerteTmp.text = "Â¡Has muerto!";
         }
     }
 
@@ -71,16 +87,14 @@ public class GameUI : MonoBehaviour
         if (mensajeVictoriaTmp != null)
         {
             mensajeVictoriaTmp.gameObject.SetActive(true);
-            mensajeVictoriaTmp.text = "¡Has ganado!";
+            mensajeVictoriaTmp.text = "Â¡Has ganado!";
         }
     }
 
     private void ActualizarVida(float nuevaVida)
     {
         if (vidaTmp != null)
-        {
             vidaTmp.text = "Vida: " + nuevaVida.ToString("F0") + "%";
-        }
     }
 
     private void ActualizarExperiencia(float experienciaActual, float experienciaParaNivel2)
@@ -89,43 +103,34 @@ public class GameUI : MonoBehaviour
         {
             float experienciaFaltante = experienciaParaNivel2 - experienciaActual;
             experienciaTmp.text = $"Experiencia: {experienciaActual:F0}/{experienciaParaNivel2:F0} (Faltan {experienciaFaltante:F0})";
-
-            Debug.Log($"Actualizando experiencia en la UI: {experienciaActual}/{experienciaParaNivel2} (Faltan {experienciaFaltante})");
         }
     }
 
     private void ActualizarNivel(int nivel)
     {
         if (nivelTmp != null)
-        {
             nivelTmp.text = $"Nivel: {nivel}";
-        }
     }
 
-    private void ActualizarDaño(float daño)
+    private void ActualizarDaÃ±o(float daÃ±o)
     {
-        if (dañoTmp != null)
-        {
-            dañoTmp.text = $"Daño: {daño:F0}";
-        }
+        if (daÃ±oTmp != null)
+            daÃ±oTmp.text = $"DaÃ±o: {daÃ±o:F0}";
     }
 
-    private void ActualizarEnemigosRestantes(float _)
+    private void ActualizarFuel(float fuelActual, float fuelMaximo)
     {
-        enemigosRestantes--;
-        ActualizarEnemigosRestantesUI();
-
-        if (enemigosRestantes <= 0)
-        {
-            GameEvents.TriggerVictory();
-        }
+        if (fuelBarFill != null)
+            fuelBarFill.fillAmount = fuelActual / fuelMaximo;
     }
 
-    private void ActualizarEnemigosRestantesUI()
+    public void ActualizarEnemigosRestantesUI()
     {
         if (enemigosRestantesTmp != null)
         {
-            enemigosRestantesTmp.text = "Enemigos restantes: " + enemigosRestantes;
+            int cantidad = GameManager.Instance != null ? GameManager.Instance.EnemigosActivos : 0;
+            enemigosRestantesTmp.text = "Enemigos restantes: " + cantidad;
         }
     }
+
 }

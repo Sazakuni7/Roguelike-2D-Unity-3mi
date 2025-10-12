@@ -6,7 +6,7 @@ public class Saltar : MonoBehaviour
     [SerializeField] private float fuerzaSalto;
     [SerializeField] private LayerMask capaSuelo; // Capa para identificar el suelo
     [SerializeField] private Transform detectorSuelo; // Punto para verificar si está en el suelo
-    [SerializeField] private float radioDeteccion; // Radio del detector
+    [SerializeField] private float radioDeteccion;
 
     private bool puedoSaltar = true;
     private Rigidbody2D miRigidbody2D;
@@ -43,7 +43,6 @@ public class Saltar : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Verificar si el jugador está en el suelo
         if (EstoyEnElSuelo())
         {
             puedoSaltar = true;
@@ -65,4 +64,6 @@ public class Saltar : MonoBehaviour
             Gizmos.DrawWireSphere(detectorSuelo.position, radioDeteccion);
         }
     }
+
+    public bool EstaEnSuelo() => EstoyEnElSuelo();
 }

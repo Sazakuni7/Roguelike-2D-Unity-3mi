@@ -1,155 +1,165 @@
-using System.Collections.Generic;
-using Unity.Cinemachine;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Spawner : MonoBehaviour
 {
-    [Header("Referencias")]
-    [SerializeField] GeneracionProcedural generacion;
-    [SerializeField] Tilemap groundTilemap;
-    [SerializeField] GameObject enemigoTerrestrePrefab;
-    [SerializeField] GameObject enemigoAereoPrefab;
-    [SerializeField] GameObject jugadorPrefab; // Prefab del jugador
+    public static Spawner Instance { get; private set; }
 
-    [Header("Configuración")]
-    [SerializeField] int cantidadEnemigosTerrestres = 5;
-    [SerializeField] int cantidadEnemigosAereos = 3;
-    [SerializeField] float distanciaMinimaJugadorEnemigos = 5f; // Distancia mínima entre jugador y enemigos
+    [Header("Prefabs")]
+    public GameObject jugadorPrefab;
+    public GameObject enemyGroundPrefab;
+    public GameObject enemyAirPrefab;
 
-    private List<Vector3> puntosValidosTerrestres = new List<Vector3>();
-    private List<Vector3> puntosValidosAereos = new List<Vector3>();
+    [Header("Spawn Config")]
+    public float spawnInterval = 3f;
+    public int maxEnemigosActivos = 6;
 
-    void Start()
+    [HideInInspector] public bool playerSpawned = false;
+
+    private List<Vector3> posicionesSpawner = new List<Vector3>();
+
+    private GeneracionProcedural generacion;
+
+    private void Awake()
     {
-        // Obtener lista de puntos válidos del mapa generado
-        puntosValidosTerrestres = ObtenerPuntosValidos(1); // Suelo
-        puntosValidosAereos = ObtenerPuntosValidos(2); // Cuevas
-
-        // Instanciar enemigos terrestres
-        SpawnEnemigos(enemigoTerrestrePrefab, puntosValidosTerrestres, cantidadEnemigosTerrestres);
-
-        // Instanciar enemigos aéreos
-        SpawnEnemigos(enemigoAereoPrefab, puntosValidosAereos, cantidadEnemigosAereos);
-
-        // Instanciar jugador
-        SpawnJugador();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
-    void SpawnEnemigos(GameObject prefab, List<Vector3> puntos, int cantidad)
+    public void InicializarPosiciones()
     {
-        for (int i = 0; i < cantidad; i++)
+        posicionesSpawner.Clear();
+
+        // Buscar todos los SpawnerTiles en la escena
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("SpawnerTile");
+        foreach (GameObject tile in tiles)
         {
-            if (puntos.Count == 0) break;
-
-            int randomIndex = Random.Range(0, puntos.Count);
-            Vector3 spawnPos = puntos[randomIndex];
-            Instantiate(prefab, spawnPos, Quaternion.identity);
-
-            // Remover la posición para no repetir
-            puntos.RemoveAt(randomIndex);
+            posicionesSpawner.Add(tile.transform.position);
         }
+
+        generacion = Object.FindFirstObjectByType<GeneracionProcedural>();
+
+        if (!playerSpawned)
+            SpawnJugadorCercanoAlTerreno();
+
+        // Spawnear enemigos cada intervalo
+        InvokeRepeating(nameof(SpawnEnemigos), 2f, spawnInterval);
     }
 
-    void SpawnJugador()
+    private void SpawnJugadorCercanoAlTerreno()
     {
-        Vector3 spawnPos = Vector3.zero;
-        bool posicionValida = false;
-
-        foreach (Vector3 punto in puntosValidosTerrestres)
+        if (jugadorPrefab == null || generacion == null)
         {
-            Collider2D[] colisiones = Physics2D.OverlapCircleAll(punto, distanciaMinimaJugadorEnemigos);
-            bool hayEnemigosCerca = false;
-
-            foreach (Collider2D colision in colisiones)
-            {
-                if (colision.CompareTag("Enemy"))
-                {
-                    hayEnemigosCerca = true;
-                    break;
-                }
-            }
-
-            if (!hayEnemigosCerca)
-            {
-                spawnPos = punto;
-                posicionValida = true;
-                break;
-            }
+           // Debug.LogWarning("No se puede spawnear al jugador: faltan referencias.");
+            return;
         }
 
-        if (posicionValida)
-        {
-            GameObject jugador = Instantiate(jugadorPrefab, spawnPos, Quaternion.identity);
-
-            // Asignar el jugador como objetivo a los enemigos
-            ChaseGround[] enemigosTerrestres = FindObjectsOfType<ChaseGround>();
-            foreach (var enemigo in enemigosTerrestres)
-            {
-                enemigo.SetJugador(jugador.transform);
-            }
-
-            ChaseAir[] enemigosAereos = FindObjectsOfType<ChaseAir>();
-            foreach (var enemigo in enemigosAereos)
-            {
-                enemigo.SetJugador(jugador.transform);
-            }
-
-            // Configurar la cámara
-            CinemachineCamera cinemachineCam = FindObjectOfType<CinemachineCamera>();
-            if (cinemachineCam != null)
-            {
-                cinemachineCam.Follow = jugador.transform;
-            }
-            else
-            {
-                Debug.LogError("No se encontró una CinemachineCamera en la escena.");
-            }
-        }
-        else
-        {
-            Debug.LogError("No se encontró un lugar válido para spawnear al jugador.");
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        if (puntosValidosTerrestres != null)
-        {
-            Gizmos.color = Color.green;
-            foreach (Vector3 punto in puntosValidosTerrestres)
-            {
-                Gizmos.DrawSphere(punto, 0.2f);
-            }
-        }
-
-        if (puntosValidosAereos != null)
-        {
-            Gizmos.color = Color.blue;
-            foreach (Vector3 punto in puntosValidosAereos)
-            {
-                Gizmos.DrawSphere(punto, 0.2f);
-            }
-        }
-    }
-
-    List<Vector3> ObtenerPuntosValidos(int tipoTerreno)
-    {
-        List<Vector3> lista = new List<Vector3>();
         int[,] mapa = generacion.GetMap();
+        int width = mapa.GetLength(0);
+        int height = mapa.GetLength(1);
 
-        for (int x = 0; x < mapa.GetLength(0); x++)
+        List<Vector3> posiblesPos = new List<Vector3>();
+
+        for (int x = 3; x < width - 3; x++)
         {
-            for (int y = 0; y < mapa.GetLength(1) - 1; y++)
+            for (int y = 1; y < height - 2; y++) // empieza cerca del suelo
             {
-                if (mapa[x, y] == tipoTerreno && mapa[x, y + 1] == 0)
-                {
-                    Vector3Int cellPos = new Vector3Int(x, y + 1, 0);
-                    Vector3 worldPos = groundTilemap.GetCellCenterWorld(cellPos);
-                    lista.Add(worldPos);
-                }
+                if (mapa[x, y] == 0 && mapa[x, y - 1] == 1)
+                    posiblesPos.Add(new Vector3(x, y, 0));
             }
         }
-        return lista;
+
+        if (posiblesPos.Count > 0)
+        {
+            Vector3 spawnPos = posiblesPos[Random.Range(0, posiblesPos.Count)];
+            GameObject jugadorGO = Instantiate(jugadorPrefab, spawnPos, Quaternion.identity);
+            Jugador jugador = jugadorGO.GetComponent<Jugador>();
+
+            GameManager.Instance.SetJugador(jugador);
+            playerSpawned = true;
+
+            // Notificar a todo el sistema que el jugador fue creado
+            GameEvents.TriggerPlayerSpawned(jugador);
+
+           // Debug.Log("Jugador spawneado correctamente y notificado a GameUI.");
+        }
+      /*  else
+        {
+            Debug.LogWarning("No se encontrÃ³ una posiciÃ³n vÃ¡lida para spawnear al jugador.");
+        }*/
+    }
+
+    private void SpawnEnemigos()
+    {
+        // Evitar spawnear si ya hay max enemigos en GameManager
+        if (GameManager.Instance.EnemigosActivos >= maxEnemigosActivos) return;
+
+        int alturaMaxima = generacion.GetMap().GetLength(1);
+        int umbralAereo = Mathf.RoundToInt(alturaMaxima * 0.65f);
+
+        // Mezclar posiciones
+        Shuffle(posicionesSpawner);
+
+        foreach (Vector3 pos in posicionesSpawner)
+        {
+            if (GameManager.Instance.EnemigosActivos >= maxEnemigosActivos) break;
+
+            bool esAereo = pos.y > umbralAereo;
+            string tagPool = esAereo ? "EnemyAir" : "EnemyGround";
+
+            GameObject enemyGO = ObjectPooler.Instance.GetPooledObject(tagPool);
+            if (enemyGO == null)
+            {
+                // Intentar con el otro tipo si hay pool disponible
+                tagPool = esAereo ? "EnemyGround" : "EnemyAir";
+                enemyGO = ObjectPooler.Instance.GetPooledObject(tagPool);
+            }
+
+            if (enemyGO != null)
+            {
+                enemyGO.transform.position = pos + Vector3.up * 0.5f;
+                enemyGO.SetActive(true);
+
+                Enemy enemyScript = enemyGO.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    // Registrar en GameManager
+                    GameManager.Instance.RegistrarEnemigo(enemyScript);
+
+                    // Suscribirse a la muerte del enemigo
+                    enemyScript.OnEnemyDestroyedInstance += (e) =>
+                    {
+                        GameManager.Instance.DesregistrarEnemigo(e);
+                        SpawnEnemigos(); // Intentar reemplazar inmediatamente
+                        GameUI.Instance.ActualizarEnemigosRestantesUI(); // Actualizar UI
+                    };
+
+                    // Asignar jugador a los scripts de persecuciÃ³n
+                    EnemyAirPathing chaseAir = enemyGO.GetComponent<EnemyAirPathing>();
+                    if (chaseAir != null)
+                        chaseAir.SetJugador(GameManager.Instance.GetJugador().transform);
+
+                    EnemyGroundPathing chaseGround = enemyGO.GetComponent<EnemyGroundPathing>();
+                    if (chaseGround != null)
+                        chaseGround.SetJugador(GameManager.Instance.GetJugador().transform);
+                }
+
+                // Actualizar UI al spawnear
+                GameUI.Instance.ActualizarEnemigosRestantesUI();
+            }
+        }
+    }
+
+    private void Shuffle<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int rand = Random.Range(i, list.Count);
+            (list[i], list[rand]) = (list[rand], list[i]);
+        }
     }
 }

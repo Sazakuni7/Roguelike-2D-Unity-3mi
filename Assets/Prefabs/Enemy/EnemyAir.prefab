@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8182011986352463379}
   - component: {fileID: -8646454109088595176}
   - component: {fileID: 9010855375589226294}
-  - component: {fileID: 2774292454788567231}
+  - component: {fileID: 2836964125501959001}
   m_Layer: 0
   m_Name: EnemyAir
   m_TagString: Enemy
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.03511, y: 25.26499, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Mass: 4
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Herir
   puntos: 3
---- !u!114 &2774292454788567231
+--- !u!114 &2836964125501959001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,8 +204,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8732701365459765809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3046020cfbdd323489027028c87c2853, type: 3}
+  m_Script: {fileID: 11500000, guid: 70d16120bb7888349b7f743298029990, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChaseAir
-  velocidad: 4
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAirPathing
+  velocidadHorizontal: 2
+  velocidadVertical: 2
+  distanciaDeteccion: 0.5
+  capaObstaculos:
+    serializedVersion: 2
+    m_Bits: 1024
   jugador: {fileID: 8269450976790814135, guid: 10320911186ebae49b9da9ecf8b52daa, type: 3}
