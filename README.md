@@ -7,8 +7,8 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 ---
 
 **🕹️CONTROLES:** 
-- WASD o Flechas de direccion para moverse.
-- SPACE para saltar.
+- WASD o Flechas de dirección para moverse.
+- SPACE para saltar / usar Jetpack.
 - Q para disparar.
 - R reiniciar nivel
 - ESC para Pausa
@@ -17,14 +17,11 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 
 📜 [Ver Changelog](./CHANGELOG.md)
 
-
 ---
 
 ## 🚨 Problemas conocidos 
-- ❗Por algun motivo, al iniciar el juego empieza acelerado por un breve momento, o lo hace luego de un tiempo (IMPORTANTE).
+- ❗ Al iniciar el juego, empieza acelerado por un breve momento o lo hace luego de un tiempo (IMPORTANTE).
 - El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders, parcialmente arreglado).  
-- El **jugador y enemigos de suelo** pueden **saltar indefinidamente** al atravesar plataformas con `PlatformEffector2D`.
-- El **jugador** puede posicionarse dentro de las plataformas luego de saltar.
 
 ---
 
@@ -33,16 +30,17 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 
 ### 🧩 Funcionamiento  
 
-#### Spawner (INACTIVO)  
-- `Spawner.cs` genera enemigos tipo **Ground** y **Air** en posiciones válidas del terreno (superficie del landscape).  
+#### Spawner
+- `Spawner.cs` genera enemigos tipo **Ground** y **Air** en posiciones válidas del terreno (superficie del landscape y cuevas).  
 - Se asegura que el terreno esté generado antes de instanciar enemigos.  
-- En próximas versiones, los enemigos también podrán aparecer dentro de cuevas.  
+- Se generan hasta **12 enemigos** por nivel (configurable).  
+- Los enemigos pueden reaparecer indefinidamente hasta implementar un **endgame / boss**.  
 
-#### IA de Enemigos  
-- **Ground (ChaseGround.cs):** enemigos con gravedad que persiguen al jugador caminando sobre el terreno.  
-- **Air (ChaseAir.cs):** enemigos que vuelan hacia el jugador sin verse afectados por la gravedad.  
+#### IA de Enemigos
+- **Ground (EnemyGroundPathing.cs):** enemigos con gravedad que persiguen al jugador caminando sobre el terreno, necesitan mejoras de pathing para un chasing más fluido.  
+- **Air (EnemyAirPathing.cs):** enemigos que vuelan hacia el jugador sin verse afectados por la gravedad.  
 
-#### Daño y Vidas  
+#### Daño y Vidas
 - `Hurt.cs`: permite que los enemigos inflijan daño al jugador al colisionar.  
 - `Enemy.cs`: script base que gestiona la vida del enemigo y su destrucción al llegar a 0.  
 
@@ -51,11 +49,13 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 ### 🧑‍🎮 Jugador, Proyectiles y UI
 
 **Jugador**  
-- `Jugador.cs` controla la vida, progresión y disparos del jugador.  
+- `Player.cs` controla la vida, progresión y disparos del jugador.  
 - Gestiona experiencia, niveles y daño dinámico mediante `PlayerProgressionData`.  
 - Detecta muerte y pausa el juego con `Time.timeScale = 0`.  
 - Puede disparar proyectiles con la tecla Q, con cooldown configurable en el Inspector.  
 - El disparo responde a la dirección en la que el jugador se mueve (izquierda/derecha).  
+- Se implementó **Jetpack**: mantener Space presionado permite elevarse, con fuel limitado y regeneración.
+  - Fuel máximo y regeneración aumentan con cada nivel del jugador.
 
 **Proyectiles**  
 - `Projectile.cs` se instancia desde el punto de disparo del jugador.  
@@ -70,11 +70,13 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 - `GameUI.cs` muestra en pantalla:  
   - Vida del jugador en porcentaje.  
   - Nivel del jugador.  
-  - Daño actual del jugador.  
+  - Daño actual del jugador.
+  - Controles
   - Barra de experiencia (actual/experiencia necesaria).  
+  - Barra de **Fuel / Jetpack** (actual / máximo).  
   - Cantidad de enemigos restantes (contador dinámico).  
-  - Detecta condiciones de derrota (vida = 0) y muestra **"Has muerto"**.  
-  - Detecta condiciones de victoria (enemigos restantes = 0) y muestra **"Has ganado"**.  
+  - Detecta condiciones de derrota (vida = 0) y muestra **"¡Has muerto!"**.  
+  - Detecta condiciones de victoria (enemigos restantes = 0) y muestra **"¡Has ganado!"**.  
 
 ---
 
@@ -95,53 +97,54 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 - Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión).  
 - Agregar **animaciones al jugador** (idle, run, jump, shoot).  
 - Agregar **sprites y animaciones para los enemigos**.  
+- Mejorar **chasing de enemigos de suelo** con un sistema de pathing.
+- Implementar menús.
+- Implementar endgame / boss.
 
 ---
 
-## 🆕 ✅ Avances para el Desafío 3
-En esta etapa del proyecto se **incorporó y completó el sistema de progresión** solicitado:  
+## ✅ Avances para el Desafío 3 y mejoras de gameplay
+En esta etapa del proyecto se incorporaron múltiples sistemas y mecánicas:
 
-- Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida y daño del jugador.  
-- Implementación de un **Singleton (`GameManager`)** para el control global de la partida.  
-- Uso de **ScriptableObjects** para configurar y extender la progresión de forma flexible desde el editor.  
-- Conexión con la **UI dinámica**: experiencia, daño y nivel se actualizan en pantalla en tiempo real.  
-- Balance de experiencia con **arrastre de excedentes** al subir de nivel.
-- Todos los componentes son configurables desde el editor
-- El mapa está manejado con Tilemap e incluso con Rule Tile
+### Progresión y Player
+- Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida, daño y fuel del jugador.  
+- Fuel máximo y regeneración aumentan con cada nivel alcanzado.  
+- Jetpack habilitado tras saltar, mantiene el jugador flotando horizontalmente con consumo de fuel.
+
+### Generación Procedural de Terreno con Cuevas
+- Sistema de **generación procedural** en 2D utilizando Perlin Noise (`GeneracionProcedural.cs`).  
+- **Parámetros configurables:** width, height, smoothness, seed, groundTile, caveTile, groundTilemap, caveTilemap.  
+- Renderizado separado de **suelo** y **cuevas** en distintos Tilemaps.  
+- **R** vuelve a generar el terreno con nueva semilla.
+
+## 🆕 ✅ Avances para el Desafío 4 y mejoras de gameplay
+
+### Spawners y enemigos
+- Se generaron **6 spawner tiles** que definen puntos de aparición de enemigos.  
+- Se generan hasta **12 enemigos en pantalla** (6 Ground y 6 Air), configurable.  
+- Los enemigos reaparecen indefinidamente hasta implementar endgame / boss.  
+- Permite destruir bloques del terreno para alcanzar otras zonas.
+
+### Invocación de objetos, patrones y Object Pool
+- Codificación de invocación de objetos mediante procedimientos (spawners, proyectiles).  
+- Ejecución de situaciones de juego mediante **corrutinas** (vida de proyectiles, temporizadores, regeneración de combustible, evento día-noche).  
+- Objetos generados y tiempos de ejecución totalmente configurables.  
+- Implementación de **Object Pool** para:
+  - Enemigos en pantalla (destruidos y reutilizados).  
+  - Proyectiles del jugador (vuelven al pool al impactar o expirar).
 
 ---
-
-## Generación Procedural de Terreno con Cuevas
-
-Este proyecto incluye un sistema de generación procedural en 2D utilizando Perlin Noise, implementado en el script `GeneracionProcedural.cs`.
-
-## 🧩 Funcionamiento
-1. **Parámetros configurables (Inspector)**
-   - `width` y `height`: dimensiones del mapa.
-   - `smoothness`: suavidad de las colinas generadas.
-   - `seed`: semilla aleatoria que cambia la forma del terreno.
-   - `modifier`: factor que controla la densidad de cuevas.
-   - `groundTile` y `caveTile`: tiles para suelo y cuevas.
-   - `groundTilemap` y `caveTilemap`: tilemaps donde se pintan los resultados.
-
-2. **Proceso de generación**
-   - Se crea un array bidimensional que representa el mapa.
-   - Se calcula la altura del terreno columna por columna usando **Perlin Noise**.
-   - Dentro de cada columna, se aplica un segundo muestreo de Perlin Noise para decidir si una celda es **suelo** (`1`) o **cueva** (`2`).
-   - Se renderiza el resultado: el suelo en un Tilemap y las cuevas en otro.
-
-3. **Regeneración en tiempo real**
-   - Con la tecla **R** se vuelve a generar el terreno con una nueva semilla.
 
 ## 🎮 Resultado
-- Se obtiene un terreno irregular y natural con colinas y valles.
-- El sistema de cuevas aparece de manera aleatoria en el interior del suelo.
-- Al estar separado en dos Tilemaps, se puede aplicar un tratamiento visual distinto para suelo y cuevas.
+- Terreno irregular y natural con colinas y valles, separado en suelo y cuevas.  
+- Mecánicas de combate dinámico: disparos, destrucción de bloques y jetpack.  
+- UI completa y dinámica mostrando vida, nivel, daño, experiencia, combustible y controlnes..  
 
 ---
 
 ## 📂 Assets utilizados  
 (por completar)  De momento mayormente generado por IA
 
+---
 
 ✍️ Por **Emiliano Arias (3mi)**
