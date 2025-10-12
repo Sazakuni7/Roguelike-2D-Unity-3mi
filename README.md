@@ -104,7 +104,6 @@ Actualmente se añadieron scripts que permiten la generación, persecución y da
 ---
 
 ## ✅ Avances para el Desafío 3 y mejoras de gameplay
-En esta etapa del proyecto se incorporaron múltiples sistemas y mecánicas:
 
 ### Progresión y Player
 - Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida, daño del jugador.  
@@ -112,6 +111,7 @@ En esta etapa del proyecto se incorporaron múltiples sistemas y mecánicas:
 - Tilemap para creación de mapa.
 
 ## 🆕 ✅ Avances para el Desafío 4 y mejoras de gameplay
+En esta etapa del proyecto se incorporaron múltiples sistemas y mecánicas:
 
 ### Generación Procedural de Terreno con Cuevas
 - Sistema de **generación procedural** en 2D utilizando Perlin Noise (`GeneracionProcedural.cs`).  
