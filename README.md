@@ -1,17 +1,17 @@
-# 🎮 Unity 2D Roguelike Project by 3mi (nombre pendiente)  
+# 🎮 Unity 2D Roguelike Project by 3mi *(nombre pendiente)*  
 Basado en *2D Beginner: Adventure Game* de Unity Learn.  
 
-📌 Este proyecto se trabajará durante todo el cursado de **Programación de Videojuegos II**.  
+📌 Proyecto desarrollado durante **Programación de Videojuegos II**.  
 🔧 **Engine:** Unity 6.2 (6000.2.7f2)
 
 ---
 
-**🕹️CONTROLES:** 
-- WASD o Flechas de dirección para moverse.
-- SPACE para saltar / usar Jetpack.
-- Q para disparar.
-- R reiniciar nivel
-- ESC para Pausa
+## 🕹️ CONTROLES
+- **WASD** o **Flechas** → Moverse  
+- **SPACE** → Saltar / usar Jetpack  
+- **Q** → Disparar  
+- **R** → Reiniciar nivel  
+- **ESC** → Pausa  
 
 ---
 
@@ -19,133 +19,136 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 
 ---
 
-## 🚨 Problemas conocidos 
-- ❗ Al iniciar el juego, empieza acelerado por un breve momento o lo hace luego de un tiempo (IMPORTANTE).
-- El **jugador** a veces spawnea fuera del mapa.
-- El **jugador** a veces se frena al moverse sobre ciertos pisos y plataformas (problema de colliders, parcialmente arreglado).  
+## 🚨 Problemas conocidos
+- ❗ Al iniciar el juego, este puede acelerarse brevemente o hacerlo después de un tiempo (importante, parece estar relacionado con el ordenador desde el cual se ejecuta el juego, debido a que en otros ordenadores no sucede esto).  
+- El **jugador** a veces se frena al moverse sobre ciertos pisos o plataformas (problema parcial de colliders).  
+- El botón de **Bugs conocidos** del menú principal muestra la lista actualizada de errores y comportamientos pendientes de revisión.  
+
+*(Nota: el bug de aparición fuera del mapa fue solucionado.)*
 
 ---
 
 ## ⚔️ Sistema de Enemigos  
-Actualmente se añadieron scripts que permiten la generación, persecución y daño al jugador.  
 
-### 🧩 Funcionamiento  
+### 🧩 Funcionamiento
 
 #### Spawner
-- `Spawner.cs` genera enemigos tipo **Ground** y **Air** en posiciones válidas del terreno (superficie del landscape y cuevas).  
+- `Spawner.cs` genera enemigos tipo **Ground** y **Air** en posiciones válidas del terreno (superficie y cuevas).  
 - Se asegura que el terreno esté generado antes de instanciar enemigos.  
-- Se generan hasta **12 enemigos** por nivel (configurable).  
-- Los enemigos pueden reaparecer indefinidamente hasta implementar un **endgame / boss**.  
+- Genera hasta **12 enemigos** por nivel (configurable).  
+- Los enemigos reaparecen hasta implementar el **endgame / boss**.  
 
 #### IA de Enemigos
-- **Ground (EnemyGroundPathing.cs):** enemigos con gravedad que persiguen al jugador caminando sobre el terreno, necesitan mejoras de pathing para un chasing más fluido.  
-- **Air (EnemyAirPathing.cs):** enemigos que vuelan hacia el jugador sin verse afectados por la gravedad.  
+- **Ground (EnemyGroundPathing.cs):** enemigos con gravedad que patrullan y persiguen al jugador.  
+- **Air (EnemyAirPathing.cs):** enemigos voladores que ignoran la gravedad.  
 
-#### Daño y Vidas
-- `Hurt.cs`: permite que los enemigos inflijan daño al jugador al colisionar.  
-- `Enemy.cs`: script base que gestiona la vida del enemigo y su destrucción al llegar a 0.  
+#### Daño, Animaciones y Sonido
+- `Hurt.cs`: inflige daño al jugador por colisión.  
+- `Enemy.cs`: gestiona la vida y destrucción del enemigo.  
+- **Animaciones implementadas:**
+  - **Ground Enemy:** idle, run, jump, attack  
+  - **Air Enemy:** idle, attack  
+- **NUEVO:** animaciones de recibir daño para jugador y enemigos.  
+- **Efectos de sonido:**  
+  - Daño, disparos, salto, explosiones y destrucción de bloques.  
+  - Música de fondo.
 
 ---
 
-### 🧑‍🎮 Jugador, Proyectiles y UI
+## 🧑‍🎮 Jugador, Proyectiles y UI
 
-**Jugador**  
-- `Player.cs` controla la vida, progresión y disparos del jugador.  
-- Gestiona experiencia, niveles y daño dinámico mediante `PlayerProgressionData`.  
-- Detecta muerte y pausa el juego con `Time.timeScale = 0`.  
-- Puede disparar proyectiles con la tecla Q, con cooldown configurable en el Inspector.  
-- El disparo responde a la dirección en la que el jugador se mueve (izquierda/derecha).  
-- Se implementó **Jetpack**: mantener Space presionado permite elevarse, con fuel limitado y regeneración.
-  - Fuel máximo y regeneración aumentan con cada nivel del jugador.
+### Jugador  
+- `Jugador.cs` controla la vida, experiencia, nivel, daño, disparos y jetpack.  
+- Gestiona progresión mediante `PlayerProgressionData`.  
+- Implementa Singleton y persistencia entre niveles.  
+- **NUEVO:** mejorada la **posición de spawn** (ya no aparece fuera del mapa ni cayendo al vacío).  
+- Dispara proyectiles con dirección dependiente del movimiento.  
+- Jetpack con fuel limitado y regeneración escalable con el nivel.  
+- **Animaciones implementadas:** idle, run, jump, recibir daño.  
+- **Efectos de sonido:** pasos, disparo, salto, daño, y jetpack.  
 
-**Proyectiles**  
-- `Projectile.cs` se instancia desde el punto de disparo del jugador.  
-- Se desplaza horizontalmente según dirección asignada.  
-- Aplica daño a los enemigos mediante `Enemy.RecibirDaño`.  
-- Tras impactar:  
-  - El proyectil gana gravedad.  
-  - Se vuelve inutilizado (cambia de color y se convierte en objeto físico).  
+### Proyectiles  
+- `Projectile.cs` maneja movimiento, colisión y daño a enemigos.  
+- Al impactar:
+  - Gana gravedad.  
+  - Se vuelve inutilizado (color y física cambian).  
   - Se destruye luego de un tiempo.  
 
-**UI del Juego**  
-- `GameUI.cs` muestra en pantalla:  
-  - Vida del jugador en porcentaje.  
-  - Nivel del jugador.  
-  - Daño actual del jugador.
-  - Controles
-  - Barra de experiencia (actual/experiencia necesaria).  
-  - Barra de **Fuel / Jetpack** (actual / máximo).  
-  - Cantidad de enemigos restantes (contador dinámico).  
-  - Detecta condiciones de derrota (vida = 0) y muestra **"¡Has muerto!"**.  
-  - Detecta condiciones de victoria (enemigos restantes = 0) y muestra **"¡Has ganado!"**.  
+### UI del Juego  
+- `GameUI.cs` muestra:
+  - Vida, nivel, daño, experiencia, combustible, enemigos y spawners restantes.  
+  - Mensajes de **victoria** (“¡Ganaste!”) y **derrota** (“¡Has muerto!”).  
+  - Indicador de spawners actualizado dinámicamente.  
+  - Pausa automática (`Time.timeScale = 0`) en eventos de fin de nivel.  
 
 ---
 
 ## 🏆 Condiciones de Victoria y Derrota  
 
-### ✔️ Victoria (POR IMPLEMENTAR)
-~~- Se alcanza cuando se derrota al boss final, invocado al destruir todos los Spawners del nivel.~~
-~~- La UI muestra el mensaje: **"¡Has ganado!"**.~~
+### ✔️ Victoria
+- Ocurre al destruir todos los **SpawnerTiles** del nivel.  
+- Muestra el mensaje **“¡Ganaste! Pulsa cualquier tecla para jugar otra vez”**.  
+- Se pausa el juego y, al presionar una tecla, se genera un **nuevo nivel** conservando la progresión del jugador.  
 
-### ❌ Derrota  
-- Se alcanza cuando la **vida del jugador llega a 0**.  
-- La UI muestra el mensaje: **"¡Has muerto!"**.  
-- El juego se detiene con `Time.timeScale = 0`.  
+### ❌ Derrota
+- Se produce cuando la **vida del jugador llega a 0**.  
+- Se muestra **“¡Has muerto!”** y se detiene el juego.  
 
 ---
 
 ## 🚀 Mejoras Pendientes  
-- Implementar **frames de invulnerabilidad** tras recibir daño (evitar múltiples tics de daño por colisión) y poder atravezar los enemigos para no quedar atascado entre ellos.  
-- Agregar **animaciones al jugador** (idle, run, jump, shoot).  
-- Agregar **sprites y animaciones para los enemigos**.  
-- Mejorar **chasing de enemigos de suelo** con un sistema de pathing.
-- Implementar menús.
-- Implementar endgame / boss.
+- Implementar **frames de invulnerabilidad** tras recibir daño.  
+- Evitar que el jugador quede atascado entre enemigos.  
+- Mejorar **pathfinding** de enemigos terrestres.  
+- Implementar sistema de **jefe final / endgame**.  
+- Integrar efectos visuales adicionales (impactos, partículas, etc).
+- Cambiar de musica por nivel generado
 
 ---
 
-## ✅ Avances para el Desafío 3 y mejoras de gameplay
+## ✅ Avances del Desafío 3 y 4
 
-### Progresión y Player
-- Creación de un **TDA (`PlayerProgressionData`)** que encapsula nivel, experiencia, vida, daño del jugador.  
-- Implementación de Singleton y Scriptable Objects
-- Tilemap para creación de mapa.
+### Progresión y Jugador  
+- Creación del **TDA `PlayerProgressionData`** (nivel, experiencia, daño, vida).  
+- Sistema de **persistencia de jugador** entre niveles.  
+- Integración completa con la UI.  
 
-## 🆕 ✅ Avances para el Desafío 4 y mejoras de gameplay
-En esta etapa del proyecto se incorporaron múltiples sistemas y mecánicas:
+### Generación Procedural  
+- Terreno generado con **Perlin Noise**, incluyendo cuevas y superficie separadas.  
+- Parámetros configurables en el Inspector (width, height, smoothness, seed).  
+- Tilemaps diferenciados para suelo y cuevas.  
+- Regeneración con tecla **R**.  
 
-### Generación Procedural de Terreno con Cuevas
-- Sistema de **generación procedural** en 2D utilizando Perlin Noise (`GeneracionProcedural.cs`).  
-- **Parámetros configurables:** width, height, smoothness, seed, groundTile, caveTile, groundTilemap, caveTilemap.  
-- Renderizado separado de **suelo** y **cuevas** en distintos Tilemaps.  
-- **R** vuelve a generar el terreno con nueva semilla.
+### Spawners y Enemigos  
+- 6 spawner tiles por nivel (configurable).  
+- Generación balanceada de enemigos tipo Ground y Air.  
+- Enemigos reaparecen indefinidamente hasta implementar boss.  
 
-### Spawners y enemigos
-- Se generaron **6 spawner tiles** que definen puntos de aparición de enemigos.  
-- Se generan hasta **12 enemigos en pantalla** (6 Ground y 6 Air), configurable.  
-- Los enemigos reaparecen indefinidamente hasta implementar endgame / boss.  
-- Permite destruir bloques del terreno para alcanzar otras zonas.
-
-### Invocación de objetos, patrones y Object Pool
-- Codificación de invocación de objetos mediante procedimientos (spawners, proyectiles).  
-- Ejecución de situaciones de juego mediante **corrutinas** (vida de proyectiles, temporizadores, regeneración de combustible, evento día-noche).  
-- Objetos generados y tiempos de ejecución totalmente configurables.  
-- Implementación de **Object Pool** para:
-  - Enemigos en pantalla (destruidos y reutilizados).  
-  - Proyectiles del jugador (vuelven al pool al impactar o expirar).
+### Menú Principal  
+- Interfaz funcional con opciones de:  
+  - **Iniciar partida**  
+  - **Ver bugs conocidos** *(nuevo botón)*  
+  - **Salir del juego**  
 
 ---
 
-## 🎮 Resultado
-- Terreno irregular y natural con colinas y valles, separado en suelo y cuevas.  
-- Mecánicas de combate dinámico: disparos, destrucción de bloques y jetpack.  
-- UI completa y dinámica mostrando vida, nivel, daño, experiencia, combustible y controlnes..  
+## 🎮 Resultado  
+- Generación procedural completa con terreno natural y cuevas.  
+- Jugabilidad fluida con jetpack, disparos, progresión y niveles encadenados.  
+- Retroalimentación visual y sonora con animaciones y efectos de daño.  
+- UI completa e informativa actualizada en tiempo real.  
+- Sistema de spawners y enemigos con condiciones de victoria funcionales.  
 
 ---
 
 ## 📂 Assets utilizados  
-(por completar)  De momento mayormente generado por IA
+Por el momento, la mayoría de los sprites y efectos fueron generados por IA o creados específicamente para el proyecto. 
+Para animar los sprites se usó [Ludo.ai](https://app.ludo.ai/sprite-generator)
+Para generar los sprites de jugador se usó [Pixellab.ai](https://www.pixellab.ai/create-character) en sección personajes
+Para generar los sprites del enemigo se usó [Pixellab.ai](https://www.pixellab.ai/create) en sección crear
+Para la música se usó [Music Creator.ai](https://www.musiccreator.ai/ai-music-generator) y [Suno](https://suno.com/create)
+Para el tileset usado para el terreno se usó [Tileset Explorer](https://donitz.itch.io/tileset-explorer)
 
 ---
 
-✍️ Por **Emiliano Arias (3mi)**
+✍️ Por **Emiliano Arias (3mi)**  
