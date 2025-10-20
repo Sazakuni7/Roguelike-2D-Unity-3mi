@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -8,11 +10,24 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float vidaBase = 16f; // Vida base antes de escalar
     [SerializeField] private float experienciaOtorgada = 10f;
+    [SerializeField] private Color colorDaño = Color.red; // Color al recibir daño
+    [SerializeField] private float duracionColorDaño = 0.2f; // Duración del cambio de color
 
     private float vidaActual;
     private bool haMuerto = false;
+    private SpriteRenderer spriteRenderer; // Referencia al SpriteRenderer original
+    private Color colorOriginal; // Color original del enemigo
 
     public float VidaMaxima { get; private set; }
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            colorOriginal = spriteRenderer.color;
+        }
+    }
 
     private void OnEnable()
     {
@@ -29,7 +44,26 @@ public class Enemy : MonoBehaviour
     public void RecibirDaño(float daño)
     {
         vidaActual -= daño;
+
+        // Iniciar la corrutina para cambiar el color al recibir daño
+        if (spriteRenderer != null)
+        {
+            StartCoroutine(CambiarColorTemporalmente());
+        }
+
         if (vidaActual <= 0) Morir();
+    }
+
+    private IEnumerator CambiarColorTemporalmente()
+    {
+        // Cambiar al color de daño
+        spriteRenderer.color = colorDaño;
+
+        // Esperar un tiempo
+        yield return new WaitForSeconds(duracionColorDaño);
+
+        // Restaurar el color original
+        spriteRenderer.color = colorOriginal;
     }
 
     public void EmpujarDesdeJugador(Vector2 posicionJugador, float fuerzaEmpuje)
@@ -60,5 +94,11 @@ public class Enemy : MonoBehaviour
     {
         haMuerto = false;
         vidaActual = VidaMaxima;
+
+        // Restaurar el color original al reiniciar el estado
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = colorOriginal;
+        }
     }
 }

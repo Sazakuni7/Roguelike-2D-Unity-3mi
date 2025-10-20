@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -14,6 +16,11 @@ public class Jugador : MonoBehaviour
     [SerializeField] private float tiempoEntreDisparos = 0.3f;
     [SerializeField] private float velocidad = 5f;
 
+    [Header("Indicador de Daño")]
+    [SerializeField] private Color colorDaño = Color.red; // Color al recibir daño
+    [SerializeField] private float duracionColorDaño = 0.2f; // Duración del cambio de color
+
+
     [Header("Jetpack")]
     [SerializeField] private float fuelMaximo = 3f;
     [SerializeField] private float regeneracionFuelPorSegundo = 1f;
@@ -28,6 +35,8 @@ public class Jugador : MonoBehaviour
     private float fuelActual;
     private bool usandoJetpack = false;
     private Animator animator;
+    private SpriteRenderer spriteRenderer; // Referencia al SpriteRenderer
+    private Color colorOriginal; // Color original del jugador
 
     public PlayerProgressionData DatosProgresion => datosProgresion;
 
@@ -50,6 +59,11 @@ public class Jugador : MonoBehaviour
         escalaInicial = transform.localScale;
 
         animator = GetComponent<Animator>(); // Obtén la referencia al Animator
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Obtener el SpriteRenderer
+        if (spriteRenderer != null)
+        {
+            colorOriginal = spriteRenderer.color; // Guardar el color original
+        }
 
         if (rb != null)
         {
@@ -110,6 +124,12 @@ public class Jugador : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * velocidad, rb.linearVelocity.y);
         }
+    }
+
+    public void CurarAlMaximo()
+    {
+        vida = DatosProgresion.vidaMaxima;
+        OnVidaCambiada?.Invoke(vida);
     }
 
     // ==================================
@@ -187,10 +207,29 @@ public class Jugador : MonoBehaviour
 
         OnVidaCambiada?.Invoke(vida);
 
+        // Cambiar color al recibir daño
+        if (puntos < 0 && spriteRenderer != null)
+        {
+            StartCoroutine(CambiarColorTemporalmente());
+        }
+
         if (vida <= 0)
         {
             GameEvents.TriggerGameOver();
         }
+    }
+
+
+    private IEnumerator CambiarColorTemporalmente()
+    {
+        // Cambiar al color de daño
+        spriteRenderer.color = colorDaño;
+
+        // Esperar un tiempo
+        yield return new WaitForSeconds(duracionColorDaño);
+
+        // Restaurar el color original
+        spriteRenderer.color = colorOriginal;
     }
 
     public float GetVida()

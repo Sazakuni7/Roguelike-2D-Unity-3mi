@@ -39,14 +39,19 @@ public class Spawner : MonoBehaviour
         GameObject[] tiles = GameObject.FindGameObjectsWithTag("SpawnerTile");
         foreach (GameObject tile in tiles)
         {
-            posicionesSpawner.Add(tile.transform.position);
-
-            if (particleEffectPrefab != null)
+            if (tile != null)
             {
-                GameObject particleEffect = Instantiate(particleEffectPrefab, tile.transform.position, Quaternion.identity, tile.transform);
-                ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
-                if (ps != null) ps.transform.SetParent(tile.transform);
+                posicionesSpawner.Add(tile.transform.position);
+
+                if (particleEffectPrefab != null)
+                {
+                    GameObject particleEffect = Instantiate(particleEffectPrefab, tile.transform.position, Quaternion.identity, tile.transform);
+                    ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
+                    if (ps != null) ps.transform.SetParent(tile.transform);
+                }
             }
+
+            SpawnerTileManager.Instance?.ActualizarSpawnerList();
         }
 
         generacion = Object.FindFirstObjectByType<GeneracionProcedural>();
@@ -54,8 +59,7 @@ public class Spawner : MonoBehaviour
         if (!playerSpawned && !evitarSpawnJugador)
             SpawnJugadorCercanoAlTerreno();
 
-        SpawnerTileManager.Instance?.ActualizarSpawnerList();
-
+        CancelInvoke(nameof(SpawnEnemigos));
         InvokeRepeating(nameof(SpawnEnemigos), 2f, spawnInterval);
     }
 
@@ -68,13 +72,18 @@ public class Spawner : MonoBehaviour
         int height = mapa.GetLength(1);
 
         List<Vector3> posiblesPos = new List<Vector3>();
+        int margenHorizontal = width / 4;
+        int margenVertical = 2;
 
-        for (int x = 3; x < width - 3; x++)
+        for (int x = margenHorizontal; x < width - margenHorizontal; x++)
         {
-            for (int y = 1; y < height - 2; y++)
+            for (int y = margenVertical; y < height - margenVertical; y++)
             {
-                if (mapa[x, y] == 0 && mapa[x, y - 1] == 1)
+                // Chequear si la posicion es valida para spawnear al jugador
+                if (mapa[x, y] == 0 && mapa[x, y - 1] == 1) // Espacio vacio con suelo debajo
+                {
                     posiblesPos.Add(new Vector3(x, y, 0));
+                }
             }
         }
 

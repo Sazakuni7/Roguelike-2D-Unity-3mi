@@ -23,7 +23,7 @@ public class GeneracionProcedural : MonoBehaviour
         Generation();
     }
 
-    void Generation()
+   public void Generation()
     {
         seed = Random.Range(-10000f, 10000f);
         clearMap();

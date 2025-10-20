@@ -31,9 +31,16 @@ public class SpawnerTileManager : MonoBehaviour
     {
         spawnersActivos.Clear();
         spawnersActivos.AddRange(GameObject.FindGameObjectsWithTag("SpawnerTile"));
-        spawnersRestantes = spawnersActivos.Count;
-        totalSpawnerTiles = spawnersRestantes;
 
+        // Quitar duplicados
+        spawnersActivos = new List<GameObject>(new HashSet<GameObject>(spawnersActivos));
+
+        // Limitar a totalSpawnerTiles
+        if (spawnersActivos.Count > totalSpawnerTiles)
+            spawnersActivos = spawnersActivos.GetRange(0, totalSpawnerTiles);
+
+        spawnersRestantes = spawnersActivos.Count;
+        totalSpawnerTiles = spawnersActivos.Count; // actualizar total según lo encontrado
         GameUI.Instance.ActualizarSpawnerTilesUI(spawnersRestantes, totalSpawnerTiles);
     }
 

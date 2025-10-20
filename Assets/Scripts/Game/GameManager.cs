@@ -104,11 +104,10 @@ public class GameManager : MonoBehaviour
             RestartLevel(mantenerProgresion: false); // reinicio limpio
         }
 
-        // Avanzar de nivel al pulsar cualquier tecla cuando se muestra victoria
         if (esperandoContinuarNivel && Input.anyKeyDown)
         {
             esperandoContinuarNivel = false;
-            RestartLevel(mantenerProgresion: true);
+            GenerarNuevoNivel();
         }
     }
 
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     private void AvanzarNivel()
     {
-        RestartLevel(mantenerProgresion: true);
+        GenerarNuevoNivel();
     }
 
     public void RestartLevel(bool mantenerProgresion)
@@ -152,7 +151,7 @@ public class GameManager : MonoBehaviour
 
         if (mantenerProgresion && jugador != null)
         {
-            progresionActual = Instantiate(jugador.DatosProgresion); // Hacemos copia
+            progresionActual = Instantiate(jugador.DatosProgresion);
             NivelJuego++;
             Debug.Log($"Subiendo a nivel jugable {NivelJuego}");
         }
@@ -171,26 +170,87 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ReaplicarProgresionJugador(progresionActual));
     }
 
+    private void GenerarNuevoNivel()
+    {
+        Time.timeScale = 1f;
+
+        // Limpiar objetos, pero NO destruimos al jugador
+        LimpiarObjetosDelNivel(excluirJugador: true);
+
+        NivelJuego++;
+        Debug.Log($"Generando nuevo nivel: {NivelJuego}");
+
+        // Generar semilla de nivel
+        GeneracionProcedural generador = FindObjectOfType<GeneracionProcedural>();
+        generador?.Generation();
+
+        // Inicializar spawners
+        Spawner.Instance?.InicializarPosiciones();
+        if (Spawner.Instance != null)
+        {
+            Spawner.Instance.puedeSpawnear = true;
+            Spawner.Instance.playerSpawned = true;
+        }
+
+        // Reposicionar y curar jugador
+        if (jugador != null)
+        {
+            jugador.transform.position = Spawner.Instance.GetSpawnPosicionJugador();
+            jugador.CurarAlMaximo();
+            GameUI.Instance.ConectarJugador(jugador);
+            Debug.Log("Jugador existente trasladado al nuevo nivel y curado.");
+        }
+
+        AjustarDificultadEnemigos();
+    }
+
+    private void LimpiarObjetosDelNivel(bool excluirJugador = false)
+    {
+        foreach (var enemigo in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+            Destroy(enemigo.gameObject);
+
+        foreach (var proyectil in Object.FindObjectsByType<Projectile>(FindObjectsSortMode.None))
+            Destroy(proyectil.gameObject);
+
+        foreach (var spawnerTile in GameObject.FindGameObjectsWithTag("SpawnerTile"))
+            Destroy(spawnerTile);
+
+        if (!excluirJugador && jugador != null)
+        {
+            Destroy(jugador.gameObject);
+            jugador = null;
+        }
+
+        AudioListener.volume = 1f;
+        Debug.Log("Objetos del nivel anterior eliminados.");
+    }
+
     private IEnumerator ReaplicarProgresionJugador(PlayerProgressionData progresion)
     {
-        yield return null; // Esperamos que la escena cargue
+        yield return null;
 
-        if (progresion != null && Spawner.Instance != null)
+        if (jugador != null)
         {
-            // Instanciamos jugador en posición de spawn
+            jugador.gameObject.SetActive(true);
+            jugador.SetDatosProgresion(progresion);
+            jugador.CurarAlMaximo();
+            Spawner.Instance.playerSpawned = true;
+            GameUI.Instance.ConectarJugador(jugador);
+            Debug.Log("Progresion de jugador reaplicada al jugador existente.");
+        }
+        else if (progresion != null && Spawner.Instance != null)
+        {
             GameObject jugadorGO = Instantiate(Spawner.Instance.jugadorPrefab, Spawner.Instance.GetSpawnPosicionJugador(), Quaternion.identity);
             jugador = jugadorGO.GetComponent<Jugador>();
             jugador.SetDatosProgresion(progresion);
             Spawner.Instance.playerSpawned = true;
-
             GameUI.Instance.ConectarJugador(jugador);
-            Debug.Log("Progresión reaplicada al siguiente nivel.");
+            Debug.Log("Progresion del jugador reaplicada al nuevo.");
         }
         else
         {
-            // Reinicio limpio
             ResetearProgresionJugador();
-            Debug.Log("Reinicio limpio: progresión del jugador reiniciada.");
+            Debug.Log("Reinicio de la progresion del jugador.");
         }
 
         AjustarDificultadEnemigos();
@@ -201,9 +261,7 @@ public class GameManager : MonoBehaviour
         float multiplicadorVida = 1f + (NivelJuego - 1) * 0.5f;
 
         foreach (var enemigo in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None))
-        {
             enemigo.Inicializar(multiplicadorVida);
-        }
 
         Debug.Log($"Enemigos escalados para nuevo nivel. Multiplicador de vida: {multiplicadorVida}");
     }
@@ -252,7 +310,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("[GameManager] Spawner detenido: no hay más SpawnerTiles activos.");
         }
 
-        // Mostrar pantalla de victoria y esperar tecla para continuar
         HandleVictory();
     }
 

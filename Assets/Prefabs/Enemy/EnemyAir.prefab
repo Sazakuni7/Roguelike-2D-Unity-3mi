@@ -313,8 +313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d78f75c6002fe4f8c65da8a4bbb530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  vida: 16
+  vidaBase: 16
   experienciaOtorgada: 30
+  "colorDa\xF1o": {r: 1, g: 0, b: 0, a: 1}
+  "duracionColorDa\xF1o": 0.1
 --- !u!114 &9010855375589226294
 MonoBehaviour:
   m_ObjectHideFlags: 0
