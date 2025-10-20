@@ -3,6 +3,7 @@ using UnityEngine;
 public class Saltar : MonoBehaviour
 {
     [Header("Configuración")]
+    [SerializeField] private AudioClip jumpSFX;
     [SerializeField] private float fuerzaSalto;
     [SerializeField] private LayerMask capaSuelo; // Capa para identificar el suelo
     [SerializeField] private Transform detectorSuelo; // Punto para verificar si está en el suelo
@@ -10,10 +11,12 @@ public class Saltar : MonoBehaviour
 
     private bool puedoSaltar = true;
     private Rigidbody2D miRigidbody2D;
+    private AudioSource miAudioSource;
 
     private void Awake()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
+        miAudioSource = GetComponent<AudioSource>();
 
         // Reset inicial de velocidad
         if (miRigidbody2D != null)
@@ -27,7 +30,16 @@ public class Saltar : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && puedoSaltar)
         {
+            bool estabaEnSuelo = EstoyEnElSuelo(); // Verificamos si estaba en el suelo antes del salto
+
             SaltarAccion();
+
+            // Solo reproducir sonido si el salto fue desde el suelo
+            if (estabaEnSuelo && miAudioSource != null && jumpSFX != null)
+            {
+                if (!miAudioSource.isPlaying)
+                    miAudioSource.PlayOneShot(jumpSFX);
+            }
         }
     }
 

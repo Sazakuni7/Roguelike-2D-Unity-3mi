@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CaveTile
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
   m_Sprite: {fileID: 8606453610214823136, guid: 5e648907185e4594da33975dc7fcc503, type: 3}
-  m_Color: {r: 0.43827876, g: 0.43827876, b: 0.46226418, a: 1}
+  m_Color: {r: 0.18778922, g: 0.18778922, b: 0.18867922, a: 1}
   m_Transform:
     e00: 1
     e01: 0

@@ -134,7 +134,10 @@ public class GeneracionProcedural : MonoBehaviour
         if (Spawner.Instance != null)
         {
             Spawner.Instance.InicializarPosiciones();
+
         }
+        SpawnerTileManager.Instance?.ActualizarSpawnerList(); // Actualizar la lista de SpawnerTiles justo despues de crearlos
+
     }
 
     public int[,] GetMap()

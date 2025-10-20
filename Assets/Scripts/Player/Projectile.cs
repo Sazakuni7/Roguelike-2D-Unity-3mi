@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Tilemaps;
 
 public class Projectile : MonoBehaviour
@@ -9,7 +10,11 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float velocidad = 10f;
     [SerializeField] private float tiempoDeVida = 2f;
     [SerializeField] private float tiempoMaxInactivo = 4f;
+    [SerializeField] private UnityEngine.Rendering.Universal.Light2D spotLight;
 
+    [Header("Sonidos")]
+    [SerializeField] private AudioClip shotSFX;
+ 
     [Header("Referencia BlocksController (automático si no se asigna)")]
     public BlocksController blocksController;
 
@@ -25,16 +30,21 @@ public class Projectile : MonoBehaviour
 
     private Collider2D myCollider;
     private Collider2D jugadorCollider; // referencia temporal al jugador para ignorar colisión
+    private AudioSource audioSource;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
 
         if (blocksController == null)
             blocksController = Object.FindFirstObjectByType<BlocksController>();
-    }
 
+        // Si no se asignó en inspector, buscar en children
+        if (spotLight == null)
+            spotLight = GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>();
+    }
     public void Disparar(Vector3 posicion, Vector2 dir, float dañoProyectil)
     {
         ReiniciarEstado();
@@ -44,7 +54,7 @@ public class Projectile : MonoBehaviour
         daño = dañoProyectil;
         transform.localScale = new Vector3(direccion.x < 0 ? -1 : 1, 1, 1);
 
-        // Buscar collider del jugador y evitar colisión temporal
+        // Ignorar colisión con el jugador temporalmente
         GameObject jugadorGO = GameObject.FindGameObjectWithTag("Player");
         if (jugadorGO != null)
         {
@@ -63,6 +73,12 @@ public class Projectile : MonoBehaviour
         {
             rb.linearVelocity = direccion * velocidad;
             rb.gravityScale = 0f;
+        }
+
+        // Reproducir sonido de disparo
+        if (audioSource != null && shotSFX != null)
+        {
+            audioSource.PlayOneShot(shotSFX);
         }
 
         // Comenzar temporizador de vida
@@ -114,15 +130,34 @@ public class Projectile : MonoBehaviour
             if (enemigo != null) enemigo.RecibirDaño(daño);
         }
 
-        // Destruir bloque si choca con suelo
+        // Destruir bloque si choca con ground
         if (collision.CompareTag("Ground") && blocksController != null)
         {
             Vector3 hitPos = collision.ClosestPoint(rb.position);
             blocksController.DestroyTileAtWorldPosition(hitPos);
+
         }
 
-        // Convertir en inactivo (gris con gravedad)
-        ConvertirEnInactivo();
+        if (collision.CompareTag("SpawnerTile"))
+        {
+            Vector3 hitPos = collision.ClosestPoint(rb.position);
+
+            // Destruir el tile del spawner
+            if (blocksController != null)
+            {
+                blocksController.DestroyTileAtWorldPosition(hitPos);
+            }
+
+            // Detener partículas asociadas al SpawnerTile
+            ParticleSystem particleSystem = collision.GetComponentInChildren<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                particleSystem.Stop();
+                Destroy(particleSystem.gameObject, 1f); // Opcional: destruir el sistema de partículas después de detenerlo
+            }
+        }
+            // Convertir en inactivo (gris con gravedad)
+            ConvertirEnInactivo();
     }
 
     private void ConvertirEnInactivo()
@@ -144,6 +179,9 @@ public class Projectile : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
             sr.color = Color.gray;
+
+        if (spotLight != null)
+            spotLight.enabled = false;
     }
 
     private void VolverAlPool()
@@ -174,5 +212,8 @@ public class Projectile : MonoBehaviour
             rb.gravityScale = 0f;
             rb.linearVelocity = Vector2.zero;
         }
+
+        if (spotLight != null)
+            spotLight.enabled = true;
     }
 }

@@ -4,6 +4,7 @@
 public class EnemyAirPathing : MonoBehaviour
 {
     [Header("Movimiento")]
+    [SerializeField] private float rangoAtaque = 1.0f; // distancia para detenerse y atacar
     [SerializeField] private float velocidadHorizontal = 3f;
     [SerializeField] private float velocidadVertical = 2f;
     [SerializeField] private float distanciaDeteccion = 0.6f;
@@ -16,7 +17,7 @@ public class EnemyAirPathing : MonoBehaviour
     [SerializeField] private Transform jugador;
 
     private Rigidbody2D rb;
-    private bool mirandoDerecha = true;
+  //  private bool mirandoDerecha = true;
 
     private Vector2 ultimaPosicion;
     private float tiempoAtascado = 0f;
@@ -24,7 +25,14 @@ public class EnemyAirPathing : MonoBehaviour
     private float tiempoEvasionRestante = 0f;
     private Vector2 direccionEvasion;
 
-    private void Awake() => rb = GetComponent<Rigidbody2D>();
+    private Animator animator;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
 
     private void FixedUpdate()
     {
@@ -34,12 +42,21 @@ public class EnemyAirPathing : MonoBehaviour
         Vector2 origen = transform.position;
         float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
 
+        // --- Si está dentro del rango de ataque, no avanzar más ---
+        if (distanciaAlJugador <= rangoAtaque)
+        {
+            rb.linearVelocity = Vector2.zero; // se queda quieto
+            animator.SetBool("IsMoving", false);
+            return;
+        }
+
+
         // --- Comprobar si hay una pared u obstáculo entre enemigo y jugador ---
         bool hayObstaculoEntre = Physics2D.Linecast(origen, jugador.position, capaObstaculos);
 
         // --- Raycast hacia adelante para detección de pared inmediata ---
         bool paredDelante = Physics2D.Raycast(origen, Vector2.right * Mathf.Sign(direccion.x), distanciaDeteccion, capaObstaculos);
-
+       
         // Movimiento base
         float velX = direccion.x * velocidadHorizontal;
         float velY = direccion.y * velocidadVertical;
@@ -86,14 +103,18 @@ public class EnemyAirPathing : MonoBehaviour
         rb.linearVelocity = new Vector2(velX, velY);
         ultimaPosicion = transform.position;
 
-        // --- Rotar sprite ---
+       /* // --- Rotar sprite --- (opcional)
         if ((velX > 0 && !mirandoDerecha) || (velX < 0 && mirandoDerecha))
         {
             mirandoDerecha = !mirandoDerecha;
             Vector3 esc = transform.localScale;
             esc.x *= -1;
             transform.localScale = esc;
-        }
+        }*/
+
+        // --- Actualizar animaciones ---
+        bool isMoving = velX != 0 || velY != 0;
+        animator.SetBool("IsMoving", isMoving);
     }
 
     public void SetJugador(Transform jugadorTransform) => jugador = jugadorTransform;

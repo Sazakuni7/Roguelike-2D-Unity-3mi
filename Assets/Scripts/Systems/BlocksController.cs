@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Tilemaps;
 
 public class BlocksController : MonoBehaviour
@@ -10,6 +11,8 @@ public class BlocksController : MonoBehaviour
 
     [Header("Parámetros de destrucción")]
     [SerializeField] private float blockDestroyTime = 0.1f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip breakSFX;
 
     private Tilemap groundTileMap;
     private Tilemap caveTileMap;
@@ -18,7 +21,6 @@ public class BlocksController : MonoBehaviour
     {
         // Buscar automáticamente los Tilemaps
         Tilemap[] tilemaps = Object.FindObjectsByType<Tilemap>(FindObjectsSortMode.None);
-        // Debug.Log($"[BlocksController] Encontrados {allTilemaps.Length} Tilemaps en la escena.");
 
         foreach (Tilemap tm in tilemaps)
         {
@@ -35,12 +37,6 @@ public class BlocksController : MonoBehaviour
                 //Debug.Log("CaveTileMap asignado automáticamente: {tm.name}");
             }
         }
-
-        //  if (groundTileMap == null)
-        //  Debug.LogWarning(" No se encontró ningún Tilemap con 'Ground' en su nombre.");
-
-        // if (caveTileMap == null)
-        // Debug.LogWarning(" No se encontró ningún Tilemap con 'Cave' en su nombre. Los tiles de fondo no se reemplazarán.");
     }
 
     /// Destruye un bloque del mapa de terreno y coloca un tile de cueva en el fondo.
@@ -60,10 +56,6 @@ public class BlocksController : MonoBehaviour
             // Debug.Log($" Destruyendo tile en celda {cellPos}...");
             StartCoroutine(DestroyAndReplace(cellPos));
         }
-        // else
-        //  {
-        // Debug.Log($" No se encontró tile en celda {cellPos}, no se destruye nada.");
-        //  }
     }
 
     private IEnumerator DestroyAndReplace(Vector3Int cellPos)
@@ -72,7 +64,12 @@ public class BlocksController : MonoBehaviour
 
         // Eliminar bloque sólido
         groundTileMap.SetTile(cellPos, null);
-        // Debug.Log($" Tile destruido en {cellPos}");
+
+        // Reproducir sonido de ruptura
+        if (audioSource != null && breakSFX != null)
+        {
+            audioSource.PlayOneShot(breakSFX);
+        }
 
         // Colocar fondo (cave tile)
         if (caveTileMap != null && caveTile != null)
@@ -80,12 +77,34 @@ public class BlocksController : MonoBehaviour
             caveTileMap.SetTile(cellPos, caveTile);
             // Debug.Log($" Tile de cueva colocado en {cellPos}");
         }
+
+
+        //  Buscar y destruir un SpawnerTile asociado (si existe)
+        Vector3 worldPos = groundTileMap.CellToWorld(cellPos) + new Vector3(0.5f, 1f, 0f); // posición típica del spawner
+        float searchRadius = 0.3f;
+
+        Collider2D spawnerHit = Physics2D.OverlapCircle(worldPos, searchRadius);
+
+
+        if (spawnerHit != null && spawnerHit.CompareTag("SpawnerTile"))
+        {
+            SpawnerTileManager.Instance?.RegistrarDestruccion(spawnerHit.gameObject);
+            Destroy(spawnerHit.gameObject);
+        }
         else
         {
-            //  if (caveTileMap == null)
-            //     Debug.LogWarning(" CaveTileMap es NULL, no se pudo colocar el tile de cueva.");
-            //  else if (caveTile == null)
-            //    Debug.LogWarning(" CaveTile no asignado en el inspector, no se pudo colocar tile.");
+  
+            // Alternativa sin collider: buscar por distancia (fallback)
+            var spawners = Object.FindObjectsOfType<Transform>();
+            foreach (var s in spawners)
+            {
+                if (s.CompareTag("SpawnerTile") && Vector3.Distance(s.position, worldPos) < 0.5f)
+                {
+                    SpawnerTileManager.Instance?.RegistrarDestruccion(s.gameObject);
+                    Destroy(s.gameObject);
+                    break;
+                }
+            }
         }
     }
 }

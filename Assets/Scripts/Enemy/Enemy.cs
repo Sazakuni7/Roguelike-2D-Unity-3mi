@@ -3,18 +3,33 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
-    public static event Action<float> OnEnemyDestroyed; // Evento estático con experiencia
+    public static event Action<float> OnEnemyDestroyed;
     public event Action<Enemy> OnEnemyDestroyedInstance;
-    [SerializeField] private float vida = 6f;
-    [SerializeField] private float experienciaOtorgada = 10f; // Experiencia que otorga este enemigo
 
+    [SerializeField] private float vidaBase = 16f; // Vida base antes de escalar
+    [SerializeField] private float experienciaOtorgada = 10f;
+
+    private float vidaActual;
     private bool haMuerto = false;
 
-    // Aplica daño al enemigo. Si la vida llega a 0, se desactiva y entrega experiencia al jugador.
+    public float VidaMaxima { get; private set; }
+
+    private void OnEnable()
+    {
+        ResetearEstado();
+    }
+
+    public void Inicializar(float multiplicadorVida)
+    {
+        VidaMaxima = vidaBase * multiplicadorVida;
+        vidaActual = VidaMaxima;
+        haMuerto = false;
+    }
+
     public void RecibirDaño(float daño)
     {
-        vida -= daño;
-        if (vida <= 0) Morir();
+        vidaActual -= daño;
+        if (vidaActual <= 0) Morir();
     }
 
     public void EmpujarDesdeJugador(Vector2 posicionJugador, float fuerzaEmpuje)
@@ -32,24 +47,18 @@ public class Enemy : MonoBehaviour
         if (haMuerto) return;
         haMuerto = true;
 
-        Debug.Log($"Enemigo destruido. Experiencia otorgada: {experienciaOtorgada}");
         OnEnemyDestroyed?.Invoke(experienciaOtorgada);
         OnEnemyDestroyedInstance?.Invoke(this);
 
-        // Desregistrar del GameManager
         GameManager.Instance.DesregistrarEnemigo(this);
-
-        // Actualizar UI
         GameUI.Instance.ActualizarEnemigosRestantesUI();
 
-        // Desactivar para reutilizar
         gameObject.SetActive(false);
-        ResetearEstado();
     }
 
-    private void ResetearEstado()
+    public void ResetearEstado()
     {
         haMuerto = false;
-        vida = 6f; // Reiniciar la vida del enemigo (puedes ajustar este valor según sea necesario)
+        vidaActual = VidaMaxima;
     }
 }

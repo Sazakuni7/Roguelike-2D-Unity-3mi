@@ -8,14 +8,11 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if (enemy != null)
+            Rigidbody2D enemyRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (enemyRb != null)
             {
-                // Hacer daño al jugador
-               // jugador.ModificarVida(-10); // Ejemplo de daño al jugador
-
-                // Empujar al enemigo hacia atrás
-                enemy.EmpujarDesdeJugador(transform.position, fuerzaEmpuje * 1.5f); // Aumenta la fuerza de empuje
+                Vector2 direccion = (enemyRb.position - (Vector2)transform.position).normalized;
+                enemyRb.linearVelocity += direccion * 3f; // pequeña fuerza de empuje
             }
         }
     }

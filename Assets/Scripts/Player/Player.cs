@@ -27,6 +27,7 @@ public class Jugador : MonoBehaviour
     private float tiempoUltimoSalto;
     private float fuelActual;
     private bool usandoJetpack = false;
+    private Animator animator;
 
     public PlayerProgressionData DatosProgresion => datosProgresion;
 
@@ -47,6 +48,8 @@ public class Jugador : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         saltar = GetComponent<Saltar>();
         escalaInicial = transform.localScale;
+
+        animator = GetComponent<Animator>(); // Obtén la referencia al Animator
 
         if (rb != null)
         {
@@ -86,6 +89,11 @@ public class Jugador : MonoBehaviour
 
         direccionDisparo = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
+        // Actualizar parámetros del Animator
+        animator.SetFloat("MoveX", moverHorizontal);
+        animator.SetBool("IsMoving", moverHorizontal != 0);
+        animator.SetBool("IsJumping", !saltar.EstaEnSuelo());
+
         // --- Disparo ---
         if (Input.GetKey(KeyCode.Q) && Time.time >= tiempoUltimoDisparo + tiempoEntreDisparos)
         {
@@ -96,7 +104,6 @@ public class Jugador : MonoBehaviour
         // --- Jetpack ---
         ManejarJetpack();
     }
-
     private void FixedUpdate()
     {
         if (rb != null)

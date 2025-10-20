@@ -6,15 +6,39 @@ public class Herir : MonoBehaviour
 {
     // Variables a configurar desde el editor
     [Header("Configuracion")]
-    [SerializeField] float puntos = 5f;
+    [SerializeField] private int puntos = 5;
+    [SerializeField] private float tiempoEntreAtaques = 1.0f; // cooldown entre ataques
+    private float tiempoUltimoAtaque = 0f;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private Animator animator;
+
+    private void Awake()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // Obtener referencia al Animator
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
         {
-            Jugador jugador = collision.gameObject.GetComponent<Jugador>();
-            jugador.ModificarVida(-puntos);
-            Debug.Log(" PUNTOS DE DAÑO REALIZADOS AL JUGADOR " + puntos);
+            if (Time.time - tiempoUltimoAtaque >= tiempoEntreAtaques)
+            {
+                // Reinicia y dispara trigger para asegurar que se reproduzca siempre
+                animator.ResetTrigger("Attack");
+                animator.SetTrigger("Attack");
+
+                tiempoUltimoAtaque = Time.time;
+
+                // Aplica daño una sola vez
+                Jugador jugador = collision.GetComponent<Jugador>();
+                if (jugador != null)
+                {
+                    jugador.ModificarVida(-puntos);
+                    Debug.Log("PUNTOS DE DAÑO REALIZADOS AL JUGADOR: " + puntos);
+                }
+            }
         }
     }
 }
+
