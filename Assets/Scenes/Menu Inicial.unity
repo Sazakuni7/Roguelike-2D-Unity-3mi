@@ -1460,7 +1460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "-Cuando se completa un nivel, en el nuevo nivel generado los contadores
+  m_text: "\n-Cuando se completa un nivel, en el nuevo nivel generado los contadores
     de spawners no funcionan correctamente.\n\n-Slider de volumen de efectos de sonido
     no funciona.\n\n-Falta men\xFA de pausa durante el juego.\n\n-Algunos tiles del
     suelo tienen una colision extra\xF1a.\n\n-Se requiere mejorar la respuesta a
@@ -4750,7 +4750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -756, y: 510}
+  m_AnchoredPosition: {x: -752, y: 486.72}
   m_SizeDelta: {x: 358.143, y: 92.7501}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1544845360
