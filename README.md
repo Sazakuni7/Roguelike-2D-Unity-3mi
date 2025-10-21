@@ -22,6 +22,7 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 ## 🚨 Problemas conocidos
 - ❗ Al iniciar el juego, este puede acelerarse brevemente o hacerlo después de un tiempo (importante, parece estar relacionado con el ordenador desde el cual se ejecuta el juego, debido a que en otros ordenadores no sucede esto).  
 - El **jugador** a veces se frena al moverse sobre ciertos pisos o plataformas (problema parcial de colliders).  
+- Muy pocas veces el jugador puede spawnear clippeado en el suelo.
 - El botón de **Bugs conocidos** del menú principal muestra la lista actualizada de errores y comportamientos pendientes de revisión.  
 
 *(Nota: el bug de aparición fuera del mapa fue solucionado.)*
