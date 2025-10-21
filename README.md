@@ -1,4 +1,4 @@
-# 🎮 Unity 2D Roguelike Project by 3mi *(nombre pendiente)*  
+# 🎮 YAR-L Yet Another Rogue-Like by 3mi*  
 Basado en *2D Beginner: Adventure Game* de Unity Learn.  
 
 📌 Proyecto desarrollado durante **Programación de Videojuegos II**.  
