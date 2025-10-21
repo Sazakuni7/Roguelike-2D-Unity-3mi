@@ -10,8 +10,9 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 - **WASD** o **Flechas** → Moverse  
 - **SPACE** → Saltar / usar Jetpack  
 - **Q** → Disparar  
-- **R** → Reiniciar nivel  
-- **ESC** → Pausa  
+- **R** → Reiniciar nivel
+- **P** → Pausa
+- **ESC** → Volver al menu 
 
 ---
 
