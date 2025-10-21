@@ -143,12 +143,12 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 ---
 
 ## 📂 Assets utilizados  
-Por el momento, la mayoría de los sprites y efectos fueron generados por IA o creados específicamente para el proyecto. 
-Para animar los sprites se usó [Ludo.ai](https://app.ludo.ai/sprite-generator)
-Para generar los sprites de jugador se usó [Pixellab.ai](https://www.pixellab.ai/create-character) en sección personajes
-Para generar los sprites del enemigo se usó [Pixellab.ai](https://www.pixellab.ai/create) en sección crear
-Para la música se usó [Music Creator.ai](https://www.musiccreator.ai/ai-music-generator) y [Suno](https://suno.com/create)
-Para el tileset usado para el terreno se usó [Tileset Explorer](https://donitz.itch.io/tileset-explorer)
+- Por el momento, la mayoría de los sprites y efectos fueron generados por IA o creados específicamente para el proyecto. 
+- Para animar los sprites se usó [Ludo.ai](https://app.ludo.ai/sprite-generator)
+- Para generar los sprites de jugador se usó [Pixellab.ai](https://www.pixellab.ai/create-character) en sección personajes
+- Para generar los sprites del enemigo se usó [Pixellab.ai](https://www.pixellab.ai/create) en sección crear
+- Para la música se usó [Music Creator.ai](https://www.musiccreator.ai/ai-music-generator) y [Suno](https://suno.com/create)
+- Para el tileset usado para el terreno se usó [Tileset Explorer](https://donitz.itch.io/tileset-explorer)
 
 ---
 
