@@ -29,6 +29,32 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 
 ---
 
+## ✅ Caracteristicas clave
+
+### Progresión y Jugador  
+- Creación del **TDA `PlayerProgressionData`** (nivel, experiencia, daño, vida).  
+- Sistema de **persistencia de jugador** entre niveles.  
+- Integración completa con la UI.  
+
+### Generación Procedural  
+- Terreno generado con **Perlin Noise**, incluyendo cuevas y superficie separadas.  
+- Parámetros configurables en el Inspector (width, height, smoothness, seed).  
+- Tilemaps diferenciados para suelo y cuevas.  
+- Regeneración con tecla **R**.  
+
+### Spawners y Enemigos  
+- 6 spawner tiles por nivel (configurable).  
+- Generación balanceada de enemigos tipo Ground y Air.  
+- Enemigos reaparecen indefinidamente hasta implementar boss.  
+
+### Menú Principal  
+- Interfaz funcional con opciones de:  
+  - **Iniciar partida**  
+  - **Ver bugs conocidos** *(nuevo botón)*  
+  - **Salir del juego**  
+
+---
+
 ## ⚔️ Sistema de Enemigos  
 
 ### 🧩 Funcionamiento
@@ -104,32 +130,6 @@ Basado en *2D Beginner: Adventure Game* de Unity Learn.
 - Implementar sistema de **jefe final / endgame**.  
 - Integrar efectos visuales adicionales (impactos, partículas, etc).
 - Cambiar de musica por nivel generado
-
----
-
-## ✅ Avances del Desafío 3 y 4
-
-### Progresión y Jugador  
-- Creación del **TDA `PlayerProgressionData`** (nivel, experiencia, daño, vida).  
-- Sistema de **persistencia de jugador** entre niveles.  
-- Integración completa con la UI.  
-
-### Generación Procedural  
-- Terreno generado con **Perlin Noise**, incluyendo cuevas y superficie separadas.  
-- Parámetros configurables en el Inspector (width, height, smoothness, seed).  
-- Tilemaps diferenciados para suelo y cuevas.  
-- Regeneración con tecla **R**.  
-
-### Spawners y Enemigos  
-- 6 spawner tiles por nivel (configurable).  
-- Generación balanceada de enemigos tipo Ground y Air.  
-- Enemigos reaparecen indefinidamente hasta implementar boss.  
-
-### Menú Principal  
-- Interfaz funcional con opciones de:  
-  - **Iniciar partida**  
-  - **Ver bugs conocidos** *(nuevo botón)*  
-  - **Salir del juego**  
 
 ---
 
